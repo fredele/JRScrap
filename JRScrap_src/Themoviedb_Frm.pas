@@ -1171,8 +1171,7 @@ begin
                 node.childNodes[j].Text;
 
 
-             // GetPoster(posterpath);
-              MovieThreadSearch_Image := TThreadsearch_Image.Create(posterpath , After_Thread_Image);
+
 
               self.Picture_Chk.Checked := true;
             end;
@@ -1206,10 +1205,8 @@ begin
 
    self.Write_Btn.Enabled := true ;
   end;
-if posterpath = emptystr then
-  begin
-After_Thread_Search_Image_Bool :=  true;
-  end;
+
+MovieThreadSearch_Image := TThreadsearch_Image.Create(posterpath , After_Thread_Image);
 
 After_Thread_Search_Basic_Info_Bool := true ;
  looping ;
@@ -3040,6 +3037,15 @@ var
   rq: String;
 
 begin
+
+if Imdb_search.Text = '' then
+    begin
+      if self.FMassScrap = false then
+      begin
+        Screen.Cursor := crDefault;
+        Exit;
+      end
+    end;
 ClearAll();
 self.Write_Btn.Enabled := false ;
 Screen.Cursor := crHourGlass;

@@ -211,6 +211,22 @@ begin
     self.ProgressBar1.Position := loop - 1;
     self.progresscount_Lbl.Caption := IntToStr(loop - 1) + ' / ' +
       IntToStr(Themoviedb.FMoviesCount);
+
+
+      if loop > Themoviedb.FMoviesCount then
+      begin
+    stop := true;
+    Themoviedb.FMassScrap := False;
+    self.MassScrap_Field_list.Enabled := true ;
+    try
+      MyThreadSearch.Terminate;
+
+    except
+
+    end;
+
+      end;
+
   except
 
   end;

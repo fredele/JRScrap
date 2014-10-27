@@ -193,7 +193,7 @@ object Themoviedb: TThemoviedb
         OnClick = search_bynameClick
       end
       object Imdb_search: TEdit
-        Left = 634
+        Left = 635
         Top = 229
         Width = 91
         Height = 21
