@@ -302,6 +302,8 @@ Procedure TThemoviedb.Update_TVBD_ID;
 var
 i ,j, curid,searchid,curtvbdid,searchtvbdid ,searchjriverid ,curjriverid  : integer ;
 begin
+if self.TVdb_Rd.Checked = true then
+ begin
  for i := 1 to self.Movie_Browser.RowCount do
    begin
    try
@@ -311,6 +313,7 @@ begin
       logger.error('Error: 358');
    end;
    end;
+ end;
 end;
 
 procedure TThemoviedb.After_Thread_Search_Search_tvdb;
@@ -338,6 +341,7 @@ begin
     if ((self.Movie_Search_Grid.rowcount = 1 )and (FMassScrap = False)) then
     begin
     ShowMessage(FTranslateList[10]);
+    ShowJRiverId(FCurrentJRiverId);
      Screen.Cursor := crDefault;
       exit;
     end;
@@ -491,6 +495,8 @@ procedure TThemoviedb.looping;
 var
 s : string ;
 begin
+
+
  s :=FCurrentMovie.get('Media Sub Type', true) ;
  if ( ( self.TheMoviedB_rd.Checked )and( After_Thread_Search_Basic_Info_Bool = true)and(After_Thread_Search_Keywords_Bool  = true)and(After_Thread_Search_Credits_Bool  = true)and(After_Thread_Search_Image_Bool = true))then
  begin
@@ -832,8 +838,10 @@ end;
       SplitStr(FCurrentMovie.get('Genre', true), '; ');
     self.Star_Panel.DrawStar(FCurrentMovie.get('Critic Rating', true));
 
-
+    if self.TheMoviedB_rd.Checked = true then
     self.Original_title_Ed.Text := FCurrentMovie.get('original title', true);
+    if self.TVdb_Rd.Checked = true then
+    self.Original_title_Ed.Text := FCurrentMovie.get('Series', true);
   except
     Screen.Cursor := crDefault;
     logger.error('Error: FCurrentMovie');
@@ -1004,13 +1012,14 @@ begin
   screen.cursor := crhourglass;
   current_se := self.Season_Spin_W.Value; // strtoint( FCurrentMovie.Get('Season', true));
   current_ep := self.Episode_Spin_W.Value; // strtoint( FCurrentMovie.Get('Episode', true));
-
+ posterpath := emptystr ;
 
    if (MovieThreadSearch1.TextToParse = '' ) then
    begin
    if self.FMassScrap  = false then
      begin
      ShowMessage(FTranslateList[10]);
+     ShowJRiverId(FCurrentJRiverId);
      Screen.Cursor := crDefault;
      exit ;
      end
@@ -1197,7 +1206,10 @@ begin
 
    self.Write_Btn.Enabled := true ;
   end;
-
+if posterpath = emptystr then
+  begin
+After_Thread_Search_Image_Bool :=  true;
+  end;
 
 After_Thread_Search_Basic_Info_Bool := true ;
  looping ;
@@ -1225,10 +1237,12 @@ begin
     begin
       self.Picture_Chk.Checked := true;
 
-      posterpath := 'http://image.tmdb.org/t/p/w500' + FJSonReader.getString
-        ('poster_path');
+      posterpath := 'http://image.tmdb.org/t/p/w500' + FJSonReader.getString('poster_path');
+      if FJSonReader.getString('poster_path') <> emptystr then
+      MovieThreadSearch_Image := TThreadsearch_Image.Create(posterpath , After_Thread_Image)
+      else
+      After_Thread_Search_Image_Bool := true ;
 
-      MovieThreadSearch_Image := TThreadsearch_Image.Create(posterpath , After_Thread_Image);
     end;
   except
     Screen.Cursor := crDefault;
@@ -1553,8 +1567,12 @@ self.View_Btn.Enabled := true ;
   begin
     Screen.Cursor := crDefault;
     if self.FMassScrap = false then
+    begin
       ShowMessage(FTranslateList[18]);
-    Exit;
+      ShowJRiverId(FCurrentJRiverId);
+      Exit;
+    end;
+
   end;
 
 
@@ -1580,8 +1598,7 @@ self.View_Btn.Enabled := true ;
 
   try
 
-    FJRiverXml := TJRiverXml.Create(self.Movie_Browser.Cells[12,
-      self.Movie_Browser.Row], Sender);
+    FJRiverXml := TJRiverXml.Create(self.Movie_Browser.Cells[12,   self.Movie_Browser.Row], Sender);
   except
     Screen.Cursor := crDefault;
     logger.error('Error: could not create XML file');
@@ -1613,24 +1630,7 @@ self.View_Btn.Enabled := true ;
   self.Movie_Browser.cells[2, self.Movie_Browser.row] := self.Original_title_Ed.Text
   end;
 
-  if self.Original_title_Chk.Checked = true then
-  begin
-
-    try
-      FCurrentMovie.Set_('Series', self.Original_title_Ed.Text);
-    except
-      Screen.Cursor := crDefault;
-      logger.error('Error COM: Change CurrentMovie name');
-      // 'Error: filling Movie_Browser'
-    end;
-    try
-      if WriteXMLsideCar1.Checked = true then
-        FJRiverXml.SetField('Series', self.Original_title_Ed.Text);
-    except
-      logger.error('Error XML: Change CurrentMovie name');
-    end;
-
-  end;
+ 
 
   if self.Title_Chk.Checked = true then
   begin
@@ -1651,7 +1651,7 @@ self.View_Btn.Enabled := true ;
 
   end;
 
-  if self.Original_Title_Chk.Checked = true then
+  if ((self.Original_Title_Chk.Checked = true)and (self.TheMoviedB_rd.Checked = true)) then
   begin
     try
       FCurrentMovie.Set_('original title', self.Original_title_Ed.Text);
@@ -1666,6 +1666,25 @@ self.View_Btn.Enabled := true ;
     except
       logger.error('Error XML: Original_Title');
     end;
+  end;
+
+   if ((self.Original_title_Chk.Checked = true )and (self.TVdb_Rd.Checked = true))then
+  begin
+
+    try
+      FCurrentMovie.Set_('Series', self.Original_title_Ed.Text);
+    except
+      Screen.Cursor := crDefault;
+      logger.error('Error COM: Change CurrentMovie name');
+      // 'Error: filling Movie_Browser'
+    end;
+    try
+      if WriteXMLsideCar1.Checked = true then
+        FJRiverXml.SetField('Series', self.Original_title_Ed.Text);
+    except
+      logger.error('Error XML: Change CurrentMovie name');
+    end;
+
   end;
 
   if self.release_date_Chk.Checked = true then
@@ -2865,7 +2884,8 @@ begin
 
   self.Original_title_Ed.Text := '';
 end;
-
+   fillbrowser ;
+   ShowJRiverId(FCurrentJRiverId);
   API_id_chk.Caption := search_byimdb.Caption ;
   FCurrentLang := TranslateJRStyle(FCurrentLang, false);
 end;
@@ -3042,6 +3062,7 @@ Screen.Cursor := crHourGlass;
     then
     begin
       ShowMessage(FTranslateList[14]);
+      ShowJRiverId(FCurrentJRiverId);
       Screen.Cursor := crDefault;
       Exit;
     end;
@@ -3071,6 +3092,7 @@ Screen.Cursor := crHourGlass;
     if FTheMoviedb_ID = '' then
     begin
       ShowMessage(FTranslateList[10]);
+      ShowJRiverId(FCurrentJRiverId);
       Screen.Cursor := crDefault;
       exit ;
     end;
@@ -3109,7 +3131,7 @@ try
 end;
 
   Application.ProcessMessages;
- screen.cursor := crdefault;
+
 end;
 
 procedure TThemoviedb.Vote_Average_EdKeyDown(Sender: TObject; var Key: Word;
@@ -3178,12 +3200,7 @@ begin
   Screen.Cursor := crHourGlass;
   Application.ProcessMessages;
 
-  if FMovieAPIkey = '' then
-  begin
-    ShowMessage(FTranslateList[8]);
-    Screen.Cursor := crDefault;
-    Exit;
-  end;
+
   self.Write_Btn.Enabled := false;
 
   // Delete all
@@ -3195,6 +3212,7 @@ begin
       if self.FMassScrap = false then
       begin
         ShowMessage(FTranslateList[7]);
+        ShowJRiverId(FCurrentJRiverId);
         Screen.Cursor := crDefault;
         Exit;
       end
@@ -3294,8 +3312,18 @@ begin
       else
       begin
         logger.error('No results for this Imbd search !');
+
+        if (FMassScrap = True) then
+         begin
+           form3.MassTag ;
+         end;
+        if (FMassScrap = False) then
+         begin
+        ShowMessage(FTranslateList[10]);
+        ShowJRiverId(FCurrentJRiverId);
         Screen.Cursor := crDefault;
         Exit;
+         end;
 
       end;
 
@@ -3336,7 +3364,10 @@ begin
     if (FJSonReader.Field['results'] as TlkJSONList).Count < 1 then
     begin
       if self.FMassScrap = false then
-        ShowMessage(FTranslateList[10])
+      begin
+        ShowMessage(FTranslateList[10]);
+        ShowJRiverId(FCurrentJRiverId);
+      end
       else
         Form3.MassTag;
 
@@ -3450,6 +3481,7 @@ begin
   if self.Movie_Browser.Cells[7, self.Movie_Browser.Row] = 'YES' then
   begin
     ShowMessage(FTranslateList[18]);
+    ShowJRiverId(FCurrentJRiverId);
     Exit;
   end;
   try

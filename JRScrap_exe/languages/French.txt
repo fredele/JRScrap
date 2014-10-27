@@ -259,9 +259,6 @@ Requête en :
 Enter a Movie Name !
 Entrez le nom d' un Film !
 
-Please enter a valid API key !
-Veuillez entrez une clée d' API valide !
-
 Cannot process multiple files for now
 Ne peut pas procéder plusieurs fichiers !
 
@@ -296,3 +293,6 @@ Saison :
 
 Select service here
 Sélectionner le service
+
+Scrap first Media found if API ID is missing
+Scrap le premier Media en l' abscence d' API ID

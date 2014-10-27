@@ -28,9 +28,9 @@ object Form3: TForm3
   object Label2: TLabel
     Left = 108
     Top = 103
-    Width = 65
+    Width = 35
     Height = 13
-    Caption = 'Current Film :'
+    Caption = 'Media :'
   end
   object Film_Lbl: TLabel
     Left = 192
@@ -73,7 +73,7 @@ object Form3: TForm3
     Top = 19
     Width = 372
     Height = 17
-    Caption = 'Scrap first Movie found if IMBD ID is missing'
+    Caption = 'Scrap first Media found if API ID is missing'
     TabOrder = 2
     OnClick = CheckBox1Click
   end

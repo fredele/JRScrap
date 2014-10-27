@@ -78,8 +78,8 @@ object Themoviedb: TThemoviedb
         ParentFont = False
       end
       object View_Btn: TButton
-        Left = 0
-        Top = 257
+        Left = -1
+        Top = 260
         Width = 732
         Height = 25
         Hint = 'Click to search and view the Content of TheMoviedB.org only'
@@ -247,7 +247,7 @@ object Themoviedb: TThemoviedb
       end
       object TheMoviedB_rd: TRadioButton
         Left = 452
-        Top = 4
+        Top = 1
         Width = 143
         Height = 17
         Caption = 'TheMoviedB.org (Movies)'
@@ -297,11 +297,10 @@ object Themoviedb: TThemoviedb
             Caption = 'Panel2'
             ParentBackground = False
             TabOrder = 0
-            ExplicitLeft = -1
             object Label3: TLabel
               Left = 468
               Top = 112
-              Width = 74
+              Width = 42
               Height = 13
               Caption = 'Season :'
               Font.Charset = DEFAULT_CHARSET
@@ -314,7 +313,7 @@ object Themoviedb: TThemoviedb
             object Label4: TLabel
               Left = 578
               Top = 112
-              Width = 94
+              Width = 44
               Height = 13
               Caption = 'Episode :'
               Font.Charset = DEFAULT_CHARSET
@@ -412,8 +411,8 @@ object Themoviedb: TThemoviedb
               OnKeyPress = Release_date_EdKeyPress
             end
             object MemoOverview: TMemo
-              Left = 259
-              Top = 134
+              Left = 257
+              Top = 133
               Width = 436
               Height = 178
               Hint = 'Modify the Overview here'

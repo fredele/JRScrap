@@ -37,7 +37,7 @@ begin
   FTranslateList.Add('No Movie available !'); // 13
   FTranslateList.Add('IMDB Id does not begin with tt !'); // 14
   FTranslateList.Add('New Fields created !'); // 15
-  FTranslateList.Add('Current Film :'); // 16
+  FTranslateList.Add('Media :'); // 16
   FTranslateList.Add('Progress :'); // 17
   FTranslateList.Add('File locked !'); // 18
   FTranslateList.Add('Date Imported'); // 19
@@ -45,7 +45,7 @@ begin
   FTranslateList.Add('Overview'); // 21
   FTranslateList.Add('Lock'); // 22
   FTranslateList.Add('Name'); // 23
-  FTranslateList.Add('Scrap first Movie found if IMBD ID is missing'); // 24
+  FTranslateList.Add('Scrap first Media found if API ID is missing'); // 24
   FTranslateList.Add('Filename'); // 25
   FTranslateList.Add('No Movie Found !' ); // 26
   FTranslateList.Add('Picture' ); // 27
