@@ -1,9 +1,9 @@
 object Form2: TForm2
   Left = 0
   Top = 0
-  BorderStyle = bsSingle
+  BorderStyle = bsToolWindow
   Caption = 'About'
-  ClientHeight = 310
+  ClientHeight = 314
   ClientWidth = 255
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET

@@ -126,7 +126,7 @@ end;
   RegNGFS := TRegistry.Create;
   try
     RegNGFS.RootKey := HKEY_CURRENT_USER;
-    if RegNGFS.OpenKey('SOFTWARE\JRMoviedB', true) then
+    if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
     begin
       RegNGFS.WriteString('MassScrapbooleans', Themoviedb.FMassScrapbooleans);
     end;
@@ -225,7 +225,7 @@ begin
   RegNGFS := TRegistry.Create;
   try
     RegNGFS.RootKey := HKEY_CURRENT_USER;
-    if RegNGFS.OpenKey('SOFTWARE\JRMoviedB', true) then
+    if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
     begin
       RegNGFS.Writebool('MassScrapWimdbID', self.CheckBox1.Checked);
     end;
@@ -249,7 +249,7 @@ begin
    RegNGFS := TRegistry.Create;
  try
     RegNGFS.RootKey := HKEY_CURRENT_USER;
-    if RegNGFS.OpenKey('SOFTWARE\JRMoviedB', False) then
+    if RegNGFS.OpenKey('SOFTWARE\JRScrap', False) then
     begin
       Themoviedb.FMassScrapbooleans := RegNGFS.ReadString('MassScrapbooleans') ;
       for i := 1 to 12 do
@@ -289,9 +289,13 @@ self.Height := 270 ;
   RegNGFS := TRegistry.Create;
   try
     RegNGFS.RootKey := HKEY_CURRENT_USER;
-    if RegNGFS.OpenKey('SOFTWARE\JRMoviedB', False) then
+    if RegNGFS.OpenKey('SOFTWARE\JRScrap', False) then
     begin
+    try
       self.CheckBox1.Checked := RegNGFS.Readbool('MassScrapWimdbID');
+    except
+
+    end;
 
     end;
   except

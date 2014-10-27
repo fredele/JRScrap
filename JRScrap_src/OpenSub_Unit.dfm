@@ -1,7 +1,8 @@
 object OpenSub_Form: TOpenSub_Form
   Left = 0
   Top = 0
-  BorderStyle = bsSingle
+  BorderStyle = bsDialog
+  Caption = 'Download - OpenSubtitles.org '
   ClientHeight = 326
   ClientWidth = 876
   Color = clBtnFace

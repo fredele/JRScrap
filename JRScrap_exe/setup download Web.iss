@@ -33,13 +33,13 @@ Source: "{#SourcePath}\languages\*"; DestDir: "{app}\languages"; Flags: ignoreve
 Name: "{group}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"; Tasks: desktopicon
-Name: "{commondesktop}\{#MyAppName} MassScrap"; Filename: "{app}\bin\{#MyAppExeName}"; Tasks: desktopicon ;Parameters: "-MassScrap"
+;Name: "{commondesktop}\{#MyAppName} MassScrap"; Filename: "{app}\bin\{#MyAppExeName}"; Tasks: desktopicon ;Parameters: "-MassScrap"
 [Registry]                                                                                 
 Root: HKCU; Subkey: "Software\JRScrap"; Flags: uninsdeletekey
 ;Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "APIKey"; ValueData: "3b608fc11821e92cd2459320206a9d9b"
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Firstrun"; ValueData: 1
-
-
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapWimdbID"; ValueData: 1  
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "MassScrapbooleans"; ValueData: "1111111111111" ; 
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "english" ; Languages: english
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "french" ; Languages: french
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "german" ; Languages: german

@@ -26,7 +26,6 @@ type
     MainMenu1: TMainMenu;
     Configure1: TMenuItem;
     EnterKeyforthemmoviedbAPI1: TMenuItem;
-    StatusBar1: TStatusBar;
     Select1: TMenuItem;
     All1: TMenuItem;
     None1: TMenuItem;
@@ -47,34 +46,6 @@ type
     Add2: TMenuItem;
     Delete3: TMenuItem;
     Panel1: TPanel;
-    PageControl1: TPageControl;
-    TabSheet_Single_Movie: TTabSheet;
-    Panel2: TPanel;
-    Title_Chk: TCheckBox;
-    Picture_Chk: TCheckBox;
-    Original_Title_Chk: TCheckBox;
-    Overview_Chk: TCheckBox;
-    release_date_Chk: TCheckBox;
-    API_id_chk: TCheckBox;
-    API_id_Ed: TEdit;
-    Release_date_Ed: TEdit;
-    MemoOverview: TMemo;
-    Vote_Average_Chk: TCheckBox;
-    Keywords_Chk: TCheckBox;
-    Production_Comp_Chk: TCheckBox;
-    Genres_Chk: TCheckBox;
-    Genre_ListBox: TListBox;
-    Production_Company_ListBox: TListBox;
-    Keywords_List: TListBox;
-    Picture_Panel: TPanel;
-    Picture_Img: TImage;
-    Original_title_Ed: TmnEdit;
-    TabSheet_Single_Movie_Add: TTabSheet;
-    Panel7: TPanel;
-    Cast_Chk: TCheckBox;
-    Cast_Grid: TStringGrid;
-    Crew_Chk: TCheckBox;
-    Crew_Grid: TStringGrid;
     Panel5: TPanel;
     Label12: TLabel;
     Label1: TLabel;
@@ -84,7 +55,6 @@ type
     search_byimdb: TRadioButton;
     search_byname: TRadioButton;
     Imdb_search: TEdit;
-    Title_Ed: TmnEdit;
     About1: TMenuItem;
     Helppage1: TMenuItem;
     scrapall1: TMenuItem;
@@ -106,18 +76,51 @@ type
     MCAutomation: TMCAutomation;
     OpenFolder1: TMenuItem;
     EraseHistory1: TMenuItem;
-    Star_Panel: TStar_Panel;
     Panel3: TPanel;
     Movie_Browser: TStringGrid;
     Panel4: TPanel;
     ComboBox1: TComboBox;
+    StatusBar1: TStatusBar;
+    Panel6: TPanel;
+    ScrollBox1: TScrollBox;
+    PageControl1: TPageControl;
+    TabSheet_Single_Movie: TTabSheet;
+    Panel2: TPanel;
     Label3: TLabel;
-    Season_Spin_W: TSpinEdit;
     Label4: TLabel;
+    Title_Chk: TCheckBox;
+    Picture_Chk: TCheckBox;
+    Original_Title_Chk: TCheckBox;
+    Overview_Chk: TCheckBox;
+    release_date_Chk: TCheckBox;
+    API_id_chk: TCheckBox;
+    API_id_Ed: TEdit;
+    Release_date_Ed: TEdit;
+    MemoOverview: TMemo;
+    Vote_Average_Chk: TCheckBox;
+    Keywords_Chk: TCheckBox;
+    Production_Comp_Chk: TCheckBox;
+    Genres_Chk: TCheckBox;
+    Genre_ListBox: TListBox;
+    Production_Company_ListBox: TListBox;
+    Keywords_List: TListBox;
+    Picture_Panel: TPanel;
+    Picture_Img: TImage;
+    Original_title_Ed: TmnEdit;
+    Title_Ed: TmnEdit;
+    Star_Panel: TStar_Panel;
+    Season_Spin_W: TSpinEdit;
     Episode_Spin_W: TSpinEdit;
-    Serie_Chk: TCheckBox;
-    Serie_Ed: TmnEdit;
     Subtitle_Btn: TButton;
+    TabSheet_Single_Movie_Add: TTabSheet;
+    Panel7: TPanel;
+    Cast_Chk: TCheckBox;
+    Cast_Grid: TStringGrid;
+    Crew_Chk: TCheckBox;
+    Crew_Grid: TStringGrid;
+    TheMoviedB_rd: TRadioButton;
+    TVdb_Rd: TRadioButton;
+    Label5: TLabel;
 
 
     // Form Procedures
@@ -198,6 +201,7 @@ type
     procedure Serie_EdKeyPress(Sender: TObject; var Key: Char);
     procedure Subtitle_BtnClick(Sender: TObject);
     procedure API_id_EdChange(Sender: TObject);
+    procedure TheMoviedB_rdClick(Sender: TObject);
 
 
     //*************************************
@@ -278,6 +282,7 @@ type
     Procedure ShowJRiverId(currentid: Integer);
     procedure ClearAll();
     Procedure Check_Fields_from_FMassScrapbooleans ;
+    Procedure Update_TVBD_ID;
 
   end;
 
@@ -292,6 +297,21 @@ var
 implementation
 
 {$R *.dfm}
+
+Procedure TThemoviedb.Update_TVBD_ID;
+var
+i ,j, curid,searchid,curtvbdid,searchtvbdid ,searchjriverid ,curjriverid  : integer ;
+begin
+ for i := 1 to self.Movie_Browser.RowCount do
+   begin
+   try
+    self.Movie_Browser.cells[10,i] :=  FMoviesList.GetFile(strtoint(self.Movie_Browser.cells[0,i]  )).Get('TheTVDB Series ID', true);
+   except
+    screen.cursor := crdefault;
+      logger.error('Error: 358');
+   end;
+   end;
+end;
 
 procedure TThemoviedb.After_Thread_Search_Search_tvdb;
 var
@@ -317,7 +337,7 @@ begin
 
     if ((self.Movie_Search_Grid.rowcount = 1 )and (FMassScrap = False)) then
     begin
-    ShowMessage(FTranslateList[13]);
+    ShowMessage(FTranslateList[10]);
      Screen.Cursor := crDefault;
       exit;
     end;
@@ -337,12 +357,6 @@ begin
 
       end;
     end;
-    {
-    if self.Movie_Search_Grid.cells[0, 0] = '' then
-    begin
-      Form3.MassTag;
-    end;
-    }
 
 
     if self.Imdb_search.Text <> emptystr then
@@ -360,18 +374,8 @@ begin
 
   end;
 
-  self.StatusBar1.Panels[1].Text := FTranslateList[4];
-
-  if self.search_byimdb.Checked = true then
-  begin
-    self.StatusBar1.Panels[1].Text := FTranslateList[5];
-    self.Write_Btn.Enabled := true;
-
-  end;
   screen.cursor := crdefault;
   Application.ProcessMessages;
-
-
 
 end;
 
@@ -429,9 +433,10 @@ begin
 
 
 
-    if  FMoviesList.GetFile(i).get('Media Sub Type', true) = 'TV Show' then
-    self.Movie_Browser.Cells[10, i + 1] := FMoviesList.GetFile(i).get('TheTVDB Series ID', true)
-    else
+    if  TVdb_Rd.Checked = true then
+    self.Movie_Browser.Cells[10, i + 1] := FMoviesList.GetFile(i).get('TheTVDB Series ID', true) ;
+
+    if self.TheMoviedB_rd.Checked = true then
     self.Movie_Browser.Cells[10, i + 1] := FMoviesList.GetFile(i).get('IMDb ID', true);
 
 
@@ -487,7 +492,7 @@ var
 s : string ;
 begin
  s :=FCurrentMovie.get('Media Sub Type', true) ;
- if ( ( FCurrentMovie.get('Media Sub Type', true) <>  'TV Show' )and( After_Thread_Search_Basic_Info_Bool = true)and(After_Thread_Search_Keywords_Bool  = true)and(After_Thread_Search_Credits_Bool  = true)and(After_Thread_Search_Image_Bool = true))then
+ if ( ( self.TheMoviedB_rd.Checked )and( After_Thread_Search_Basic_Info_Bool = true)and(After_Thread_Search_Keywords_Bool  = true)and(After_Thread_Search_Credits_Bool  = true)and(After_Thread_Search_Image_Bool = true))then
  begin
 
  After_Thread_Search_Basic_Info_Bool := false;
@@ -502,7 +507,7 @@ After_Thread_Search_Image_Bool :=  false;
   end;
    end;
 
- if ( ( FCurrentMovie.get('Media Sub Type', true) =  'TV Show' )and( After_Thread_Search_Basic_Info_Bool = true)and(After_Thread_Search_Image_Bool = true))then
+ if ( (  self.TVdb_Rd.Checked = true )and( After_Thread_Search_Basic_Info_Bool = true)and(After_Thread_Search_Image_Bool = true))then
  begin
 
 After_Thread_Search_Basic_Info_Bool := false;
@@ -701,7 +706,7 @@ begin
 
   if self.Title_Ed.Text = emptystr then   self.Title_Chk.Checked := false ;
   if self.Original_title_Ed.Text = emptystr  then    self.Original_Title_Chk.Checked := false ;
-  if self.Serie_Ed.Text = emptystr then self.Serie_Chk.Checked := false ;
+
   if self.Release_date_Ed.Text = emptystr then self.release_date_Chk.Checked := false ;
   if self.API_id_Ed.Text = emptystr then self.API_id_chk.Checked := false ;
 
@@ -719,7 +724,7 @@ end;
 
 procedure TThemoviedb.Serie_EdKeyPress(Sender: TObject; var Key: Char);
 begin
- self.Serie_Chk.Checked := true;
+
   self.Write_Btn.Enabled := true;
 end;
 
@@ -737,11 +742,12 @@ try
 
   self.Title_Ed.Text := FCurrentMovie.name;
 
-  if FCurrentMovie.get('Media Sub Type', true) = 'TV Show' then
+  if self.TVdb_Rd.Checked then
   begin
   self.SearchEdit.Text := FCurrentMovie.Get('Series', true);
-  end
-  else
+  end ;
+
+  if self.TheMoviedB_rd.Checked = true then
   begin
   self.SearchEdit.Text := FCurrentMovie.name;
   end;
@@ -778,7 +784,7 @@ end;
   end;
 
   try
-    self.Serie_Ed.Text := FCurrentMovie.Get('Series', true);
+    self.Original_title_Ed.Text := FCurrentMovie.Get('Series', true);
     try
     self.Season_Spin_W.Value :=  strtoint( FCurrentMovie.Get('Season', true));
     self.Episode_Spin_W.Value :=  strtoint( FCurrentMovie.Get('Episode', true));
@@ -789,9 +795,9 @@ end;
     self.MemoOverview.Text := FCurrentMovie.get('Description', true);
     self.Release_date_Ed.Text := FCurrentMovie.get('Date', true);
 
-    if FCurrentMovie.get('Media Sub Type', true) = 'TV Show' then
-    self.API_id_Ed.Text := FCurrentMovie.Get('TheTVDB Series ID', true)
-    else
+     if  self.TVdb_Rd.Checked = true then
+    self.API_id_Ed.Text := FCurrentMovie.Get('TheTVDB Series ID', true);
+    if self.TheMoviedB_rd.Checked = true then
     self.API_id_Ed.Text := FCurrentMovie.get('IMDb ID', true);
 
 
@@ -808,11 +814,11 @@ end;
       self.Search_Btn.Enabled := true;
     end;
 
-    if FCurrentMovie.get('Media Sub Type', true) = 'TV Show' then
+     if  self.TVdb_Rd.Checked = true then
     begin
     self.Imdb_search.Text := FCurrentMovie.get('TheTVDB Series ID', true);
-    end
-    else
+    end;
+    if self.TheMoviedB_rd.Checked = true then
     begin
     self.Imdb_search.Text := FCurrentMovie.get('IMDb ID', true);
     end;
@@ -1004,7 +1010,7 @@ begin
    begin
    if self.FMassScrap  = false then
      begin
-     ShowMessage(FTranslateList[13]);
+     ShowMessage(FTranslateList[10]);
      Screen.Cursor := crDefault;
      exit ;
      end
@@ -1065,8 +1071,8 @@ begin
 
           if node.childNodes[j].nodeName = 'SeriesName' then
           begin
-            self.Serie_Ed.Text  := node.childNodes[j].Text;
-             if self.Serie_Ed.Text <> '' then self.Serie_Chk.Checked := true ;
+            self.Original_title_Ed.Text  := node.childNodes[j].Text;
+             if self.Original_title_Ed.Text <> '' then self.Original_title_Chk.checked := true ;
           end;
         end;
       end;
@@ -1533,8 +1539,6 @@ self.View_Btn.Enabled := true ;
   end;
   end;
 
-
-
   Screen.Cursor := crHourGlass;
   Application.ProcessMessages;
 
@@ -1584,17 +1588,36 @@ self.View_Btn.Enabled := true ;
     logger.error('FCurrentMovie.get(Filename.. =' + FCurrentMovie.get('Filename', true));
   end;
 
+  if self.TVdb_Rd.Checked = true then
+  begin
   self.Movie_Browser.cells[3, self.Movie_Browser.row] :=IntToStr(self.Season_Spin_W.Value);
   FCurrentMovie.Set_('Season', IntToStr(self.Season_Spin_W.Value));
+
+   try
+      if WriteXMLsideCar1.Checked = true then
+        FJRiverXml.SetField('Season', IntToStr(self.Season_Spin_W.Value));
+    except
+      logger.error('Error XML: Season');
+    end;
+
   self.Movie_Browser.cells[4, self.Movie_Browser.row] :=IntToStr(self.Episode_Spin_W.Value);
   FCurrentMovie.Set_('Episode', IntToStr(self.Episode_Spin_W.Value));
-  self.Movie_Browser.cells[2, self.Movie_Browser.row] := self.Serie_Ed.Text;
 
-  if self.Serie_Chk.Checked = true then
+   try
+      if WriteXMLsideCar1.Checked = true then
+        FJRiverXml.SetField('Episode', IntToStr(self.Episode_Spin_W.Value));
+    except
+      logger.error('Error XML: Episode');
+    end;
+
+  self.Movie_Browser.cells[2, self.Movie_Browser.row] := self.Original_title_Ed.Text
+  end;
+
+  if self.Original_title_Chk.Checked = true then
   begin
 
     try
-      FCurrentMovie.Set_('Series', self.Serie_Ed.Text);
+      FCurrentMovie.Set_('Series', self.Original_title_Ed.Text);
     except
       Screen.Cursor := crDefault;
       logger.error('Error COM: Change CurrentMovie name');
@@ -1602,7 +1625,7 @@ self.View_Btn.Enabled := true ;
     end;
     try
       if WriteXMLsideCar1.Checked = true then
-        FJRiverXml.SetField('Series', self.Serie_Ed.Text);
+        FJRiverXml.SetField('Series', self.Original_title_Ed.Text);
     except
       logger.error('Error XML: Change CurrentMovie name');
     end;
@@ -1848,12 +1871,12 @@ self.View_Btn.Enabled := true ;
   begin
     try
       self.Movie_Browser.cells[10, self.Movie_Browser.row] := self.API_Id_Ed.Text;
-      if FCurrentMovie.get('Media Sub Type', true) = 'TV Show' then
+       if  self.TVdb_Rd.Checked = true then
       begin
       FCurrentMovie.Set_('TheTVDB Series ID', self.API_id_Ed.Text) ;
 
-      end
-      else
+      end;
+      if self.TheMoviedB_rd.Checked = true then
       begin
       FCurrentMovie.Set_('IMDb ID', self.API_id_Ed.Text);
       end;
@@ -1865,9 +1888,9 @@ self.View_Btn.Enabled := true ;
     try
       if WriteXMLsideCar1.Checked then
 
-        if FCurrentMovie.get('Media Sub Type', true) = 'TV Show' then
-        FJRiverXml.SetField('TheTVDB Series ID', self.API_id_Ed.Text)
-        else
+         if  self.TVdb_Rd.Checked = true then
+        FJRiverXml.SetField('TheTVDB Series ID', self.API_id_Ed.Text);
+        if self.TheMoviedB_rd.Checked = true then
         FJRiverXml.SetField('IMDb ID', self.API_id_Ed.Text);
 
     except
@@ -2012,7 +2035,7 @@ self.View_Btn.Enabled := true ;
   else
     self.Movie_Browser.Cells[11, self.Movie_Browser.Row] := '';
 
-  self.StatusBar1.Panels[1].Text := FTranslateList[0]; // Done !
+
 
   if self.FMassScrap = true then
   begin
@@ -2024,6 +2047,7 @@ self.View_Btn.Enabled := true ;
   end;
   FJRiverXml.close ;
   ShowJRiverId(FCurrentJRiverId);
+  Update_TVBD_ID;
 end;
 
 
@@ -2142,13 +2166,13 @@ begin
     self.release_date_Chk.Checked := false;
     self.API_id_chk.Checked := false;
     self.Overview_Chk.Checked := false;
-     if FCurrentMovie.get('Media Sub Type', true) <> 'TV Show' then
+      if  self.TVdb_Rd.Checked = false then
       begin
-    self.Season_Spin_W.Value := 0;
-    self.Episode_Spin_W.Value := 0;
+   // self.Season_Spin_W.Value := 0;
+   // self.Episode_Spin_W.Value := 0;
       end;
 
-    self.Serie_Chk.Checked := False ;
+
     self.Vote_Average_Chk.Checked := false;
     self.Genres_Chk.Checked := false;
     self.Production_Comp_Chk.Checked := false;
@@ -2159,7 +2183,6 @@ begin
     self.Title_Ed.Text := '';
     self.Original_title_Ed.Text := '';
     self.Release_date_Ed.Text := '';
-    self.Serie_Ed.Text := '';
     self.Genre_ListBox.Items.Clear;
     self.Production_Company_ListBox.Items.Clear;
     self.Keywords_List.Items.Clear;
@@ -2179,8 +2202,6 @@ begin
     logger.error('Error: ClearAll');
   end;
 
-
-
   self.Genre_ListBox.Items.Clear;
   self.Production_Company_ListBox.Items.Clear;
   self.Keywords_List.Items.Clear;
@@ -2197,6 +2218,7 @@ begin
 
 if  self.ComboBox1.Items[self.ComboBox1.ItemIndex] <> 'TV Show' then
 begin
+ self.TheMoviedB_rd.Checked := true;
    self.Movie_Browser.ColWidths[2] := 0;  // Serie Name
   self.Movie_Browser.ColWidths[3] := 0;  //Season
   self.Movie_Browser.ColWidths[4] := 0;  //Ep
@@ -2204,6 +2226,7 @@ begin
 end
 else
 begin
+ self.TVdb_Rd.Checked := true;
 self.Movie_Browser.ColWidths[2] := 200;  // Serie Name
   self.Movie_Browser.ColWidths[3] := 20;  //Season
   self.Movie_Browser.ColWidths[4] := 20;  //Ep
@@ -2796,6 +2819,57 @@ begin
 
 end;
 
+procedure TThemoviedb.TheMoviedB_rdClick(Sender: TObject);
+begin
+  if search_byname.Checked = true then  search_bynameClick(self);
+  if search_byimdb.Checked = true then search_byimdbClick(self);
+  self.Movie_Search_Grid.RowCount := 0;
+
+  if  self.TheMoviedB_rd.Checked = true then
+begin
+
+  self.Original_Title_Chk.Caption := 'Original Title :'   ;
+  search_byimdb.Caption := 'IMDB ID :'   ;
+
+  self.Movie_Browser.ColWidths[2] := 0;  // Serie Name
+  self.Movie_Browser.ColWidths[3] := 0;  //Season
+  self.Movie_Browser.ColWidths[4] := 0;  //Ep
+  self.Movie_Browser.Cells[10, 0] := 'Imdb ID' ;
+
+
+
+
+  self.Season_Spin_W.Enabled  := false ;
+  self.Episode_Spin_W.Enabled  := false ;
+
+  self.Original_title_Ed.Enabled := true ;
+  self.Original_Title_Chk.Enabled := true ;
+
+   self.Original_title_Ed.Text := '';
+
+end ;
+
+if  self.TVdb_Rd.Checked = true then
+begin
+  self.Original_Title_Chk.Caption := 'Serie Title :'   ;
+  search_byimdb.Caption := 'TVDB ID :'   ;
+
+  self.Movie_Browser.ColWidths[2] := 200;  // Serie Name
+  self.Movie_Browser.ColWidths[3] := 20;  //Season
+  self.Movie_Browser.ColWidths[4] := 20;  //Ep
+  self.Movie_Browser.Cells[10, 0] := 'Tvdb ID' ;
+
+
+  self.Season_Spin_W.Enabled  := true ;
+  self.Episode_Spin_W.Enabled  := true ;
+
+  self.Original_title_Ed.Text := '';
+end;
+
+  API_id_chk.Caption := search_byimdb.Caption ;
+  FCurrentLang := TranslateJRStyle(FCurrentLang, false);
+end;
+
 procedure TThemoviedb.Title_EdKeyPress(Sender: TObject; var Key: Char);
 begin
  self.Title_Chk.Checked := true;
@@ -2955,7 +3029,7 @@ Screen.Cursor := crHourGlass;
   Screen.Cursor := crHourGlass;
   Application.ProcessMessages;
 
- if FCurrentMovie.get('Media Sub Type', true) <> 'TV Show' then
+ if self.TheMoviedB_rd.Checked = true then
     begin
 //// IMDB
 
@@ -2996,7 +3070,7 @@ Screen.Cursor := crHourGlass;
 
     if FTheMoviedb_ID = '' then
     begin
-      ShowMessage(FTranslateList[13]);
+      ShowMessage(FTranslateList[10]);
       Screen.Cursor := crDefault;
       exit ;
     end;
@@ -3007,8 +3081,9 @@ Screen.Cursor := crHourGlass;
   end;
 
 
-end
- else
+end;
+
+ if  self.TVdb_Rd.Checked = true then
 begin
 //// THEMOVIEDB
 
@@ -3034,7 +3109,6 @@ try
 end;
 
   Application.ProcessMessages;
-  self.StatusBar1.Panels[1].Text := FTranslateList[3];
  screen.cursor := crdefault;
 end;
 
@@ -3132,7 +3206,7 @@ begin
       end;
     end;
 
-    if FCurrentMovie.get('Media Sub Type', true) = 'TV Show' then
+     if  self.TVdb_Rd.Checked = true then
     begin
 
      rq := StringReplace(self.SearchEdit.Text, ' ', '+',
@@ -3230,9 +3304,6 @@ begin
       Screen.Cursor := crDefault;
     end;
 
-  self.StatusBar1.Panels[1].Text := FTranslateList[4];;
-
- 
   Screen.Cursor := crDefault;
   Application.ProcessMessages;
 
@@ -3311,9 +3382,6 @@ begin
     end;
   end;
 
-  self.StatusBar1.Panels[1].Text := FTranslateList[4];;
-
- 
   Screen.Cursor := crDefault;
   Application.ProcessMessages;
 
@@ -3548,8 +3616,14 @@ begin
     end;
 
    try
+
+  if self.Movie_Browser.Cells[0, self.Movie_Browser.Row] <> '' then
+  begin
   FCurrentJRiverId := StrToint(self.Movie_Browser.Cells[0, self.Movie_Browser.Row]);
   Themoviedb.FCurrentMovie := Themoviedb.FMoviesList.GetFile(FCurrentJRiverId);
+   end;
+
+
   except
   logger.error('Error: 3045'+self.Movie_Browser.Cells[0, self.Movie_Browser.Row]);
   end;
@@ -3682,7 +3756,7 @@ end;
 procedure TThemoviedb.Movie_Search_GridClick(Sender: TObject);
 begin
 
-if  FCurrentMovie.get('Media Sub Type', true) = 'TV Show'   then
+ if  self.TVdb_Rd.Checked = true then
 begin
    self.Imdb_search.Text :=   self.Movie_Search_Grid.Cells[2,self.Movie_Search_Grid.Row] ;
 end;

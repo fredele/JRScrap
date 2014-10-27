@@ -70,14 +70,14 @@ Fichier vérouillé !
 Erase all tags
 Effacer toutes les étiquettes
 
-Current Film :
+Current File :
 Film courrant :
 
 Progress :
 Progression :
 
-Scrap Movies from this line
-Scrapez les Film à partir d' ici
+Scrap Medias from this line
+Scrapez les Medias à partir d' ici
 
 Type in the Movie Title and hit Search
 Tapez le nom d' un Film et cliquez Rechercher
@@ -109,8 +109,8 @@ Aide sur JRScrap
 By Title
 Par titre
 
-By ImdB Id
-Par ID IMDB
+By ImdB/TvdB Id
+Par ImdB/TvdB Id
 
 Correct the Movie title here
 Corriger le titre ici
@@ -118,8 +118,8 @@ Corriger le titre ici
 Query language :
 Language de requete :
 
-Search this Movie
-Rechercher ce film
+Search this Media
+Rechercher ce Media
 
 Title
 Titre
@@ -130,8 +130,8 @@ Date
 Select here the row  of the Movie to get tags from
 Selectionnez la colonne du Film désiré
 
-Get and View
-Voir ce Film
+Retrieve this Media
+Voir ce Media
 
 Movie Info
 Info du Film
@@ -268,14 +268,10 @@ Ne peut pas procéder plusieurs fichiers !
 No results for this search !
 Pas de résultats pour cette recherche !
 
-No Movie selected !
-Pas de Film sélectionné !
 
 This is not a Movie !
 Ceci n' est pas un Film !
 
-No Movie available !
-Pas de Film dispo !
 
 IMDB Id does not begin with tt !
 L' IMDB Id ne commence pas avec tt !
@@ -291,3 +287,12 @@ Fichier téléchargé !
 
 Subtitle
 Sous-titre
+
+Serie Title :
+Titre de la Série :
+
+Season :
+Saison :
+
+Select service here
+Sélectionner le service

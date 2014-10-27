@@ -192,9 +192,6 @@ begin
   Result := XML_RPC(Format(SEARCH_SUBTITLES, [aToken, aSublanguageID, aQuery]));
 end;
 
-
-
-
 procedure TOpenSub_Form.Search_imdbID_Proc;
 var
   id,i, j, k: Integer;
@@ -231,7 +228,11 @@ self.StringGrid1.RowCount := 1;
               then
                 datanode := membernode.childNodes[1].childNodes[0]
                   .childNodes[0];
-              self.StringGrid1.RowCount := datanode.childNodes.length ;
+              if  datanode.childNodes.length >= 1 then
+              self.StringGrid1.RowCount := datanode.childNodes.length
+              else
+              self.StringGrid1.RowCount := 2;
+
               for i := 0 to datanode.childNodes.length - 1 do
               begin
                 movienode := datanode.childNodes[i].childNodes[0];
@@ -292,6 +293,8 @@ self.StringGrid1.RowCount := 1;
       end;
     end;
   end;
+  if self.StringGrid1.RowCount <= 1  then  self.StringGrid1.RowCount := 2 ;
+
   self.StringGrid1.FixedRows := 1;
   if  success = false  then
   begin
@@ -302,8 +305,6 @@ except
 end;
 
   end;
-
-
 
 procedure TOpenSub_Form.DownloadClick(Sender: TObject);
 var

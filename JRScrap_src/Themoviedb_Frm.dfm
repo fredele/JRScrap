@@ -3,8 +3,8 @@ object Themoviedb: TThemoviedb
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   BorderWidth = 5
-  Caption = 'JRScarp '
-  ClientHeight = 871
+  Caption = 'JRScrap '
+  ClientHeight = 879
   ClientWidth = 1128
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -28,509 +28,19 @@ object Themoviedb: TThemoviedb
     Height = 13
     Caption = 'Label2'
   end
-  object StatusBar1: TStatusBar
-    Left = 0
-    Top = 839
-    Width = 1128
-    Height = 32
-    Panels = <
-      item
-        BiDiMode = bdLeftToRight
-        ParentBiDiMode = False
-        Width = 170
-      end
-      item
-        Alignment = taRightJustify
-        BiDiMode = bdLeftToRight
-        ParentBiDiMode = False
-        Width = 620
-      end
-      item
-        BiDiMode = bdLeftToRight
-        ParentBiDiMode = False
-        Text = '          '
-        Width = 50
-      end>
-  end
   object Panel1: TPanel
     Left = 392
     Top = 0
     Width = 736
-    Height = 839
+    Height = 847
     Align = alRight
     Caption = 'Panel1'
-    TabOrder = 1
-    object PageControl1: TPageControl
-      Left = 1
-      Top = 289
-      Width = 734
-      Height = 513
-      ActivePage = TabSheet_Single_Movie
-      Align = alTop
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      object TabSheet_Single_Movie: TTabSheet
-        Caption = 'Movie Info'
-        object Panel2: TPanel
-          Left = 0
-          Top = 0
-          Width = 726
-          Height = 485
-          Align = alClient
-          BevelOuter = bvNone
-          Caption = 'Panel2'
-          ParentBackground = False
-          TabOrder = 0
-          object Label3: TLabel
-            Left = 490
-            Top = 144
-            Width = 42
-            Height = 13
-            Caption = 'Season :'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label4: TLabel
-            Left = 607
-            Top = 144
-            Width = 44
-            Height = 13
-            Caption = 'Episode :'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Title_Chk: TCheckBox
-            Left = 259
-            Top = 13
-            Width = 94
-            Height = 17
-            TabStop = False
-            Caption = 'Title :'
-            TabOrder = 0
-          end
-          object Picture_Chk: TCheckBox
-            Left = 14
-            Top = 13
-            Width = 201
-            Height = 17
-            TabStop = False
-            Caption = 'Picture :'
-            TabOrder = 1
-          end
-          object Original_Title_Chk: TCheckBox
-            Left = 259
-            Top = 46
-            Width = 94
-            Height = 17
-            TabStop = False
-            Caption = 'Original Title :'
-            TabOrder = 2
-          end
-          object Overview_Chk: TCheckBox
-            Left = 259
-            Top = 143
-            Width = 94
-            Height = 17
-            TabStop = False
-            Caption = 'Overview :'
-            TabOrder = 3
-          end
-          object release_date_Chk: TCheckBox
-            Left = 259
-            Top = 113
-            Width = 153
-            Height = 17
-            TabStop = False
-            Caption = 'Release date :'
-            TabOrder = 4
-          end
-          object API_id_chk: TCheckBox
-            Left = 508
-            Top = 113
-            Width = 180
-            Height = 17
-            TabStop = False
-            Caption = 'imdb ID :'
-            TabOrder = 5
-          end
-          object API_id_Ed: TEdit
-            Left = 584
-            Top = 109
-            Width = 111
-            Height = 21
-            TabStop = False
-            BorderStyle = bsNone
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 6
-            OnChange = API_id_EdChange
-            OnKeyPress = API_id_EdKeyPress
-          end
-          object Release_date_Ed: TEdit
-            Left = 354
-            Top = 109
-            Width = 109
-            Height = 21
-            TabStop = False
-            BorderStyle = bsNone
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 7
-            OnKeyPress = Release_date_EdKeyPress
-          end
-          object MemoOverview: TMemo
-            Left = 259
-            Top = 163
-            Width = 454
-            Height = 148
-            Hint = 'Modify the Overview here'
-            TabStop = False
-            BorderStyle = bsNone
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ParentFont = False
-            ParentShowHint = False
-            ScrollBars = ssVertical
-            ShowHint = True
-            TabOrder = 8
-            OnKeyPress = MemoOverviewKeyPress
-          end
-          object Vote_Average_Chk: TCheckBox
-            Left = 400
-            Top = 322
-            Width = 95
-            Height = 17
-            TabStop = False
-            Caption = 'Vote Average :'
-            TabOrder = 9
-          end
-          object Keywords_Chk: TCheckBox
-            Left = 485
-            Top = 350
-            Width = 224
-            Height = 17
-            TabStop = False
-            Caption = 'Keywords :'
-            TabOrder = 10
-          end
-          object Production_Comp_Chk: TCheckBox
-            Left = 14
-            Top = 347
-            Width = 206
-            Height = 21
-            TabStop = False
-            Caption = 'Production company :'
-            TabOrder = 11
-          end
-          object Genres_Chk: TCheckBox
-            Left = 238
-            Top = 349
-            Width = 224
-            Height = 17
-            TabStop = False
-            Caption = 'Genres :'
-            TabOrder = 12
-          end
-          object Genre_ListBox: TListBox
-            Left = 238
-            Top = 370
-            Width = 229
-            Height = 106
-            TabStop = False
-            BorderStyle = bsNone
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ItemHeight = 19
-            ParentFont = False
-            ParentShowHint = False
-            PopupMenu = Genres_Pop
-            ShowHint = False
-            Sorted = True
-            TabOrder = 13
-          end
-          object Production_Company_ListBox: TListBox
-            Left = 9
-            Top = 369
-            Width = 206
-            Height = 107
-            TabStop = False
-            BorderStyle = bsNone
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ItemHeight = 19
-            ParentFont = False
-            PopupMenu = Production_Pop
-            Sorted = True
-            TabOrder = 14
-          end
-          object Keywords_List: TListBox
-            Left = 486
-            Top = 369
-            Width = 228
-            Height = 108
-            TabStop = False
-            BorderStyle = bsNone
-            Color = clWhite
-            ExtendedSelect = False
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ItemHeight = 19
-            ParentFont = False
-            PopupMenu = Keyword_Pop
-            Sorted = True
-            TabOrder = 15
-          end
-          object Picture_Panel: TPanel
-            Left = 19
-            Top = 36
-            Width = 230
-            Height = 305
-            BevelOuter = bvNone
-            Ctl3D = True
-            ParentCtl3D = False
-            TabOrder = 16
-            object Picture_Img: TImage
-              Left = 0
-              Top = 0
-              Width = 230
-              Height = 305
-              Hint = 'Drag&Drop Image here'
-              Margins.Left = 5
-              Margins.Top = 5
-              Margins.Right = 5
-              Margins.Bottom = 5
-              ParentCustomHint = False
-              Align = alClient
-              ParentShowHint = False
-              Proportional = True
-              ShowHint = True
-              ExplicitHeight = 234
-            end
-          end
-          object Original_title_Ed: TmnEdit
-            Left = 354
-            Top = 43
-            Width = 340
-            Height = 27
-            TabStop = False
-            Alignment = taRightJustify
-            AutoSize = False
-            BorderStyle = bsNone
-            Ctl3D = True
-            Font.Charset = ANSI_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ParentCtl3D = False
-            ParentFont = False
-            TabOrder = 17
-            OnKeyPress = Original_title_EdKeyPress
-          end
-          object Title_Ed: TmnEdit
-            Left = 354
-            Top = 10
-            Width = 340
-            Height = 27
-            TabStop = False
-            Align = alCustom
-            Alignment = taRightJustify
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -21
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 18
-            OnKeyPress = Title_EdKeyPress
-          end
-          object Star_Panel: TStar_Panel
-            Left = 509
-            Top = 322
-            Width = 185
-            Height = 22
-            TabOrder = 19
-          end
-          object Season_Spin_W: TSpinEdit
-            Left = 547
-            Top = 137
-            Width = 40
-            Height = 22
-            MaxValue = 30
-            MinValue = 0
-            TabOrder = 20
-            Value = 1
-            OnChange = Season_Spin_WChange
-            OnEnter = Season_Spin_WEnter
-            OnExit = Season_Spin_WExit
-          end
-          object Episode_Spin_W: TSpinEdit
-            Left = 657
-            Top = 136
-            Width = 40
-            Height = 22
-            MaxValue = 30
-            MinValue = 0
-            TabOrder = 21
-            Value = 1
-            OnChange = Episode_Spin_WChange
-            OnEnter = Episode_Spin_WEnter
-            OnExit = Episode_Spin_WExit
-          end
-          object Serie_Chk: TCheckBox
-            Left = 259
-            Top = 80
-            Width = 124
-            Height = 17
-            Caption = 'Serie Title :'
-            TabOrder = 22
-          end
-          object Serie_Ed: TmnEdit
-            Left = 354
-            Top = 76
-            Width = 340
-            Height = 27
-            Alignment = taRightJustify
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -21
-            Font.Name = 'Calibri'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 23
-            OnKeyPress = Serie_EdKeyPress
-          end
-          object Subtitle_Btn: TButton
-            Left = 264
-            Top = 317
-            Width = 119
-            Height = 23
-            Caption = 'Subtitle'
-            TabOrder = 24
-            OnClick = Subtitle_BtnClick
-          end
-        end
-      end
-      object TabSheet_Single_Movie_Add: TTabSheet
-        Caption = 'Additionnal Info'
-        ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
-        object Panel7: TPanel
-          Left = 0
-          Top = 0
-          Width = 726
-          Height = 485
-          Align = alClient
-          BevelOuter = bvNone
-          ParentBackground = False
-          TabOrder = 0
-          object Cast_Chk: TCheckBox
-            Left = 12
-            Top = 17
-            Width = 116
-            Height = 17
-            Caption = 'Cast :'
-            TabOrder = 0
-          end
-          object Cast_Grid: TStringGrid
-            Left = 15
-            Top = 36
-            Width = 698
-            Height = 196
-            ColCount = 3
-            DefaultRowHeight = 20
-            FixedCols = 0
-            RowCount = 1
-            FixedRows = 0
-            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
-            TabOrder = 1
-            ColWidths = (
-              64
-              64
-              66)
-          end
-          object Crew_Chk: TCheckBox
-            Left = 12
-            Top = 242
-            Width = 102
-            Height = 17
-            Caption = 'Crew :'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 2
-          end
-          object Crew_Grid: TStringGrid
-            Left = 15
-            Top = 265
-            Width = 699
-            Height = 200
-            ColCount = 4
-            DefaultColWidth = 100
-            DefaultRowHeight = 20
-            FixedCols = 0
-            RowCount = 1
-            FixedRows = 0
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
-            ParentFont = False
-            TabOrder = 3
-            RowHeights = (
-              20)
-          end
-        end
-      end
-    end
+    TabOrder = 0
     object Panel5: TPanel
       Left = 1
-      Top = 1
+      Top = 25
       Width = 734
-      Height = 288
+      Height = 289
       Align = alTop
       BevelOuter = bvNone
       Caption = 'Panel5'
@@ -540,9 +50,9 @@ object Themoviedb: TThemoviedb
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 0
       object Label12: TLabel
-        Left = 32
+        Left = 12
         Top = 10
         Width = 132
         Height = 13
@@ -568,12 +78,12 @@ object Themoviedb: TThemoviedb
         ParentFont = False
       end
       object View_Btn: TButton
-        Left = 92
+        Left = 0
         Top = 257
-        Width = 569
+        Width = 732
         Height = 25
         Hint = 'Click to search and view the Content of TheMoviedB.org only'
-        Caption = 'Get and View'
+        Caption = 'Retrieve this Media'
         Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -612,9 +122,9 @@ object Themoviedb: TThemoviedb
           20)
       end
       object Search_Btn: TButton
-        Left = 92
+        Left = 0
         Top = 71
-        Width = 570
+        Width = 733
         Height = 25
         Hint = 
           'Search  this Movie info on TheMoviedB.org and get a list of poss' +
@@ -623,7 +133,7 @@ object Themoviedb: TThemoviedb
         Margins.Top = 5
         Margins.Right = 5
         Margins.Bottom = 5
-        Caption = 'Search this Movie'
+        Caption = 'Search this Media'
         Enabled = False
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -639,9 +149,9 @@ object Themoviedb: TThemoviedb
         OnClick = Search_BtnClick
       end
       object SearchEdit: TmnEdit
-        Left = 18
+        Left = 7
         Top = 32
-        Width = 698
+        Width = 717
         Height = 33
         Margins.Left = 6
         Margins.Top = 6
@@ -663,18 +173,18 @@ object Themoviedb: TThemoviedb
         OnChange = SearchEditChange
       end
       object search_byimdb: TRadioButton
-        Left = 547
-        Top = 229
-        Width = 89
+        Left = 553
+        Top = 234
+        Width = 70
         Height = 17
-        Caption = 'By ImdB Id'
+        Caption = 'By ImdB/TvdB Id'
         TabOrder = 4
         OnClick = search_byimdbClick
       end
       object search_byname: TRadioButton
-        Left = 553
+        Left = 517
         Top = 6
-        Width = 75
+        Width = 121
         Height = 17
         Caption = 'By Title'
         Checked = True
@@ -684,7 +194,7 @@ object Themoviedb: TThemoviedb
       end
       object Imdb_search: TEdit
         Left = 634
-        Top = 225
+        Top = 229
         Width = 91
         Height = 21
         TabStop = False
@@ -700,11 +210,11 @@ object Themoviedb: TThemoviedb
       end
     end
     object Write_Btn: TButton
-      Left = 93
-      Top = 808
-      Width = 570
+      Left = 1
+      Top = 821
+      Width = 734
       Height = 25
-      Align = alCustom
+      Align = alBottom
       Caption = 'Write this !'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -712,23 +222,510 @@ object Themoviedb: TThemoviedb
       Font.Name = 'Calibri'
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 2
+      TabOrder = 1
       OnClick = Write_BtnClick
+    end
+    object Panel6: TPanel
+      Left = 1
+      Top = 1
+      Width = 734
+      Height = 24
+      Align = alTop
+      TabOrder = 2
+      object Label5: TLabel
+        Left = 12
+        Top = 5
+        Width = 91
+        Height = 13
+        Caption = 'Select service here'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TheMoviedB_rd: TRadioButton
+        Left = 452
+        Top = 4
+        Width = 143
+        Height = 17
+        Caption = 'TheMoviedB.org (Movies)'
+        TabOrder = 0
+        OnClick = TheMoviedB_rdClick
+      end
+      object TVdb_Rd: TRadioButton
+        Left = 614
+        Top = 5
+        Width = 127
+        Height = 16
+        Caption = 'TVdb.com (Series)'
+        TabOrder = 1
+        OnClick = TheMoviedB_rdClick
+      end
+    end
+    object ScrollBox1: TScrollBox
+      Left = 1
+      Top = 314
+      Width = 734
+      Height = 507
+      Align = alClient
+      TabOrder = 3
+      object PageControl1: TPageControl
+        Left = 0
+        Top = 0
+        Width = 713
+        Height = 510
+        ActivePage = TabSheet_Single_Movie
+        Align = alTop
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        object TabSheet_Single_Movie: TTabSheet
+          Caption = 'Movie Info'
+          object Panel2: TPanel
+            Left = 0
+            Top = 0
+            Width = 705
+            Height = 482
+            Align = alClient
+            BevelOuter = bvNone
+            Caption = 'Panel2'
+            ParentBackground = False
+            TabOrder = 0
+            ExplicitLeft = -1
+            object Label3: TLabel
+              Left = 468
+              Top = 112
+              Width = 74
+              Height = 13
+              Caption = 'Season :'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object Label4: TLabel
+              Left = 578
+              Top = 112
+              Width = 94
+              Height = 13
+              Caption = 'Episode :'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+            end
+            object Title_Chk: TCheckBox
+              Left = 259
+              Top = 13
+              Width = 113
+              Height = 17
+              TabStop = False
+              Caption = 'Title :'
+              TabOrder = 0
+            end
+            object Picture_Chk: TCheckBox
+              Left = 14
+              Top = 13
+              Width = 201
+              Height = 17
+              TabStop = False
+              Caption = 'Picture :'
+              TabOrder = 1
+            end
+            object Original_Title_Chk: TCheckBox
+              Left = 259
+              Top = 46
+              Width = 113
+              Height = 17
+              TabStop = False
+              Caption = 'Original Title :'
+              TabOrder = 2
+            end
+            object Overview_Chk: TCheckBox
+              Left = 259
+              Top = 111
+              Width = 155
+              Height = 17
+              TabStop = False
+              Caption = 'Overview :'
+              TabOrder = 3
+            end
+            object release_date_Chk: TCheckBox
+              Left = 259
+              Top = 81
+              Width = 153
+              Height = 17
+              TabStop = False
+              Caption = 'Release date :'
+              TabOrder = 4
+            end
+            object API_id_chk: TCheckBox
+              Left = 534
+              Top = 82
+              Width = 100
+              Height = 17
+              TabStop = False
+              Caption = 'imdb/Tvdb ID :'
+              TabOrder = 5
+            end
+            object API_id_Ed: TEdit
+              Left = 612
+              Top = 77
+              Width = 84
+              Height = 21
+              TabStop = False
+              BorderStyle = bsNone
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Calibri'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 6
+              OnChange = API_id_EdChange
+              OnKeyPress = API_id_EdKeyPress
+            end
+            object Release_date_Ed: TEdit
+              Left = 373
+              Top = 76
+              Width = 92
+              Height = 21
+              TabStop = False
+              BorderStyle = bsNone
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Calibri'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 7
+              OnKeyPress = Release_date_EdKeyPress
+            end
+            object MemoOverview: TMemo
+              Left = 259
+              Top = 134
+              Width = 436
+              Height = 178
+              Hint = 'Modify the Overview here'
+              TabStop = False
+              BorderStyle = bsNone
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Calibri'
+              Font.Style = []
+              ParentFont = False
+              ParentShowHint = False
+              ScrollBars = ssVertical
+              ShowHint = True
+              TabOrder = 8
+              OnKeyPress = MemoOverviewKeyPress
+            end
+            object Vote_Average_Chk: TCheckBox
+              Left = 400
+              Top = 322
+              Width = 95
+              Height = 17
+              TabStop = False
+              Caption = 'Vote Average :'
+              TabOrder = 9
+            end
+            object Keywords_Chk: TCheckBox
+              Left = 473
+              Top = 348
+              Width = 224
+              Height = 17
+              TabStop = False
+              Caption = 'Keywords :'
+              TabOrder = 10
+            end
+            object Production_Comp_Chk: TCheckBox
+              Left = 6
+              Top = 347
+              Width = 206
+              Height = 21
+              TabStop = False
+              Caption = 'Production company :'
+              TabOrder = 11
+            end
+            object Genres_Chk: TCheckBox
+              Left = 239
+              Top = 347
+              Width = 224
+              Height = 17
+              TabStop = False
+              Caption = 'Genres :'
+              TabOrder = 12
+            end
+            object Genre_ListBox: TListBox
+              Left = 239
+              Top = 368
+              Width = 220
+              Height = 106
+              TabStop = False
+              BorderStyle = bsNone
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Calibri'
+              Font.Style = []
+              ItemHeight = 19
+              ParentFont = False
+              ParentShowHint = False
+              PopupMenu = Genres_Pop
+              ShowHint = False
+              Sorted = True
+              TabOrder = 13
+            end
+            object Production_Company_ListBox: TListBox
+              Left = 6
+              Top = 368
+              Width = 220
+              Height = 107
+              TabStop = False
+              BorderStyle = bsNone
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Calibri'
+              Font.Style = []
+              ItemHeight = 19
+              ParentFont = False
+              PopupMenu = Production_Pop
+              Sorted = True
+              TabOrder = 14
+            end
+            object Keywords_List: TListBox
+              Left = 473
+              Top = 367
+              Width = 220
+              Height = 108
+              TabStop = False
+              BorderStyle = bsNone
+              Color = clWhite
+              ExtendedSelect = False
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Calibri'
+              Font.Style = []
+              ItemHeight = 19
+              ParentFont = False
+              PopupMenu = Keyword_Pop
+              Sorted = True
+              TabOrder = 15
+            end
+            object Picture_Panel: TPanel
+              Left = 19
+              Top = 36
+              Width = 230
+              Height = 305
+              BevelOuter = bvNone
+              Ctl3D = True
+              ParentCtl3D = False
+              TabOrder = 16
+              object Picture_Img: TImage
+                Left = 0
+                Top = 0
+                Width = 230
+                Height = 305
+                Hint = 'Drag&Drop Image here'
+                Margins.Left = 5
+                Margins.Top = 5
+                Margins.Right = 5
+                Margins.Bottom = 5
+                ParentCustomHint = False
+                Align = alClient
+                ParentShowHint = False
+                Proportional = True
+                ShowHint = True
+                ExplicitLeft = 2
+                ExplicitTop = 2
+              end
+            end
+            object Original_title_Ed: TmnEdit
+              Left = 374
+              Top = 40
+              Width = 322
+              Height = 27
+              TabStop = False
+              Alignment = taRightJustify
+              AutoSize = False
+              BorderStyle = bsNone
+              Ctl3D = True
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -16
+              Font.Name = 'Calibri'
+              Font.Style = []
+              ParentCtl3D = False
+              ParentFont = False
+              TabOrder = 17
+              OnKeyPress = Original_title_EdKeyPress
+            end
+            object Title_Ed: TmnEdit
+              Left = 374
+              Top = 7
+              Width = 322
+              Height = 27
+              TabStop = False
+              Align = alCustom
+              Alignment = taRightJustify
+              BorderStyle = bsNone
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -21
+              Font.Name = 'Calibri'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 18
+              OnKeyPress = Title_EdKeyPress
+            end
+            object Star_Panel: TStar_Panel
+              Left = 494
+              Top = 322
+              Width = 185
+              Height = 22
+              TabOrder = 19
+            end
+            object Season_Spin_W: TSpinEdit
+              Left = 532
+              Top = 109
+              Width = 40
+              Height = 22
+              MaxValue = 30
+              MinValue = 0
+              TabOrder = 20
+              Value = 1
+              OnChange = Season_Spin_WChange
+              OnEnter = Season_Spin_WEnter
+              OnExit = Season_Spin_WExit
+            end
+            object Episode_Spin_W: TSpinEdit
+              Left = 656
+              Top = 109
+              Width = 40
+              Height = 22
+              MaxValue = 30
+              MinValue = 0
+              TabOrder = 21
+              Value = 1
+              OnChange = Episode_Spin_WChange
+              OnEnter = Episode_Spin_WEnter
+              OnExit = Episode_Spin_WExit
+            end
+            object Subtitle_Btn: TButton
+              Left = 264
+              Top = 317
+              Width = 119
+              Height = 23
+              Caption = 'Subtitle'
+              TabOrder = 22
+              OnClick = Subtitle_BtnClick
+            end
+          end
+        end
+        object TabSheet_Single_Movie_Add: TTabSheet
+          Caption = 'Additionnal Info'
+          ImageIndex = 1
+          object Panel7: TPanel
+            Left = 0
+            Top = 0
+            Width = 705
+            Height = 482
+            Align = alClient
+            BevelOuter = bvNone
+            ParentBackground = False
+            TabOrder = 0
+            object Cast_Chk: TCheckBox
+              Left = 12
+              Top = 17
+              Width = 116
+              Height = 17
+              Caption = 'Cast :'
+              TabOrder = 0
+            end
+            object Cast_Grid: TStringGrid
+              Left = 15
+              Top = 36
+              Width = 698
+              Height = 196
+              ColCount = 3
+              DefaultRowHeight = 20
+              FixedCols = 0
+              RowCount = 1
+              FixedRows = 0
+              Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
+              TabOrder = 1
+              ColWidths = (
+                64
+                64
+                66)
+            end
+            object Crew_Chk: TCheckBox
+              Left = 12
+              Top = 242
+              Width = 102
+              Height = 17
+              Caption = 'Crew :'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+            end
+            object Crew_Grid: TStringGrid
+              Left = 15
+              Top = 265
+              Width = 699
+              Height = 200
+              ColCount = 4
+              DefaultColWidth = 100
+              DefaultRowHeight = 20
+              FixedCols = 0
+              RowCount = 1
+              FixedRows = 0
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRowSelect]
+              ParentFont = False
+              TabOrder = 3
+              RowHeights = (
+                20)
+            end
+          end
+        end
+      end
     end
   end
   object Panel3: TPanel
     Left = 0
     Top = 0
     Width = 392
-    Height = 839
+    Height = 847
     Align = alClient
     Caption = 'Panel3'
-    TabOrder = 2
+    TabOrder = 1
     object Movie_Browser: TStringGrid
       Left = 1
       Top = 28
       Width = 390
-      Height = 810
+      Height = 818
       Align = alClient
       ColCount = 14
       FixedCols = 0
@@ -778,8 +775,33 @@ object Themoviedb: TThemoviedb
     Width = 392
     Height = 21
     Align = alClient
-    TabOrder = 3
+    Style = csDropDownList
+    TabOrder = 2
     OnChange = ComboBox1Change
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 847
+    Width = 1128
+    Height = 32
+    Panels = <
+      item
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
+        Width = 170
+      end
+      item
+        Alignment = taRightJustify
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
+        Width = 620
+      end
+      item
+        BiDiMode = bdLeftToRight
+        ParentBiDiMode = False
+        Text = '          '
+        Width = 50
+      end>
   end
   object MainMenu1: TMainMenu
     AutoHotkeys = maManual
@@ -788,7 +810,7 @@ object Themoviedb: TThemoviedb
     object Configure1: TMenuItem
       Caption = 'Menu'
       object scrapall1: TMenuItem
-        Caption = 'Scrap Movies from this line'
+        Caption = 'Scrap Medias from this line'
         OnClick = scrapall1Click
       end
       object N1: TMenuItem
@@ -879,7 +901,7 @@ object Themoviedb: TThemoviedb
         OnClick = About1Click
       end
       object Helppage1: TMenuItem
-        Caption = 'JRMoviedB Help'
+        Caption = 'JRScrap Help'
         OnClick = Helppage1Click
       end
     end
