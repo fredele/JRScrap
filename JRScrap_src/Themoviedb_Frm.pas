@@ -1566,7 +1566,7 @@ self.View_Btn.Enabled := true ;
     if self.FMassScrap = false then
     begin
       ShowMessage(FTranslateList[18]);
-      ShowJRiverId(FCurrentJRiverId);
+
       Exit;
     end;
 
@@ -2602,7 +2602,7 @@ begin
         Inc(i);
         Fstyleitem := TMenuItem.Create(self);
         Fstyleitem.name := 'Style' + IntToStr(i);
-        Fstyleitem.Caption := stylename;
+        Fstyleitem.caption := stylename;
         Fstyleitem.Checked := false;
         Fstyleitem.RadioItem := true;
         Fstyleitem.GroupIndex := 1;
@@ -2720,6 +2720,12 @@ begin
       TStyleManager.SetStyle(trim(StringReplace(Fstyle, '&', '',
         [rfReplaceAll, rfIgnoreCase])));
 
+
+
+    TMenuItem(self.SelectStyle.Find(Fstyle)).Checked := true ;
+
+
+
       try
 
       sub_type_stringlist.Sorted := True;
@@ -2829,10 +2835,15 @@ var
 begin
 
   frm_openSub := TOpenSub_Form.Create(nil);
+
+
   frm_openSub.left := self.left + 250;
   frm_openSub.top := self.top + 20;
+
   frm_openSub.ShowModal;
 
+  frm_openSub.free ;
+  frm_openSub := nil ;
 end;
 
 procedure TThemoviedb.TheMoviedB_rdClick(Sender: TObject);
@@ -3038,21 +3049,11 @@ var
 
 begin
 
-if Imdb_search.Text = '' then
-    begin
-      if self.FMassScrap = false then
-      begin
-        Screen.Cursor := crDefault;
-        Exit;
-      end
-    end;
+
 ClearAll();
 self.Write_Btn.Enabled := false ;
 Screen.Cursor := crHourGlass;
 
-
-
-  Screen.Cursor := crHourGlass;
   Application.ProcessMessages;
 
  if self.TheMoviedB_rd.Checked = true then
@@ -3062,6 +3063,18 @@ Screen.Cursor := crHourGlass;
   // IMdb search
   if self.search_byimdb.Checked = true then
   begin
+
+   if Imdb_search.Text = '' then
+    begin
+      if self.FMassScrap = false then
+      begin
+      ShowMessage(FTranslateList[41]);
+      ShowJRiverId(FCurrentJRiverId);
+        Screen.Cursor := crDefault;
+        Exit;
+      end
+    end;
+
     self.Imdb_search.Text := StringReplace(self.Imdb_search.Text, 'TT', 'tt',
       [rfReplaceAll, rfIgnoreCase]);
     if ((self.Imdb_search.Text[1] <> 't') or (self.Imdb_search.Text[2] <> 't'))
@@ -3116,6 +3129,19 @@ begin
 //// THEMOVIEDB
 
 try
+
+
+if Imdb_search.Text = '' then
+    begin
+      if self.FMassScrap = false then
+      begin
+      ShowMessage(FTranslateList[41]);
+      ShowJRiverId(FCurrentJRiverId);
+        Screen.Cursor := crDefault;
+        Exit;
+      end
+    end;
+
 
     rq := 'http://thetvdb.com/api/' + FAPIkey + '/series/' +
       self.imdb_search.Text + '/all/' + FCurrentLangShort + '.xml';
@@ -3487,7 +3513,7 @@ begin
   if self.Movie_Browser.Cells[7, self.Movie_Browser.Row] = 'YES' then
   begin
     ShowMessage(FTranslateList[18]);
-    ShowJRiverId(FCurrentJRiverId);
+
     Exit;
   end;
   try
@@ -3632,6 +3658,10 @@ After_Thread_Search_Image_Bool :=  false;
   begin
     self.scrapall1.Click;
   end;
+  if AnsiContainsStr(self.API_id_Ed.Text, 'tt') then
+    self.Subtitle_Btn.Enabled := true
+    else
+    self.Subtitle_Btn.Enabled := false ;
 
 end;
 

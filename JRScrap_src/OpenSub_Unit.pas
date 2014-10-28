@@ -19,6 +19,7 @@ type
     procedure DownloadClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
+
   private
     { Private declarations }
   public
@@ -40,7 +41,7 @@ function LogOut(aToken: string): string;
 function SearchSubtitles(aToken, aSublanguageID, aMovieHash: string;
   aMovieByteSize: Cardinal): string; overload;
 function SearchSubtitles(aToken, aSublanguageID: string; aImdbID: Cardinal) : string; overload;
-function SearchSubtitles(aToken, aSublanguageID, aQuery: string): string; overload;
+
 
 procedure DownloadFile(fileaddr, filename: string);
 
@@ -53,12 +54,11 @@ uses
 
 var
 
-  FXMLReader: IXMLDOMDocument;
-  root, node, membernode, datanode, movienode: IXMLDOMNode;
+
+
   Token: string;
-  FParameterStr: string;
-  FListesdesFilms: IMJFilesAutomation;
-  FCurrentMovie: IMJFileAutomation;
+
+
   FCurrentMovieIMDBID,FCurrentMovieFolder: string;
   FNombresdeFilms: Integer;
   Flangshort  : string ;
@@ -174,36 +174,25 @@ begin
     aImdbID]));
 end;
 
-function SearchSubtitles(aToken, aSublanguageID, aQuery: string): string;
-const
-  SEARCH_SUBTITLES = '<?xml version="1.0"?>' + '<methodCall>' +
-    '  <methodName>SearchSubtitles</methodName>' + '  <params>' + '    <param>'
-    + '      <value><string>%0:s</string></value>' + '    </param>' +
-    '  <param>' + '   <value>' + '    <array>' + '     <data>' + '      <value>'
-    + '       <struct>' + '        <member>' +
-    '         <name>sublanguageid</name>' +
-    '         <value><string>%1:s</string>' + '         </value>' +
-    '        </member>' + '        <member>' + '         <name>query</name>' +
-    '         <value><string>%2:s</string></value>' + '        </member>' +
-    '       </struct>' + '      </value>' + '     </data>' + '    </array>' +
-    '   </value>' + '  </param>' + ' </params>' + '</methodCall>';
-
-begin
-  Result := XML_RPC(Format(SEARCH_SUBTITLES, [aToken, aSublanguageID, aQuery]));
-end;
 
 procedure TOpenSub_Form.Search_imdbID_Proc;
 var
-  id,i, j, k: Integer;
-  str, currentmoviedata, currentmoviefield,lang: string;
+  id,i, j, k ,imdb : Integer;
+  str, currentmoviedata, currentmoviefield,lang,s: string;
     success : boolean ;
+    FXMLReader: IXMLDOMDocument;
+    root, node, membernode, datanode, movienode: IXMLDOMNode;
 begin
 try
+
+ FXMLReader := CoDOMDocument.Create;
   success := false ;
- //lang := ComboBox1.Items[self.ComboBox1.ItemIndex];
 self.StringGrid1.RowCount := 1;
 
-  FXMLReader.loadXML(SearchSubtitles(Token,  Flangshort ,  strtoint(StringReplace( Themoviedb.API_id_Ed.Text , 'tt','',[rfReplaceAll, rfIgnoreCase]))  ));
+  imdb := strtoint(StringReplace( Themoviedb.API_id_Ed.Text , 'tt','',[rfReplaceAll, rfIgnoreCase] )) ;
+  s := SearchSubtitles(Token,  Flangshort ,  imdb) ;
+  FXMLReader.loadXML(s)  ;
+
   root := FXMLReader.DocumentElement;
   if root.childNodes[0].nodeName = 'params' then
   begin
@@ -228,10 +217,14 @@ self.StringGrid1.RowCount := 1;
               then
                 datanode := membernode.childNodes[1].childNodes[0]
                   .childNodes[0];
+
+
+
               if  datanode.childNodes.length >= 1 then
               self.StringGrid1.RowCount := datanode.childNodes.length
               else
               self.StringGrid1.RowCount := 2;
+
 
               for i := 0 to datanode.childNodes.length - 1 do
               begin
@@ -293,7 +286,8 @@ self.StringGrid1.RowCount := 1;
       end;
     end;
   end;
-  if self.StringGrid1.RowCount <= 1  then  self.StringGrid1.RowCount := 2 ;
+
+
 
   self.StringGrid1.FixedRows := 1;
   if  success = false  then
@@ -301,10 +295,15 @@ self.StringGrid1.RowCount := 1;
   self.StringGrid1.RowCount := 1;
   end;
 except
-  self.StringGrid1.RowCount := 1;
-end;
 
-  end;
+  showmessage(FTranslateList[10]);
+  PostMessage(Self.Handle,wm_close,0,0);
+
+
+end;
+ end;
+
+
 
 procedure TOpenSub_Form.DownloadClick(Sender: TObject);
 var
@@ -330,7 +329,7 @@ procedure TOpenSub_Form.FormActivate(Sender: TObject);
 var
   i, j, k: Integer;
   str, currentmoviedata, currentmoviefield: string;
-   RegNGFS: TRegistry;
+
 
 
 begin
@@ -358,20 +357,22 @@ begin
     self.StringGrid1.ColWidths[5] := 0;
     self.StringGrid1.ColWidths[6] := 70;
 
-
-  FCurrentMovieIMDBID := StringReplace(FCurrentMovieIMDBID, 't', ' ',
-    [rfReplaceAll, rfIgnoreCase]);
-  FCurrentMovieIMDBID := StringReplace(FCurrentMovieIMDBID, 'T', ' ',
-    [rfReplaceAll, rfIgnoreCase]);
-  self.LogIn_Proc ;
+   application.ProcessMessages ;
+     self.LogIn_Proc ;
 
   Search_imdbID_Proc;
 end;
 
 procedure TOpenSub_Form.FormClose(Sender: TObject; var Action: TCloseAction);
+var
+i : integer ;
 begin
+
 try
-LogOut(Token);
+for i := 0 to stringgrid1.rowcount-1 do
+  stringgrid1.rows[i].clear;
+
+
 except
 end;
 end;
@@ -379,6 +380,8 @@ end;
 procedure TOpenSub_Form.LogIn_Proc;
 var
   i, j: Integer;
+  FXMLReader: IXMLDOMDocument;
+  root, node, membernode, datanode, movienode: IXMLDOMNode;
 begin
   try
   FXMLReader := CoDOMDocument.Create;

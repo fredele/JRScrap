@@ -4,8 +4,8 @@ object Themoviedb: TThemoviedb
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   BorderWidth = 5
   Caption = 'JRScrap '
-  ClientHeight = 879
-  ClientWidth = 1128
+  ClientHeight = 877
+  ClientWidth = 1144
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -29,17 +29,17 @@ object Themoviedb: TThemoviedb
     Caption = 'Label2'
   end
   object Panel1: TPanel
-    Left = 392
+    Left = 409
     Top = 0
-    Width = 736
-    Height = 847
+    Width = 735
+    Height = 845
     Align = alRight
     Caption = 'Panel1'
     TabOrder = 0
     object Panel5: TPanel
       Left = 1
       Top = 25
-      Width = 734
+      Width = 733
       Height = 289
       Align = alTop
       BevelOuter = bvNone
@@ -80,7 +80,7 @@ object Themoviedb: TThemoviedb
       object View_Btn: TButton
         Left = -1
         Top = 260
-        Width = 732
+        Width = 733
         Height = 25
         Hint = 'Click to search and view the Content of TheMoviedB.org only'
         Caption = 'Retrieve this Media'
@@ -100,7 +100,7 @@ object Themoviedb: TThemoviedb
       object Movie_Search_Grid: TStringGrid
         Left = 5
         Top = 104
-        Width = 721
+        Width = 725
         Height = 119
         TabStop = False
         ColCount = 3
@@ -122,9 +122,9 @@ object Themoviedb: TThemoviedb
           20)
       end
       object Search_Btn: TButton
-        Left = 0
+        Left = 2
         Top = 71
-        Width = 733
+        Width = 727
         Height = 25
         Hint = 
           'Search  this Movie info on TheMoviedB.org and get a list of poss' +
@@ -149,9 +149,9 @@ object Themoviedb: TThemoviedb
         OnClick = Search_BtnClick
       end
       object SearchEdit: TmnEdit
-        Left = 7
+        Left = 2
         Top = 32
-        Width = 717
+        Width = 727
         Height = 33
         Margins.Left = 6
         Margins.Top = 6
@@ -173,16 +173,16 @@ object Themoviedb: TThemoviedb
         OnChange = SearchEditChange
       end
       object search_byimdb: TRadioButton
-        Left = 553
-        Top = 234
-        Width = 70
+        Left = 523
+        Top = 233
+        Width = 100
         Height = 17
         Caption = 'By ImdB/TvdB Id'
         TabOrder = 4
         OnClick = search_byimdbClick
       end
       object search_byname: TRadioButton
-        Left = 517
+        Left = 519
         Top = 6
         Width = 121
         Height = 17
@@ -193,9 +193,9 @@ object Themoviedb: TThemoviedb
         OnClick = search_bynameClick
       end
       object Imdb_search: TEdit
-        Left = 635
+        Left = 629
         Top = 229
-        Width = 91
+        Width = 94
         Height = 21
         TabStop = False
         BorderStyle = bsNone
@@ -211,8 +211,8 @@ object Themoviedb: TThemoviedb
     end
     object Write_Btn: TButton
       Left = 1
-      Top = 821
-      Width = 734
+      Top = 819
+      Width = 733
       Height = 25
       Align = alBottom
       Caption = 'Write this !'
@@ -228,7 +228,7 @@ object Themoviedb: TThemoviedb
     object Panel6: TPanel
       Left = 1
       Top = 1
-      Width = 734
+      Width = 733
       Height = 24
       Align = alTop
       TabOrder = 2
@@ -246,7 +246,7 @@ object Themoviedb: TThemoviedb
         ParentFont = False
       end
       object TheMoviedB_rd: TRadioButton
-        Left = 452
+        Left = 448
         Top = 1
         Width = 143
         Height = 17
@@ -255,8 +255,8 @@ object Themoviedb: TThemoviedb
         OnClick = TheMoviedB_rdClick
       end
       object TVdb_Rd: TRadioButton
-        Left = 614
-        Top = 5
+        Left = 611
+        Top = 2
         Width = 127
         Height = 16
         Caption = 'TVdb.com (Series)'
@@ -267,14 +267,14 @@ object Themoviedb: TThemoviedb
     object ScrollBox1: TScrollBox
       Left = 1
       Top = 314
-      Width = 734
-      Height = 507
+      Width = 733
+      Height = 505
       Align = alClient
       TabOrder = 3
       object PageControl1: TPageControl
         Left = 0
         Top = 0
-        Width = 713
+        Width = 712
         Height = 510
         ActivePage = TabSheet_Single_Movie
         Align = alTop
@@ -290,7 +290,7 @@ object Themoviedb: TThemoviedb
           object Panel2: TPanel
             Left = 0
             Top = 0
-            Width = 705
+            Width = 704
             Height = 482
             Align = alClient
             BevelOuter = bvNone
@@ -431,8 +431,8 @@ object Themoviedb: TThemoviedb
               OnKeyPress = MemoOverviewKeyPress
             end
             object Vote_Average_Chk: TCheckBox
-              Left = 400
-              Top = 322
+              Left = 420
+              Top = 324
               Width = 95
               Height = 17
               TabStop = False
@@ -591,8 +591,8 @@ object Themoviedb: TThemoviedb
               OnKeyPress = Title_EdKeyPress
             end
             object Star_Panel: TStar_Panel
-              Left = 494
-              Top = 322
+              Left = 510
+              Top = 320
               Width = 185
               Height = 22
               TabOrder = 19
@@ -624,9 +624,9 @@ object Themoviedb: TThemoviedb
               OnExit = Episode_Spin_WExit
             end
             object Subtitle_Btn: TButton
-              Left = 264
-              Top = 317
-              Width = 119
+              Left = 257
+              Top = 318
+              Width = 153
               Height = 23
               Caption = 'Subtitle'
               TabOrder = 22
@@ -640,7 +640,7 @@ object Themoviedb: TThemoviedb
           object Panel7: TPanel
             Left = 0
             Top = 0
-            Width = 705
+            Width = 704
             Height = 482
             Align = alClient
             BevelOuter = bvNone
@@ -655,9 +655,9 @@ object Themoviedb: TThemoviedb
               TabOrder = 0
             end
             object Cast_Grid: TStringGrid
-              Left = 15
-              Top = 36
-              Width = 698
+              Left = 12
+              Top = 40
+              Width = 673
               Height = 196
               ColCount = 3
               DefaultRowHeight = 20
@@ -686,9 +686,9 @@ object Themoviedb: TThemoviedb
               TabOrder = 2
             end
             object Crew_Grid: TStringGrid
-              Left = 15
-              Top = 265
-              Width = 699
+              Left = 12
+              Top = 269
+              Width = 674
               Height = 200
               ColCount = 4
               DefaultColWidth = 100
@@ -715,16 +715,16 @@ object Themoviedb: TThemoviedb
   object Panel3: TPanel
     Left = 0
     Top = 0
-    Width = 392
-    Height = 847
+    Width = 409
+    Height = 845
     Align = alClient
     Caption = 'Panel3'
     TabOrder = 1
     object Movie_Browser: TStringGrid
       Left = 1
       Top = 28
-      Width = 390
-      Height = 818
+      Width = 407
+      Height = 816
       Align = alClient
       ColCount = 14
       FixedCols = 0
@@ -762,7 +762,7 @@ object Themoviedb: TThemoviedb
     object Panel4: TPanel
       Left = 1
       Top = 1
-      Width = 390
+      Width = 407
       Height = 27
       Align = alTop
       TabOrder = 1
@@ -771,7 +771,7 @@ object Themoviedb: TThemoviedb
   object ComboBox1: TComboBox
     Left = 0
     Top = 0
-    Width = 392
+    Width = 409
     Height = 21
     Align = alClient
     Style = csDropDownList
@@ -780,8 +780,8 @@ object Themoviedb: TThemoviedb
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 847
-    Width = 1128
+    Top = 845
+    Width = 1144
     Height = 32
     Panels = <
       item

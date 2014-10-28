@@ -62,6 +62,7 @@ begin
   FTranslateList.Add('Crew' ); // 38
   FTranslateList.Add('Select here fields to save :' ); // 39
   FTranslateList.Add('File Downloaded !' ); // 40
+  FTranslateList.Add('No API ID provided' ); // 41
   end;
  {
   function Translate (str : string) : string ;
