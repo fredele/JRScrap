@@ -7,11 +7,15 @@ Well, it' a scraper written as an add-on for the **JRiver Media Center** softwar
 
 It connects to : 
 
-* **TheMoviedb.org API** http://www.themoviedb.org/(currently Version 3)
+* **TheMoviedb.org API**
+http://www.themoviedb.org/
+(currently Version 3)
 
-* **TheTVdB.org API** http:/thetvdb.com
+* **TheTVdB.org API**
+http:/thetvdb.com
 
-* **OpenSubtitles.org API** http://www.opensubtitles.org
+* **OpenSubtitles.org API**
+http://www.opensubtitles.org
  
 
 In fact, the information for know retrieved by JRiver are far from perfect, this app was created in order to retrieve Movie information in my native language : **FRENCH**.
