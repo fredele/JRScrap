@@ -3,14 +3,16 @@
 What ?
 -------------
 
-Well, it' a scraper written as an add-on for the **JRiver Media Center** software. 
+Well, it' a scraper written as an add-on for the **JRiver Media Center** software.
+
 It connects to : 
 
-**TheMoviedb.org API** http://www.themoviedb.org/(currently Version 3),
-**TheTVdB.org API** http:/thetvdb.com
-**OpenSubtitles.org API** http://www.opensubtitles.org
+* **TheMoviedb.org API** http://www.themoviedb.org/(currently Version 3)
 
-Here's the link to their Website : 
+* **TheTVdB.org API** http:/thetvdb.com
+
+* **OpenSubtitles.org API** http://www.opensubtitles.org
+ 
 
 In fact, the information for know retrieved by JRiver are far from perfect, this app was created in order to retrieve Movie information in my native language : **FRENCH**.
 As the APIs supports it, it could be used for other languages, (german and italian tested.)
