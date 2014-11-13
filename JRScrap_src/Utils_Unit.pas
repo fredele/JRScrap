@@ -1,10 +1,10 @@
 unit Utils_Unit;
-
+
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
+  System.Classes, Vcl.Graphics, StrUtils,
   Xml.xmldom, Xml.XMLIntf, Xml.Win.msxmldom, Xml.XMLDoc, Vcl.StdCtrls;
 
 function ExtractFileNameWithoutExt(const FileName: string): string;
@@ -14,6 +14,9 @@ procedure RemoveDuplicates(const stringList: TStringList);
 function GetParentDirectory(path: string): string;
 function HourToSec(hour: string): integer;
 function IsNumeric(str: string): boolean;
+function CleanFileName(const InputString: string): string;
+function MemoryStreamToString1(M: TMemoryStream): AnsiString;
+function MemoryStreamToString2(M: TMemoryStream): AnsiString;
 
 implementation
 
@@ -118,4 +121,70 @@ begin
   Result := ExpandFileName(path + '\..')
 end;
 
+function CleanFileName(const InputString: string): string;
+var
+  i: integer;
+  ResultWithSpaces: string;
+begin
+
+  ResultWithSpaces := InputString;
+
+  for i := 1 to Length(ResultWithSpaces) do
+  begin
+    // These chars are invalid in file names.
+    case ResultWithSpaces[i] of
+      '/', '\', ':', '*', '?', '"', '|', ' ', #$D, #$A, #9:
+        // Use a * to indicate a duplicate space so we can remove
+        // them at the end.
+{$WARNINGS OFF} // W1047 Unsafe code 'String index to var param'
+        if (i > 1) and ((ResultWithSpaces[i - 1] = ' ') or
+          (ResultWithSpaces[i - 1] = '*')) then
+          ResultWithSpaces[i] := '*'
+        else
+          ResultWithSpaces[i] := ' ';
+
+{$WARNINGS ON}
+    end;
+  end;
+
+  // A * indicates duplicate spaces.  Remove them.
+  Result := ReplaceStr(ResultWithSpaces, '*', '');
+
+  // Also trim any leading or trailing spaces
+  Result := Trim(Result);
+
+  if Result = '' then
+  begin
+    raise (Exception.Create('Resulting FileName was empty Input string was: ' +
+      InputString));
+  end;
+end;
+
+function MemoryStreamToString1(M: TMemoryStream): AnsiString;
+var
+  SS: TStringStream;
+begin
+  if M <> nil then
+  begin
+    SS := TStringStream.Create('', CP_UTF8);
+    // here did not suffice in the second parameter CP_UTF8
+    try
+      SS.CopyFrom(M, 0);
+      Result := SS.DataString;
+    finally
+      SS.Free;
+    end;
+  end
+  else
+  begin
+    Result := '';
+  end;
+end;
+
+function MemoryStreamToString2(M: TMemoryStream): AnsiString;
+begin
+  SetString(Result, PAnsiChar(M.Memory), M.Size);
+end;
+
 end.
+

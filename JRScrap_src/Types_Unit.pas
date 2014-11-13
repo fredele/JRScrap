@@ -1,6 +1,16 @@
 unit Types_Unit;
-
+
 interface
+
+uses
+  jpeg;
+
+type
+  TProcedureStr = procedure(str: string) of object;
+  TProcedureImg = procedure(img: TJPEGImage) of object;
+  TProcedure = procedure;
+  TProcedureobj = procedure of object;
+
 type
 
   TMessageData = class
@@ -8,6 +18,13 @@ type
   end;
 
 type
+
+  TPerson = record
+    Actor_Name: string;
+    Character: string;
+    id: integer;
+  end;
+
   TLang = record
     Language: string;
     Search: string;
@@ -25,7 +42,30 @@ type
     filename: string;
   end;
 
-  TCod =( ansi, utf8) ;
+  TMedia = record
+    API_Id: integer;
+    name: string;
+    release_date: string;
+  end;
+
+  TCod = (ansi, utf8);
+
+type
+
+  TString = class
+  private
+    Fstr: string;
+    procedure W_proc(str: string);
+    property str: string read Fstr write W_proc;
+  end;
+
 implementation
 
+procedure TString.W_proc(str: string);
+begin
+  Fstr := str;
+
+end;
+
 end.
+

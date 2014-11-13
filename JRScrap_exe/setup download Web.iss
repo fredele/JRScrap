@@ -27,6 +27,7 @@ Name: "german"; MessagesFile: "compiler:Languages\German.isl"
 Source: "{#SourcePath}\bin\JRScrap.exe"; DestDir: "{app}\bin"; Flags: ignoreversion
 Source: "{#SourcePath}\images\*"; DestDir: "{app}\images"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "{#SourcePath}\languages\*"; DestDir: "{app}\languages"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#SourcePath}\XSL\*"; DestDir: "{commonappdata}\JRScrap"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -38,8 +39,9 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"; Tas
 Root: HKCU; Subkey: "Software\JRScrap"; Flags: uninsdeletekey
 ;Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "APIKey"; ValueData: "3b608fc11821e92cd2459320206a9d9b"
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Firstrun"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Writepicture"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "WriteSideCar"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapWimdbID"; ValueData: 1  
-Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "MassScrapbooleans"; ValueData: "1111111111111" ; 
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "english" ; Languages: english
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "french" ; Languages: french
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "german" ; Languages: german

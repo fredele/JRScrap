@@ -1,21 +1,16 @@
 unit JRiverXML_Unit;
-
+
 interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Xml.xmldom, Xml.XMLIntf, Xml.Win.msxmldom, Xml.XMLDoc, Vcl.StdCtrls,
-  Utils_Unit;
+  System.Classes, Vcl.Graphics, VerySimple_Xml, Utils_Unit, debug_Unit,
+  String_Unit;
 
 type
 
-  /// <summary>
-  /// Class by wich to access the additionnal XML file created by JRiver
-  /// holding the Field values
-  /// </summary>
   TJRiverXML = class
-    XMLDoc: TXMLDocument;
+    XMLDoc: TXmlVerySimple;
 
   private
   var
@@ -23,11 +18,10 @@ type
     FMediafile: string;
     FXMLfile: string;
     FNewFile: boolean;
+    MPLNode, ItemNode: TXmlNode;
   public
-    /// <remarks>
-    /// constructor : DO NOT nil the Sender !
-    /// </remarks>
-    constructor Create(mediafile: string; Sender: TObject);
+
+    constructor Create(mediafile: string);
     Destructor Destroy; override;
     /// <summary>
     /// Set the field or create it if it does not exist
@@ -36,11 +30,13 @@ type
     /// <summary>
     /// Test if the field exist
     /// </summary>
-    function FieldExists(name: string): boolean;
+    function FieldExists(name: string): integer;
     /// <summary>
     /// returns the mediafile, cannot be changed at runtime
     /// </summary>
-    procedure Close ;
+
+    procedure Save_Close;
+    procedure Close;
     property mediafile: string read FMediafile;
     property newfile: boolean read FNewFile;
 
@@ -48,42 +44,42 @@ type
 
 implementation
 
-function TJRiverXML.FieldExists(name: string): boolean;
+uses
+  JRScrap_Unit;
+
+procedure TJRiverXML.Save_Close;
+begin
+  XMLDoc.SaveToFile(FXMLfile);
+  XMLDoc := nil;
+end;
+
+procedure TJRiverXML.Close;
+begin
+  XMLDoc := nil;
+end;
+
+function TJRiverXML.FieldExists(name: string): integer;
 var
   i: integer;
   getname: string;
-
+  node: TXmlNode;
 begin
-  Result := false;
-
-  with XMLDoc.ChildNodes do
+  name := CapitalizeFirstLetter(name);
+  result := -1;
+  for i := 0 to ItemNode.ChildNodes.Count - 1 do
   begin
-    if Assigned(FindNode('MPL')) then
+    node := ItemNode.ChildNodes[i];
+    if node.name = 'Field' then
     begin
-      with Nodes['MPL'].ChildNodes do
+      if node.AttributeList[0].value = name then
       begin
-        if Assigned(FindNode('Item')) then
-        begin
-
-          for i := 0 to Nodes['Item'].ChildNodes.count - 1 do
-          begin
-            if Nodes['Item'].ChildNodes[i].NodeName = 'Field' then
-            begin
-              getname :=
-                VarToStr(Nodes['Item'].ChildNodes[i].GetAttributeNS
-                ('Name', ''));
-              if getname = name then
-              begin
-                FChildNum := i;
-                Result := true;
-              end;
-
-            end;
-          end;
-        end;
+        result := i;
+        break;
       end;
     end;
+
   end;
+
 end;
 
 procedure TJRiverXML.SetField(name, value: string);
@@ -91,29 +87,43 @@ var
   i: integer;
   getname: string;
   fieldexists_bool: boolean;
+  FieldNode: TXmlNode;
+  nodenbr: integer;
 begin
+  if JRScrap_Frm.WriteXMLsideCar1.Checked = false then
+    Exit;
 
-  if FieldExists(name) then
-  begin
-    XMLDoc.ChildNodes.Nodes['MPL'].ChildNodes.Nodes['Item'].ChildNodes
-      [FChildNum].Text := value;
-  end
-  else
-  begin
-    with XMLDoc.ChildNodes.Nodes['MPL'].ChildNodes.Nodes['Item']
-      .AddChild('Field') do
+  try
+    name := CapitalizeFirstLetter(name);
+    nodenbr := -1;
+    nodenbr := FieldExists(name);
+    if nodenbr <> -1 then
     begin
-      Text := value;
-      setattribute('Name', name);
+      getname := ItemNode.ChildNodes[nodenbr].AttributeList[0].value;
+      debug(getname);
+      if getname = name then
+      begin
+        ItemNode.ChildNodes[nodenbr].text := value;
+      end;
+    end
+    else
+    begin
+      FieldNode := MPLNode.AddChild('Field');
+      FieldNode.Attributes['name'] := name;
+      FieldNode.text := value;
     end;
+  except
+    JRScrap_Frm.logger.error('Error XML: name :' + name + 'value: ' + value);
   end;
-  XMLDoc.SaveToFile(FXMLfile);
+
 end;
 
-constructor TJRiverXML.Create(mediafile: string; Sender: TObject);
+constructor TJRiverXML.Create(mediafile: string);
 var
   MediaFileExt: string;
+
 begin
+
   FMediafile := mediafile;
 
   if not FileExists(mediafile) then
@@ -122,70 +132,36 @@ begin
     Exit;
   end;
 
-  if Sender = nil then
-  begin
-    raise Exception.Create('Set the Sender to a TObject, not nil !');
-    // In fact, the TSMLDocument dynamically created here
-    // will not function corrrectly if he has no Owner.
-
-    Exit;
-  end;
-
   MediaFileExt := ExtractFileExt(FMediafile);
   MediaFileExt := Copy(MediaFileExt, 2, length(MediaFileExt) - 1);
   FXMLfile := ExtractFilePath(FMediafile) + ExtractFileNameWithoutExt
     (FMediafile) + '_' + MediaFileExt;
-
-
   FXMLfile := FXMLfile + '_JRSidecar.xml';
 
-  XMLDoc := TXMLDocument.Create(Sender as TComponent);
-  if FileExists(FXMLfile) then
+  XMLDoc := TXmlVerySimple.Create;
+
+  if not FileExists(FXMLfile) then
   begin
-    FNewFile := false;
-    XMLDoc.Active := true;
-    XMLDoc.LoadFromFile(FXMLfile);
 
-  end
-  else
-  begin
-    FNewFile := true;
-    XMLDoc.Active := true;
-    XMLDoc.Version := '1.0';
-    XMLDoc.Encoding := 'UTF-8';
-    XMLDoc.StandAlone := 'yes';
-
-    XMLDoc.AddChild('MPL');
-
-    With XMLDoc.ChildNodes.Nodes['MPL'] do
-    begin
-      SetAttributeNS('Version', ' ', '2.0');
-      SetAttributeNS('Title', ' ', 'JRSidecar');
-      AddChild('Item');
-    end;
-
+    MPLNode := XMLDoc.AddChild('MPL');
+    MPLNode.Attributes['Version'] := '2.0';
+    MPLNode.Attributes['Title'] := 'JRSidecar';
+    ItemNode := MPLNode.AddChild('MPL');
     XMLDoc.SaveToFile(FXMLfile);
-    XMLDoc.LoadFromFile(FXMLfile);
-
-    SetField('Filename', mediafile);
-    SetField('Media Sub Type', 'Movie');
-
   end;
+
+  XMLDoc.LoadFromFile(FXMLfile);
+  MPLNode := XMLDoc.ChildNodes[1];
+  if MPLNode.name = 'MPL' then
+    ItemNode := MPLNode.ChildNodes[0];
 
 end;
 
 Destructor TJRiverXML.Destroy;
 begin
-  XMLDoc.Active := false;
-  self.XMLDoc := nil;
-  inherited;
-end;
-
-procedure TJRiverXML.Close ;
-begin
- XMLDoc.Active := false;
   self.XMLDoc := nil;
   inherited;
 end;
 
 end.
+

@@ -1,0 +1,47 @@
+
+
+.Get('Lock External Tag Editor', true);
+.Get('Date Imported', true)));
+.Get('Filename', true);
+
+FCurrentMovie.Set_('original title', '');
+      FCurrentMovie.Set_('Date', '');
+      FCurrentMovie.Set_('Actors', '');
+      FCurrentMovie.Set_('Character', '');
+      FCurrentMovie.Set_('ActorAsCharacter', '');
+      FCurrentMovie.Set_('Genre', '');
+      FCurrentMovie.Set_('Production Company', '');
+      FCurrentMovie.Set_('Keywords', '');
+      FCurrentMovie.Set_('IMDb ID', '');
+      FCurrentMovie.Set_('TheTVDB Series ID', '');
+      FCurrentMovie.Set_('Series', '');
+      FCurrentMovie.Set_('Season', '');
+      FCurrentMovie.Set_('Episode', '');
+      FCurrentMovie.Set_('Description', '');
+      FCurrentMovie.Set_('Lock External Tag Editor', 'NO');
+      FCurrentMovie.Set_('Director', '');
+      FCurrentMovie.Set_('Executive Producer', '');
+      FCurrentMovie.Set_('Screenwriter', '');
+      FCurrentMovie.Set_('Casting', '');
+      FCurrentMovie.Set_('Cinematographer', '');
+      FCurrentMovie.Set_('Music by', '');
+      FCurrentMovie.Set_('Novel', '');
+      FCurrentMovie.Set_('Production Design', '');
+      FCurrentMovie.Set_('Critic Rating', '');
+
+
+
+[0] := 0; // hide this Columns
+[1] := 20; // Thumbnail
+[2] := 0; // Serie title
+[3] := 0; // Season
+[4] := 0; // Ep
+[5] := 240; // Nom
+[6] := 0; // Date Format Excel
+[7] :=0; // YES/NO
+[8] := 30; // Lock
+[9] := 120; // Import Date
+[10] := 70; // IMDb ID  OR tvdb
+[11] := 250; // Description
+[12] := 1000; // FileName
+

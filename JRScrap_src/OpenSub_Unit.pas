@@ -3,11 +3,13 @@ unit OpenSub_Unit;
 interface
 
 uses
-   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, IdHTTP, Vcl.StdCtrls, ComObj, MSXML,
-  Vcl.Grids, AbBase, AbBrowse, AbZBrows, AbUnzper, Vcl.OleServer,Registry, ShellAPI,
-  MediaCenter_TLB, Vcl.Menus , TranslateJRStyle_Unit ;
+  Vcl.Grids, AbBase, AbBrowse, AbZBrows, AbUnzper, Vcl.OleServer, Registry,
+  ShellAPI,  String_Unit,
+  MediaCenter_TLB, Vcl.Menus, TranslateJRStyle_Unit;
+
 type
   TOpenSub_Form = class(TForm)
     StringGrid1: TStringGrid;
@@ -19,7 +21,6 @@ type
     procedure DownloadClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
-
   private
     { Private declarations }
   public
@@ -30,18 +31,17 @@ var
   OpenSub_Form1: TOpenSub_Form;
 
 
-// NOTE :
-// The functions  LogIn, LogOut, SearchSubtitles come from
-// http://www.yanniel.info/2012/01/open-subtitles-api-in-delphi.html
-// Thanks to him for sharing !!
-
+  // NOTE :
+  // The functions  LogIn, LogOut, SearchSubtitles come from
+  // http://www.yanniel.info/2012/01/open-subtitles-api-in-delphi.html
+  // Thanks to him for sharing !!
 
 function LogIn(aUsername, aPassword, aLanguage, aUserAgent: string): string;
 function LogOut(aToken: string): string;
 function SearchSubtitles(aToken, aSublanguageID, aMovieHash: string;
   aMovieByteSize: Cardinal): string; overload;
-function SearchSubtitles(aToken, aSublanguageID: string; aImdbID: Cardinal) : string; overload;
-
+function SearchSubtitles(aToken, aSublanguageID: string; aImdbID: Cardinal)
+  : string; overload;
 
 procedure DownloadFile(fileaddr, filename: string);
 
@@ -50,18 +50,15 @@ implementation
 {$R *.dfm}
 
 uses
- Themoviedb_Frm ;
+  JRScrap_Unit;
 
 var
 
-
-
   Token: string;
-
-
-  FCurrentMovieIMDBID,FCurrentMovieFolder: string;
+  imdb : integer ;
+  FCurrentMovieIMDBID, FCurrentMovieFolder: string;
   FNombresdeFilms: Integer;
-  Flangshort  : string ;
+  Flangshort: string;
 
 procedure DownloadFile(fileaddr, filename: string);
 var
@@ -174,101 +171,105 @@ begin
     aImdbID]));
 end;
 
-
 procedure TOpenSub_Form.Search_imdbID_Proc;
 var
-  id,i, j, k ,imdb : Integer;
-  str, currentmoviedata, currentmoviefield,lang,s: string;
-    success : boolean ;
-    FXMLReader: IXMLDOMDocument;
-    root, node, membernode, datanode, movienode: IXMLDOMNode;
+  id, i, j, k : Integer;
+  str, currentmoviedata, currentmoviefield, lang, s: string;
+  success: boolean;
+  FXMLReader: IXMLDOMDocument;
+  root, node, membernode, datanode, movienode: IXMLDOMNode;
 begin
-try
+  try
 
- FXMLReader := CoDOMDocument.Create;
-  success := false ;
-self.StringGrid1.RowCount := 1;
+    FXMLReader := CoDOMDocument.Create;
+    success := false;
+    self.StringGrid1.RowCount := 1;
 
-  imdb := strtoint(StringReplace( Themoviedb.API_id_Ed.Text , 'tt','',[rfReplaceAll, rfIgnoreCase] )) ;
-  s := SearchSubtitles(Token,  Flangshort ,  imdb) ;
-  FXMLReader.loadXML(s)  ;
+    s := SearchSubtitles(Token, Flangshort, imdb);
+    FXMLReader.loadXML(s);
 
-  root := FXMLReader.DocumentElement;
-  if root.childNodes[0].nodeName = 'params' then
-  begin
-    node := root.childNodes[i];
-    if node.childNodes[0].nodeName = 'param' then
+    root := FXMLReader.DocumentElement;
+    if root.childNodes[0].nodeName = 'params' then
     begin
-      node := node.childNodes[0];
-      if node.childNodes[0].nodeName = 'value' then
+      node := root.childNodes[i];
+      if node.childNodes[0].nodeName = 'param' then
       begin
         node := node.childNodes[0];
-        if node.childNodes[0].nodeName = 'struct' then
+        if node.childNodes[0].nodeName = 'value' then
         begin
           node := node.childNodes[0];
-
-          for j := 0 to node.childNodes.length - 1 do
+          if node.childNodes[0].nodeName = 'struct' then
           begin
-            membernode := node.childNodes[j];
-            str := membernode.nodeName;
-            if (membernode.childNodes[0].text = 'data') then
+            node := node.childNodes[0];
+
+            for j := 0 to node.childNodes.length - 1 do
             begin
-              if membernode.childNodes[1].childNodes[0].childNodes[0].nodeName = 'data'
-              then
-                datanode := membernode.childNodes[1].childNodes[0]
-                  .childNodes[0];
-
-
-
-              if  datanode.childNodes.length >= 1 then
-              self.StringGrid1.RowCount := datanode.childNodes.length
-              else
-              self.StringGrid1.RowCount := 2;
-
-
-              for i := 0 to datanode.childNodes.length - 1 do
+              membernode := node.childNodes[j];
+              str := membernode.nodeName;
+              if (membernode.childNodes[0].Text = 'data') then
               begin
-                movienode := datanode.childNodes[i].childNodes[0];
+                if membernode.childNodes[1].childNodes[0].childNodes[0]
+                  .nodeName = 'data' then
+                  datanode := membernode.childNodes[1].childNodes[0]
+                    .childNodes[0];
 
-                if movienode.nodeName = 'struct' then
+                if datanode.childNodes.length >= 1 then
+                  self.StringGrid1.RowCount := datanode.childNodes.length
+                else
+                  self.StringGrid1.RowCount := 2;
+
+                for i := 0 to datanode.childNodes.length - 1 do
                 begin
-                  for k := 0 to movienode.childNodes.length - 1 do
+                  movienode := datanode.childNodes[i].childNodes[0];
+
+                  if movienode.nodeName = 'struct' then
                   begin
-                    if movienode.childNodes[k].nodeName = 'member' then
+                    for k := 0 to movienode.childNodes.length - 1 do
                     begin
-                      if movienode.childNodes[k].childNodes[0].nodeName = 'name'
-                      then
+                      if movienode.childNodes[k].nodeName = 'member' then
                       begin
-                        success := true ;
-                        currentmoviefield := movienode.childNodes[k]
-                          .childNodes[0].text;
-                        if currentmoviefield = 'SubFileName' then
-                          self.StringGrid1.Cells[0, i+1] := movienode.childNodes
-                            [k].childNodes[1].childNodes[0].text;
+                        if movienode.childNodes[k].childNodes[0].nodeName = 'name'
+                        then
+                        begin
+                          success := true;
+                          currentmoviefield := movienode.childNodes[k]
+                            .childNodes[0].Text;
+                          if currentmoviefield = 'SubFileName' then
+                            self.StringGrid1.Cells[0, i + 1] :=
+                              movienode.childNodes[k].childNodes[1]
+                              .childNodes[0].Text;
 
-                        if currentmoviefield = 'SubActualCD' then
-                          self.StringGrid1.Cells[1, i+1] := movienode.childNodes
-                            [k].childNodes[1].childNodes[0].text;
+                          if currentmoviefield = 'SubActualCD' then
+                            self.StringGrid1.Cells[1, i + 1] :=
+                              movienode.childNodes[k].childNodes[1]
+                              .childNodes[0].Text;
 
-                        if currentmoviefield = 'SubAddDate' then
-                          self.StringGrid1.Cells[2, i+1] := movienode.childNodes
-                            [k].childNodes[1].childNodes[0].text;
+                          if currentmoviefield = 'SubAddDate' then
+                            self.StringGrid1.Cells[2, i + 1] :=
+                              movienode.childNodes[k].childNodes[1]
+                              .childNodes[0].Text;
 
-                        if currentmoviefield = 'SubDownloadsCnt' then
-                          self.StringGrid1.Cells[3, i+1] := movienode.childNodes
-                            [k].childNodes[1].childNodes[0].text;
+                          if currentmoviefield = 'SubDownloadsCnt' then
+                            self.StringGrid1.Cells[3, i + 1] :=
+                              movienode.childNodes[k].childNodes[1]
+                              .childNodes[0].Text;
 
-                        if currentmoviefield = 'UserNickName' then
-                          self.StringGrid1.Cells[4, i+1] := movienode.childNodes
-                            [k].childNodes[1].childNodes[0].text;
+                          if currentmoviefield = 'UserNickName' then
+                            self.StringGrid1.Cells[4, i + 1] :=
+                              movienode.childNodes[k].childNodes[1]
+                              .childNodes[0].Text;
 
-                        if currentmoviefield = 'ZipDownloadLink' then
-                          self.StringGrid1.Cells[5, i+1] := movienode.childNodes
-                            [k].childNodes[1].childNodes[0].text;
+                          if currentmoviefield = 'ZipDownloadLink' then
+                            self.StringGrid1.Cells[5, i + 1] :=
+                              movienode.childNodes[k].childNodes[1]
+                              .childNodes[0].Text;
 
-                        if currentmoviefield = 'SubFormat' then
-                          self.StringGrid1.Cells[6, i+1] := movienode.childNodes
-                            [k].childNodes[1].childNodes[0].text;
+                          if currentmoviefield = 'SubFormat' then
+                            self.StringGrid1.Cells[6, i + 1] :=
+                              movienode.childNodes[k].childNodes[1]
+                              .childNodes[0].Text;
+
+                        end;
 
                       end;
 
@@ -279,50 +280,45 @@ self.StringGrid1.RowCount := 1;
                 end;
 
               end;
-
             end;
           end;
         end;
       end;
     end;
+
+    self.StringGrid1.FixedRows := 1;
+    if success = false then
+    begin
+      self.StringGrid1.RowCount := 1;
+    end;
+  except
+
+    showmessage(Translate_String_JRStyle('No results for this search !',
+      JRScrap_Frm.FCurrentLang));
+    PostMessage(self.Handle, wm_close, 0, 0);
+
   end;
-
-
-
-  self.StringGrid1.FixedRows := 1;
-  if  success = false  then
-  begin
-  self.StringGrid1.RowCount := 1;
-  end;
-except
-
-  showmessage(FTranslateList[10]);
-  PostMessage(Self.Handle,wm_close,0,0);
-
-
 end;
- end;
-
-
 
 procedure TOpenSub_Form.DownloadClick(Sender: TObject);
 var
   AbUnZipper1: TAbUnZipper;
-  zipfile : string ;
+  zipfile: string;
 begin
-if
-self.StringGrid1.RowCount <> 1 then
-begin
-  zipfile := ExtractFilePath  (Themoviedb.FCurrentMovieFilename )+'\file.zip' ;
-  DownloadFile(self.StringGrid1.Cells[5, self.StringGrid1.Row], zipfile);
-  AbUnZipper1 := TAbUnZipper.Create(nil);
-  AbUnZipper1.filename :=zipfile;
-  AbUnZipper1.BaseDirectory := ExtractFilePath(AbUnZipper1.filename);
-  AbUnZipper1.ExtractFiles(self.StringGrid1.Cells[0, self.StringGrid1.Row]);
-  AbUnZipper1.Free;
-  deletefile(zipfile);
-  ShowMessage(FTranslateList[40]);
-end;
+  if self.StringGrid1.RowCount <> 1 then
+  begin
+    zipfile := ExtractFilePath(FCurrentMovie.filename) +
+      '\file.zip';
+    DownloadFile(self.StringGrid1.Cells[5, self.StringGrid1.Row], zipfile);
+    AbUnZipper1 := TAbUnZipper.Create(nil);
+    AbUnZipper1.filename := zipfile;
+    AbUnZipper1.BaseDirectory := ExtractFilePath(AbUnZipper1.filename);
+    AbUnZipper1.ExtractFiles(self.StringGrid1.Cells[0, self.StringGrid1.Row]);
+    AbUnZipper1.Free;
+    deletefile(zipfile);
+    showmessage(Translate_String_JRStyle('File Downloaded !',
+      JRScrap_Frm.FCurrentLang));
+  end;
 end;
 
 procedure TOpenSub_Form.FormActivate(Sender: TObject);
@@ -330,51 +326,63 @@ var
   i, j, k: Integer;
   str, currentmoviedata, currentmoviefield: string;
 
-
-
 begin
 
-    Flangshort := Themoviedb.FCurrentLangShort ;
 
-    if Flangshort = 'fr' then Flangshort := 'fre' ;
-    if Flangshort = 'de' then Flangshort := 'ger' ;
-    if Flangshort = 'it' then Flangshort := 'ita' ;
-    if Flangshort = 'eng' then Flangshort := 'eng';
+   imdb := strtoint( replacestr(FCurrentMovie.Get('IMDb ID' ,true),'tt','') );
 
-    self.StringGrid1.Cells[0,0] := 'FileName' ;
-    self.StringGrid1.Cells[1,0] := 'CD' ;
-    self.StringGrid1.Cells[2,0] := 'Add Date' ;
-    self.StringGrid1.Cells[3,0] := 'Downld. Count' ;
-    self.StringGrid1.Cells[4,0] := 'UserNickName' ;
-    self.StringGrid1.Cells[5,0] := 'ZipDownloadLink' ;
-    self.StringGrid1.Cells[6,0] := 'SubFormat' ;
+  Flangshort := JRScrap_Frm.FCurrentLangShort;
 
-    self.StringGrid1.ColWidths[0] := 400;
-    self.StringGrid1.ColWidths[1] := 50;
-    self.StringGrid1.ColWidths[2] := 120;
-    self.StringGrid1.ColWidths[3] := 100;
-    self.StringGrid1.ColWidths[4] := 100;
-    self.StringGrid1.ColWidths[5] := 0;
-    self.StringGrid1.ColWidths[6] := 70;
+  if Flangshort = 'fr' then
+    Flangshort := 'fre';
+  if Flangshort = 'de' then
+    Flangshort := 'ger';
+  if Flangshort = 'it' then
+    Flangshort := 'ita';
+  if Flangshort = 'eng' then
+    Flangshort := 'eng';
 
-   application.ProcessMessages ;
-     self.LogIn_Proc ;
+  self.StringGrid1.Cells[0, 0] := Translate_String_JRStyle('FileName',
+    JRScrap_Frm.FCurrentLang);
+  self.StringGrid1.Cells[1, 0] := Translate_String_JRStyle('CD',
+    JRScrap_Frm.FCurrentLang);
+  self.StringGrid1.Cells[2, 0] := Translate_String_JRStyle('Add Date',
+    JRScrap_Frm.FCurrentLang);
+  self.StringGrid1.Cells[3, 0] := Translate_String_JRStyle('Downld. Count',
+    JRScrap_Frm.FCurrentLang);
+  self.StringGrid1.Cells[4, 0] := Translate_String_JRStyle('UserNickName',
+    JRScrap_Frm.FCurrentLang);
+  self.StringGrid1.Cells[5, 0] := Translate_String_JRStyle('ZipDownloadLink',
+    JRScrap_Frm.FCurrentLang);
+  self.StringGrid1.Cells[6, 0] := Translate_String_JRStyle('SubFormat',
+    JRScrap_Frm.FCurrentLang);
+  self.Download.Caption := Translate_String_JRStyle('Download',
+    JRScrap_Frm.FCurrentLang);
+  self.StringGrid1.ColWidths[0] := 420;
+  self.StringGrid1.ColWidths[1] := 70;
+  self.StringGrid1.ColWidths[2] := 140;
+  self.StringGrid1.ColWidths[3] := 140;
+  self.StringGrid1.ColWidths[4] := 140;
+  self.StringGrid1.ColWidths[5] := 0;
+  self.StringGrid1.ColWidths[6] := 140;
+
+  application.ProcessMessages;
+  self.LogIn_Proc;
 
   Search_imdbID_Proc;
 end;
 
 procedure TOpenSub_Form.FormClose(Sender: TObject; var Action: TCloseAction);
 var
-i : integer ;
+  i: Integer;
 begin
 
-try
-for i := 0 to stringgrid1.rowcount-1 do
-  stringgrid1.rows[i].clear;
+  try
+    for i := 0 to StringGrid1.RowCount - 1 do
+      StringGrid1.rows[i].clear;
 
-
-except
-end;
+  except
+  end;
 end;
 
 procedure TOpenSub_Form.LogIn_Proc;
@@ -384,46 +392,46 @@ var
   root, node, membernode, datanode, movienode: IXMLDOMNode;
 begin
   try
-  FXMLReader := CoDOMDocument.Create;
+    FXMLReader := CoDOMDocument.Create;
 
-  //Login for test purposes :    LogIn('', '', 'en', 'OS Test User Agent')   //
-  FXMLReader.loadXML(LogIn('fredele', '', 'en', 'JROpenSub'));
-  root := FXMLReader.DocumentElement;
+    // Login for test purposes :    LogIn('', '', 'en', 'OS Test User Agent')   //
+    FXMLReader.loadXML(LogIn('fredele', '', 'en', 'JROpenSub'));
+    root := FXMLReader.DocumentElement;
 
-  if root.childNodes[0].nodeName = 'params' then
-  begin
-    node := root.childNodes[i];
-    if node.childNodes[0].nodeName = 'param' then
+    if root.childNodes[0].nodeName = 'params' then
     begin
-      node := node.childNodes[0];
-      if node.childNodes[0].nodeName = 'value' then
+      node := root.childNodes[i];
+      if node.childNodes[0].nodeName = 'param' then
       begin
         node := node.childNodes[0];
-        if node.childNodes[0].nodeName = 'struct' then
+        if node.childNodes[0].nodeName = 'value' then
         begin
           node := node.childNodes[0];
-
-          for j := 0 to node.childNodes.length - 1 do
+          if node.childNodes[0].nodeName = 'struct' then
           begin
-            if node.childNodes[j].nodeName = 'member' then
+            node := node.childNodes[0];
+
+            for j := 0 to node.childNodes.length - 1 do
             begin
-              membernode := node.childNodes[j];
+              if node.childNodes[j].nodeName = 'member' then
+              begin
+                membernode := node.childNodes[j];
 
-              if ((membernode.childNodes[0].text = 'token') and
-                (membernode.childNodes[0].nodeName = 'name')) then
-                if (membernode.childNodes[1].nodeName = 'value') then
-                begin
-                  Token := membernode.childNodes[1].text;
+                if ((membernode.childNodes[0].Text = 'token') and
+                  (membernode.childNodes[0].nodeName = 'name')) then
+                  if (membernode.childNodes[1].nodeName = 'value') then
+                  begin
+                    Token := membernode.childNodes[1].Text;
 
-                end;
+                  end;
+              end;
             end;
+
           end;
 
         end;
-
       end;
     end;
-  end;
   except
 
   end;

@@ -1,5 +1,5 @@
 unit mnEdit;
-
+
 interface
 
 uses
@@ -20,13 +20,11 @@ procedure Register;
 
 implementation
 
-
-
 { TmnEdit }
 
 procedure TmnEdit.CreateParams(var Params: TCreateParams);
 const
-  Alignments : array[TAlignment] of LongWord= (ES_Left,ES_Right, ES_Center);
+  Alignments: array [TAlignment] of LongWord = (ES_Left, ES_Right, ES_Center);
 begin
   inherited CreateParams(Params);
   Params.Style := Params.Style or Alignments[FAlignment];
@@ -47,3 +45,4 @@ begin
 end;
 
 end.
+

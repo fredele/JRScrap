@@ -82,9 +82,9 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_MajorVer>0</VerInfo_MajorVer>
-        <DCC_ExeOutput>..\..\JRScrap_exe\bin</DCC_ExeOutput>
+        <DCC_ExeOutput>..\JRScrap_exe\bin</DCC_ExeOutput>
         <VerInfo_MinorVer>0</VerInfo_MinorVer>
-        <DCC_DcuOutput>..\..\JRScrap_exe\dcu</DCC_DcuOutput>
+        <DCC_DcuOutput>..\JRScrap_exe\dcu</DCC_DcuOutput>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=0.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <DCC_MapFile>3</DCC_MapFile>
@@ -98,38 +98,60 @@
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Keys>CompanyName=Fredele;FileDescription=JRiver Media Center add-on, connects to ThemoviedB.org;FileVersion=1.0.0.0;InternalName=JRMoviedB;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=JRMoviedB;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DCC_ExeOutput>..\JRScrap_exe\bin</DCC_ExeOutput>
+        <VerInfo_MajorVer>0</VerInfo_MajorVer>
+        <VerInfo_MinorVer>0</VerInfo_MinorVer>
+        <VerInfo_Release>2</VerInfo_Release>
+        <DCC_DcuOutput>..\JRScrap_exe\dcu</DCC_DcuOutput>
+        <VerInfo_Keys>CompanyName=Fredele;FileDescription=JRiver Media Center add-on, connects to ThemoviedB.org;FileVersion=0.0.2.0;InternalName=JRMoviedB;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=JRMoviedB;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="MassScrap_Frm.pas">
-            <Form>Form3</Form>
+        <DCCReference Include="MassScrap_Unit.pas">
+            <Form>MassScrap_Frm</Form>
         </DCCReference>
         <DCCReference Include="OpenSub_Unit.pas">
             <Form>OpenSub_Form</Form>
         </DCCReference>
-        <DCCReference Include="Themoviedb_Frm.pas">
-            <Form>Themoviedb</Form>
+        <DCCReference Include="JRScrap_Unit.pas">
+            <Form>JRScrap_Frm</Form>
         </DCCReference>
         <DCCReference Include="CheckPrevious.pas"/>
         <DCCReference Include="ImageDropDown.pas"/>
-        <DCCReference Include="JRiverXML_Unit.pas"/>
         <DCCReference Include="MC_Commands_Unit.pas"/>
         <DCCReference Include="mnEdit.pas"/>
         <DCCReference Include="Types_Unit.pas"/>
         <DCCReference Include="uLkJSON.pas"/>
-        <DCCReference Include="Utils_Unit.pas"/>
         <DCCReference Include="About_Frm.pas">
             <Form>Form2</Form>
         </DCCReference>
-        <DCCReference Include="Threadsearch.pas"/>
-        <DCCReference Include="Functions_Unit.pas"/>
         <DCCReference Include="TranslateJRStyle_Unit.pas"/>
-        <DCCReference Include="Threadsearch_Image.pas"/>
+        <DCCReference Include="Threadsearch_Unit.pas"/>
+        <DCCReference Include="TheMoviedB_Unit.pas"/>
+        <DCCReference Include="TVdB_Unit.pas"/>
+        <DCCReference Include="File_Unit.pas"/>
+        <DCCReference Include="debug_Unit.pas"/>
+        <DCCReference Include="Utils_Unit.pas"/>
+        <DCCReference Include="String_Unit.pas"/>
+        <DCCReference Include="JRiverXML_Unit.pas"/>
+        <DCCReference Include="ThreadManager_Unit.pas"/>
+        <DCCReference Include="Search_Unit.pas">
+            <Form>Search_Frm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Generic_Search_Unit.pas"/>
+        <DCCReference Include="Image_Form_Unit.pas">
+            <Form>Image_Form</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="XML_Export_Unit.pas">
+            <Form>XML_Export_Frm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <None Include="Reminder Notes.txt"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -201,10 +223,14 @@
                     <Source Name="MainSource">JRScrap.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\9.0\Bpl\DAV_VSTPlugin_D16.bpl">ASIO &amp; VST Project - VST Plugin Project Wizard (design-time)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\bin\designide160.bpl">File C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\bin\designide160.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclbcbsmp190.bpl">File c:\program files (x86)\embarcadero\rad studio\12.0\bin\dclbcbsmp190.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbie190.bpl">File c:\program files (x86)\embarcadero\rad studio\12.0\bin\bcbie190.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k190.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp190.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k190.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp190.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k190.bpl">File c:\program files (x86)\embarcadero\rad studio\12.0\bin\bcboffice2k190.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp190.bpl">File c:\program files (x86)\embarcadero\rad studio\12.0\bin\bcbofficexp190.bpl not found</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment>

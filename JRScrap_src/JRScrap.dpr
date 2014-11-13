@@ -1,14 +1,12 @@
 program JRScrap;
-
-
-
+
 uses
   TConfiguratorUnit,
-  MassScrap_Frm in 'MassScrap_Frm.pas' {Form3},
+  MassScrap_Unit in 'MassScrap_Unit.pas' {MassScrap_Frm},
   OpenSub_Unit in 'OpenSub_Unit.pas' {OpenSub_Form},
   Dialogs,
   Vcl.Forms,
-  Themoviedb_Frm in 'Themoviedb_Frm.pas' {Themoviedb},
+  JRScrap_Unit in 'JRScrap_Unit.pas' {JRScrap_Frm},
   Vcl.Themes,
   Vcl.Styles,
   Winapi.Windows,
@@ -17,31 +15,42 @@ uses
   Strutils,
   CheckPrevious in 'CheckPrevious.pas',
   ImageDropDown in 'ImageDropDown.pas',
-  JRiverXML_Unit in 'JRiverXML_Unit.pas',
   MC_Commands_Unit in 'MC_Commands_Unit.pas',
   mnEdit in 'mnEdit.pas',
   Types_Unit in 'Types_Unit.pas',
   uLkJSON in 'uLkJSON.pas',
-  Utils_Unit in 'Utils_Unit.pas',
   About_Frm in 'About_Frm.pas' {Form2},
-  Threadsearch in 'Threadsearch.pas',
-  Functions_Unit in 'Functions_Unit.pas',
   TranslateJRStyle_Unit in 'TranslateJRStyle_Unit.pas',
-  Threadsearch_Image in 'Threadsearch_Image.pas';
+  Threadsearch_Unit in 'Threadsearch_Unit.pas',
+  TheMoviedB_Unit in 'TheMoviedB_Unit.pas',
+  TVdB_Unit in 'TVdB_Unit.pas',
+  File_Unit in 'File_Unit.pas',
+  debug_Unit in 'debug_Unit.pas',
+  Utils_Unit in 'Utils_Unit.pas',
+  String_Unit in 'String_Unit.pas',
+  JRiverXML_Unit in 'JRiverXML_Unit.pas',
+  ThreadManager_Unit in 'ThreadManager_Unit.pas',
+  Search_Unit in 'Search_Unit.pas' {Search_Frm},
+  Generic_Search_Unit in 'Generic_Search_Unit.pas',
+  Image_Form_Unit in 'Image_Form_Unit.pas' {Image_Form},
+  XML_Export_Unit in 'XML_Export_Unit.pas' {XML_Export_Frm};
 
 {$R *.res}
 
 var
+
   i: integer;
   PreviousHandle: THandle;
   FParameterStr: string;
   copyDataStruct: TCopyDataStruct;
+  Search_Frm: TSearch_Frm;
+  frm_openSub: TOpenSub_Form;
 
 procedure SendData(copyDataStruct: TCopyDataStruct);
 var
   receiverHandle: THandle;
 begin
-  receiverHandle := FindWindow(PChar('TThemoviedb'), nil);
+  receiverHandle := FindWindow(PChar('TJRScrap'), nil);
   if receiverHandle = 0 then
   begin
     ShowMessage('CopyData Receiver NOT found!');
@@ -62,20 +71,11 @@ begin
     TConfiguratorUnit.doPropertiesConfiguration('log4delphi.properties');
     Application.MainFormOnTaskbar := True;
 
- for i := 1 to ParamCount do
-    FParameterStr := FParameterStr + ' ' + ParamStr(i);
-  FParameterStr := trim(FParameterStr);
-
-  if ((AnsiLeftStr(FParameterStr,10)  = '-MassScrap')or((AnsiLeftStr(FParameterStr,5)  = '-hide'))) then
-begin
-Application.MainFormOnTaskbar := false;
-Application.ShowMainForm := false;
-
-end;
-
-  Application.CreateForm(TThemoviedb, Themoviedb);
-  Themoviedb.FHideForm  := False ;
-  Application.CreateForm(TForm2, Form2);
+    Application.MainFormOnTaskbar := false;
+    Application.ShowMainForm := True;
+    Application.CreateForm(TJRScrap_Frm, JRScrap_Frm);
+  Application.CreateForm(TImage_Form, Image_Form);
+  Application.CreateForm(TXML_Export_Frm, XML_Export_Frm);
   Application.Run;
 
   end
@@ -83,7 +83,7 @@ end;
 
   begin
     sleep(2000);
-    PreviousHandle := FindWindow('TThemoviedb', nil);
+    PreviousHandle := FindWindow('TJRScrap', nil);
     if PreviousHandle <> 0 then
     begin
 
@@ -101,4 +101,4 @@ end;
   end;
 
 end.
-
+

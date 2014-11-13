@@ -12,7 +12,7 @@ http://www.themoviedb.org/
 (currently Version 3)
 
 * **TheTVdB.org API**
-http:/thetvdb.com
+http://thetvdb.com
 
 * **OpenSubtitles.org API**
 http://www.opensubtitles.org
@@ -22,6 +22,13 @@ In fact, the information for know retrieved by JRiver are far from perfect, this
 As the APIs supports it, it could be used for other languages, (german and italian tested.)
 
 **JRscrap replaces the old JRMoviedB, JRTVdB and JROpenSub no longer on my github account**
+
+![Preview](https://github.com/fredele/JRMoviedB/blob/master/Screenshots/Shot_1.JPG?raw=true)
+
+**NEW! a HTML /XML /XSL export feature,with build-in print preview **
+
+![Export or Print](https://github.com/fredele/JRMoviedB/blob/master/Screenshots/Shot_2.JPG?raw=true)
+
 
 Setup
 -------------

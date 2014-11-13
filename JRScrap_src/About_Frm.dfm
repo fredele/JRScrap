@@ -3,8 +3,8 @@ object Form2: TForm2
   Top = 0
   BorderStyle = bsToolWindow
   Caption = 'About'
-  ClientHeight = 314
-  ClientWidth = 255
+  ClientHeight = 290
+  ClientWidth = 330
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,17 +16,17 @@ object Form2: TForm2
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 69
-    Top = 11
+    Left = 16
+    Top = 43
     Width = 121
     Height = 13
     Caption = 'This app. is powered by :'
   end
   object Image1: TImage
-    Left = 35
-    Top = 37
-    Width = 179
-    Height = 43
+    Left = 8
+    Top = 68
+    Width = 150
+    Height = 40
     Picture.Data = {
       0A544A504547496D61676548300000FFD8FFE000104A46494600010101006000
       600000FFE110E64578696600004D4D002A000000080004013B00020000000900
@@ -421,15 +421,15 @@ object Form2: TForm2
     OnMouseLeave = Image1MouseLeave
   end
   object Label2: TLabel
-    Left = 62
-    Top = 193
-    Width = 145
-    Height = 26
-    Caption = 'Please, consider helping them '#13#10'by providing your data'
+    Left = 25
+    Top = 170
+    Width = 254
+    Height = 13
+    Caption = 'Please, consider helping them by providing your data'
   end
   object Label4: TLabel
-    Left = 21
-    Top = 235
+    Left = 63
+    Top = 200
     Width = 203
     Height = 13
     Caption = 'Click me to see my page on Github !!'
@@ -444,8 +444,8 @@ object Form2: TForm2
     OnMouseLeave = gt
   end
   object Label_Version: TLabel
-    Left = 111
-    Top = 277
+    Left = 16
+    Top = 262
     Width = 42
     Height = 13
     Caption = 'Version :'
@@ -457,10 +457,10 @@ object Form2: TForm2
     ParentFont = False
   end
   object Image2: TImage
-    Left = 35
-    Top = 91
-    Width = 179
-    Height = 35
+    Left = 164
+    Top = 68
+    Width = 150
+    Height = 40
     Picture.Data = {
       0A544A504547496D6167657E5E0000FFD8FFE11ACF4578696600004D4D002A00
       000008000F010000030000000101D700000101000300000001004B0000010200
@@ -1225,10 +1225,10 @@ object Form2: TForm2
     OnMouseLeave = Image1MouseLeave
   end
   object Image3: TImage
-    Left = 35
-    Top = 136
-    Width = 179
-    Height = 44
+    Left = 85
+    Top = 118
+    Width = 150
+    Height = 40
     Picture.Data = {
       0954474946496D616765474946383961B4003200F70000000000FFFFFFC1DC14
       FFFEFFFDFBFFF9F8FAF6F5F7F2F1F3FAF7FFF8F7FAFAF8FFF5F2FEFAF9FDECEB
@@ -1359,5 +1359,29 @@ object Form2: TForm2
     OnClick = Image3Click
     OnMouseEnter = Image1MouseEnter
     OnMouseLeave = Image1MouseLeave
+  end
+  object JRiverVersion: TLabel
+    Left = 16
+    Top = 8
+    Width = 75
+    Height = 13
+    Caption = 'JRiver Version :'
+  end
+  object Label3: TLabel
+    Left = 74
+    Top = 232
+    Width = 170
+    Height = 13
+    Caption = 'e-mail  : frederic.klieber@gmail.com'
+    OnClick = Label3Click
+    OnMouseEnter = Image1MouseEnter
+    OnMouseLeave = Image1MouseLeave
+  end
+  object Label5: TLabel
+    Left = 291
+    Top = 272
+    Width = 31
+    Height = 13
+    Caption = '2014'
   end
 end

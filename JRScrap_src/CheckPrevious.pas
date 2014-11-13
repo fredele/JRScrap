@@ -1,5 +1,5 @@
 unit CheckPrevious;
-
+
 interface
 
 uses Windows, SysUtils;
@@ -109,3 +109,4 @@ if MappingHandle <> 0 then
   CloseHandle(MappingHandle);
 
 end.
+

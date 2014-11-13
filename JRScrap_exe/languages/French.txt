@@ -1,8 +1,8 @@
-// Translation in French
+Ôªø// Translation in French
 // For JRScrap
 
 Select here fields to save :
-SÈlectionnez ici les champs ‡ enregistrer :
+S√©lectionnez ici les champs √† enregistrer :
 
 Picture
 Image
@@ -12,30 +12,6 @@ Titre
 
 Original Title
 Titre original
-
-release date
-Date de Sortie
-
-Overview
-Synopsis
-
-Vote Average
-Vote Moyen
-
-Production Company
-Maison de Production
-
-Genres
-Genres
-
-Keywords
-Mots-ClÈs
-
-Cast
-Acteurs
-
-Crew
-Equipe de production
 
 Open Folder
 Ouvrir le Dossier
@@ -50,7 +26,7 @@ Filename
 Nom du Fichier
 
 Scrap first Movie found if IMBD ID is missing
-'Scrape' le premier Film trouvÈ en l' abscence d' IMDB ID
+'Scrape' le premier Film trouv√© en l' abscence d' IMDB ID
 
 Name
 Nom
@@ -58,17 +34,11 @@ Nom
 Lock
 Ver.
 
-Overview
-Synopsis
-
-Date Imported
-Date d' import
 
 File locked !
-Fichier vÈrouillÈ !
+Fichier v√©rouill√© !
 
-Erase all tags
-Effacer toutes les Ètiquettes
+
 
 Current File :
 Film courrant :
@@ -77,22 +47,23 @@ Progress :
 Progression :
 
 Scrap Medias from this line
-Scrapez les Medias ‡ partir d' ici
+Scrapez les Medias √† partir d' ici
 
-Type in the Movie Title and hit Search
+Type in the Media Title and hit Search
 Tapez le nom d' un Film et cliquez Rechercher
 
 Enter Key
-Entrer la ClÈ
+Entrer la Cl√©
 
 Please enter your API key
-Entrez SVP la clÈe de l' API
+Entrez SVP la cl√©e de l' API
 
 Check the Fields and hit Write
 Cochez les cases et cliquez Ecrire
 
-Select the Movie you want and hit Get and view
-SÈlectionnez le Film dÈsirÈ et cliquez Voir
+
+Select the Media you want and hit Get and view
+S√©lectionnez le Film d√©sir√© et cliquez Voir
 
 Done !
 Fait !
@@ -118,6 +89,7 @@ Corriger le titre ici
 Query language :
 Language de requete :
 
+
 Search this Media
 Rechercher ce Media
 
@@ -128,7 +100,7 @@ Date
 Date
 
 Select here the row  of the Movie to get tags from
-Selectionnez la colonne du Film dÈsirÈ
+Selectionnez la colonne du Film d√©sir√©
 
 Retrieve this Media
 Voir ce Media
@@ -141,6 +113,7 @@ Info +
 
 Picture :
 Image :
+
 
 Title :
 Titre :
@@ -158,7 +131,7 @@ Overview :
 Synopsis :
 
 Duration :
-DurÈe :
+Dur√©e :
 
 Vote Average :
 Vote moyen :
@@ -166,11 +139,12 @@ Vote moyen :
 Genres :
 Genres :
 
+
 Production company :
 Maison de Production :
 
 Keywords :
-Mots ClÈs :
+Mots Cl√©s :
 
 Movie Count :
 Nbr de Film :
@@ -179,7 +153,7 @@ Name
 Nom
 
 Recent
-RÈcent
+R√©cent
 
 Menu
 Menu
@@ -230,13 +204,13 @@ Quit
 Quitter
 
 Enter a key
-Entrer une clÈ
+Entrer une cl√©
 
 Write XML side Car
 Ecrire XML side Car
 
 Create the new fields
-CrÈer les nouveaux Champs
+Cr√©er les nouveaux Champs
 
 None
 Rien
@@ -254,48 +228,155 @@ Enter a value
 Entrer une valeur
 
 Request in :
-RequÍte en :
+Requ√™te en :
 
-Enter a Movie Name !
-Entrez le nom d' un Film !
+Enter a Media Name !
+Entrez le nom d' un Media !
 
 Cannot process multiple files for now
-Ne peut pas procÈder plusieurs fichiers !
+Ne peut pas proc√©der plusieurs fichiers !
 
 No results for this search !
-Pas de rÈsultats pour cette recherche !
-
-
-This is not a Movie !
-Ceci n' est pas un Film !
-
+Pas de r√©sultats pour cette recherche !
 
 IMDB Id does not begin with tt !
 L' IMDB Id ne commence pas avec tt !
 
 New Fields created !
-Nouveaux champ crÈes !
+Nouveaux champ cr√©es !
 
 Please enter your API key :
 Veuillez entrez votre Clef d' API :
 
 File Downloaded !
-Fichier tÈlÈchargÈ !
+Fichier t√©l√©charg√© !
 
 Subtitle
 Sous-titre
 
 Serie Title :
-Titre de la SÈrie :
+Titre de la S√©rie :
 
 Season :
 Saison :
 
 Select service here
-SÈlectionner le service
+S√©lectionner le service
 
 Scrap first Media found if API ID is missing
 Scrap le premier Media en l' abscence d' API ID
 
 No API ID provided
 Pas d' ID fournit
+
+
+FileName
+Nom de Fichier
+
+Add Date
+Date d' ajout
+
+Downld. Count
+Nbr. de Telechargement
+
+UserNickName
+Pseudo Utilisateur
+
+ZipDownloadLink
+ZipDownloadLink
+
+SubFormat
+Format du sous-titre
+
+Director :
+R√©alisateur :
+
+Executive Producer :
+Producteur ex√©cutif :
+
+Cinematographer :
+Photos :
+
+Casting :
+Casting :
+
+Screenwriter :
+Sc√©nario :
+
+Music by :
+Musique de :
+
+Novel :
+Roman :
+
+Production design :
+Design de Prod. :
+
+Critic Rating :
+Vote des critiques :
+
+contains : 
+contient :
+
+Search
+Rechercher
+
+Save
+Enregister
+
+Select XSL rendering file :
+S√©lectionnez le fichier de rendu XSL
+
+Create
+Enregister
+
+Processing :
+Traitement :
+
+No XSL selected !
+Pas de XSL s√©lectionn√© !
+
+This app. is powered by :
+Cette apllication foncionne gr√¢ce √† :
+
+
+Please, consider helping them by providing your data
+S' il vous plait, aidez-les en leur fournissant vos donn√©es !
+
+Click me to see my page on Github !!
+Cliquez-moi pour voir ma page sur Github !!
+
+Write picture
+Ecrire l' image
+
+Print
+Imprimer
+
+Export
+Exporter
+
+Save XML/XSL
+Enregister XML/XSL
+
+Save HTML
+Enregister HTML
+
+Generate
+G√©n√©rer
+
+Overview
+Aper√ßu
+
+Searching ...
+Recherche ...
+
+Close
+Fermer
+
+Play in JRMC
+Lancer la lecture dans JRMC
+
+No Media Found !
+Pas de Media trouv√© !
+
+
