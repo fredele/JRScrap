@@ -23,11 +23,11 @@ As the APIs supports it, it could be used for other languages, (german and itali
 
 **JRscrap replaces the old JRMoviedB, JRTVdB and JROpenSub no longer on my github account**
 
-![Preview](https://github.com/fredele/JRMoviedB/blob/master/Screenshots/Shot_1.JPG?raw=true)
+![Preview](https://github.com/fredele/JRScrap/blob/master/Screenshots/Shot_1.JPG?raw=true)
 
 **NEW! a HTML /XML /XSL export feature,with build-in print preview **
 
-![Export or Print](https://github.com/fredele/JRMoviedB/blob/master/Screenshots/Shot_2.JPG?raw=true)
+![Export or Print](https://github.com/fredele/JRScrap/blob/master/Screenshots/Shot_2.JPG?raw=true)
 
 
 Setup
