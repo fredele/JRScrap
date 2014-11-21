@@ -20,20 +20,21 @@ type
     ThreadsearchArray: array of TThreadsearch;
     Threadsearch_ImageArray: array of TThreadsearch_Image;
     procedure resume;
-    procedure Addthread(coding: Tcod; query: string;
-      Proc: TProcedureStr); overload;
+
+    procedure Addthread(coding: Tcod; query: string; Proc: TProcedureStr); overload;
+    procedure Addthread(coding: Tcod; query: string; Proc: TProcedureStrobj); overload;
     procedure Addthread(query: string; ProcImg: TProcedureImg); overload;
+
     procedure IncFActualthreadCompleted;
-    constructor Create(AOwner: TGeneric_Search; Proc: TProcedure); overload;
     constructor Create(AOwner: TGeneric_Search; Proc: TProcedureobj); overload;
+    constructor Create(AOwner: TGeneric_Search; Proc: TProcedure); overload;
     property ActualthreadCompleted: integer read FActualthreadCompleted;
     property terminated: boolean read Fterminated write Fterminated;
   end;
 
 implementation
 
-procedure TThreadManager.Addthread(coding: Tcod; query: string;
-  Proc: TProcedureStr);
+procedure TThreadManager.Addthread(coding: Tcod; query: string; Proc: TProcedureStr);
 var
   th: TThreadsearch;
 begin
@@ -41,6 +42,16 @@ begin
   Setlength(ThreadsearchArray, length(ThreadsearchArray) + 1);
   ThreadsearchArray[length(ThreadsearchArray) - 1] := th;
 end;
+
+procedure TThreadManager.Addthread(coding: Tcod; query: string; Proc: TProcedureStrobj);
+var
+  th: TThreadsearch;
+begin
+  th := TThreadsearch.Create(self, coding, query, Proc);
+  Setlength(ThreadsearchArray, length(ThreadsearchArray) + 1);
+  ThreadsearchArray[length(ThreadsearchArray) - 1] := th;
+end;
+
 
 procedure TThreadManager.Addthread(query: string; ProcImg: TProcedureImg);
 
@@ -52,16 +63,16 @@ begin
   Threadsearch_ImageArray[length(Threadsearch_ImageArray) - 1] := th;
 end;
 
-constructor TThreadManager.Create(AOwner: TGeneric_Search; Proc: TProcedure);
+constructor TThreadManager.Create(AOwner: TGeneric_Search; Proc: TProcedureobj);
 begin
-  FProcedure := Proc;
+  FProcedureobj := Proc;
   FActualthreadCompleted := 0;
   Fterminated := False;
 end;
 
-constructor TThreadManager.Create(AOwner: TGeneric_Search; Proc: TProcedureobj);
+constructor TThreadManager.Create(AOwner: TGeneric_Search; Proc: TProcedure);
 begin
-  FProcedureobj := Proc;
+  FProcedure := Proc;
   FActualthreadCompleted := 0;
   Fterminated := False;
 end;
@@ -90,7 +101,7 @@ begin
       end;
 
     }
-
+    debug('fait !') ;
     if assigned(FProcedure) then
     begin
       FProcedure;

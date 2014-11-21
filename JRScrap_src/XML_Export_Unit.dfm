@@ -3,7 +3,7 @@ object XML_Export_Frm: TXML_Export_Frm
   Top = 0
   BorderStyle = bsSingle
   Caption = 'Export'
-  ClientHeight = 580
+  ClientHeight = 235
   ClientWidth = 568
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -38,17 +38,17 @@ object XML_Export_Frm: TXML_Export_Frm
     Caption = '0 / 0'
   end
   object Overview_Lbl: TLabel
-    Left = 37
-    Top = 190
+    Left = 65
+    Top = 109
     Width = 46
     Height = 13
     Caption = 'Overview'
   end
   object cyWebBrowser1: TcyWebBrowser
-    Left = 37
-    Top = 209
-    Width = 502
-    Height = 315
+    Left = 51
+    Top = 81
+    Width = 113
+    Height = 29
     ParentCustomHint = False
     TabStop = False
     ParentShowHint = False
@@ -56,11 +56,50 @@ object XML_Export_Frm: TXML_Export_Frm
     TabOrder = 1
     OnDocumentComplete = cyWebBrowser1DocumentComplete
     ControlData = {
-      4C000000E23300008E2000000000000000000000000000000000000000000000
+      4C000000AE0B0000FF0200000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
       2B2E126201000000000000004C0000000114020000000000C000000000000046
       8000000000000000000000000000000000000000000000000000000000000000
       00000000000000000100000000000000000000000000000000000000}
+  end
+  object Generate_Btn: TButton
+    Left = 448
+    Top = 159
+    Width = 91
+    Height = 25
+    Caption = 'Generate'
+    TabOrder = 2
+    OnClick = Generate_BtnClick
+  end
+  object Save_XML_Btn: TButton
+    Left = 199
+    Top = 195
+    Width = 107
+    Height = 25
+    Caption = 'Save XML/XSL'
+    Enabled = False
+    TabOrder = 3
+    OnClick = Save_XML_BtnClick
+  end
+  object Print_Btn: TButton
+    Left = 448
+    Top = 195
+    Width = 92
+    Height = 25
+    Caption = 'Print'
+    Enabled = False
+    TabOrder = 4
+    OnClick = Print_BtnClick
+  end
+  object Save_HTML: TButton
+    Left = 331
+    Top = 195
+    Width = 101
+    Height = 25
+    Caption = 'Save HTML'
+    Enabled = False
+    TabOrder = 5
+    OnClick = Save_HTMLClick
   end
   object XSL_File_List: TListBox
     Left = 37
@@ -70,47 +109,8 @@ object XML_Export_Frm: TXML_Export_Frm
     ItemHeight = 13
     TabOrder = 0
   end
-  object Generate_Btn: TButton
-    Left = 432
-    Top = 159
-    Width = 107
-    Height = 25
-    Caption = 'Generate'
-    TabOrder = 2
-    OnClick = Generate_BtnClick
-  end
-  object Save_XML_Btn: TButton
-    Left = 198
-    Top = 540
-    Width = 107
-    Height = 25
-    Caption = 'Save XML/XSL'
-    Enabled = False
-    TabOrder = 3
-    OnClick = Save_XML_BtnClick
-  end
-  object Print_Btn: TButton
-    Left = 447
-    Top = 540
-    Width = 92
-    Height = 25
-    Caption = 'Print'
-    Enabled = False
-    TabOrder = 4
-    OnClick = Print_BtnClick
-  end
-  object Save_HTML: TButton
-    Left = 330
-    Top = 540
-    Width = 101
-    Height = 25
-    Caption = 'Save HTML'
-    Enabled = False
-    TabOrder = 5
-    OnClick = Save_HTMLClick
-  end
   object SaveDialog1: TSaveDialog
-    Left = 132
-    Top = 533
+    Left = 133
+    Top = 188
   end
 end

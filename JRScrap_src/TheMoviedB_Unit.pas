@@ -35,6 +35,7 @@ type
     procedure After_Thread_Search_Basic_Info(str: string);
     procedure After_Thread_Search_Credits(str: string);
     procedure After_Thread_Search_Keywords(str: string);
+    procedure After_Thread_Search_Videos(str: string);
     procedure After_Thread_Image(img: TJPEGImage);
     Procedure After_Manager;
     procedure Auto_search ;   override;
@@ -49,6 +50,8 @@ uses
   MassScrap_Unit,
   JRScrap_Unit,
   Search_Unit,
+  Freebase_Unit,
+  Traileraddict_Unit,
   JRiverXML_Unit ;
 var
   md: TMedia;
@@ -178,9 +181,17 @@ JRScrap_Frm.Movie_Browser.cells[5, JRScrap_Frm.Movie_Browser.row] := name;
       FCurrentMovie.Set_('TMDB ID', Tmdb_id);
       FJRiverXml.SetField('TMDB ID', Tmdb_id);
 
+      FCurrentMovie.Set_('Budget', budget);
+      FJRiverXml.SetField('Budget', budget);
+
+      FCurrentMovie.Set_('Revenue', revenue);
+      FJRiverXml.SetField('Revenue', revenue);
 
       FCurrentMovie.Set_('Critic Rating', Vote_Average);
       FJRiverXml.SetField('Critic Rating', Vote_Average);
+
+      FCurrentMovie.Set_('Trailer', trailer);
+      FJRiverXml.SetField('Trailer',trailer);
 
       FCurrentMovie.Set_('Description', Overview);
       FJRiverXml.SetField('Description',  Overview);
@@ -267,6 +278,7 @@ begin
          end
          else
          begin
+          if  JRScrap_Frm.FMassScrap = true then
           MassScrap_Frm.masstag ;
          end;
       end;
@@ -349,18 +361,40 @@ end;
 
 Procedure TTheMoviedB_Cl.After_Manager;
 begin
+
   self.Display_Search;
- // showmessage('fait');
   debug('After Manager');
   screen.cursor := crdefault;
   JRScrap_Frm.FSearching := false;
   application.processmessages ;
 
+
+
+   //  Launche after TheMoviedB if selected ...
+
+   // Freebase
+
+    if  JRScrap_frm.freebase_Btn.down = true then
+    begin
+    TFreebase_Ins :=   TFreebase_Cl.Create   ;
+    TFreebase_Ins.Freebase_getID() ;
+    end;
+
+    // Traileraddict
+
+    if  JRScrap_frm.Traileraddict_Search_Btn.Down = true then
+    begin
+    TTrailerAddict_Ins:= TTrailerAddict_Cl.Create   ;
+    TTrailerAddict_Ins.Search_Name;
+
+    end;
+
+
   if  JRScrap_Frm.FMassScrap = true then
   begin
-   saveTags;
-    MassScrap_Frm.masstag ;
+    self.saveTags;
   end;
+  JRScrap_frm.WaitAllServices ;
 
 end;
 
@@ -439,6 +473,16 @@ begin
 
   end;
 
+  try
+  if FJSonReader.getint('budget') <> 0 then
+    budget := IntToStr((FJSonReader.getint('budget')));
+
+  if FJSonReader.getint('revenue') <> 0 then
+    revenue := IntToStr((FJSonReader.getint('revenue')));
+  except
+
+  end;
+
   if FJSonReader.getString('imdb_id') <> '' then
     imdb_id := (FJSonReader.getString('imdb_id'));
 
@@ -486,15 +530,20 @@ begin
 
   FManager := TThreadManager.Create(self, After_Manager);
 
-  rq := ('https://api.themoviedb.org/3/movie/' + imdb_id + '/credits?api_key=' +
+  rq := ('https://api.themoviedb.org/3/movie/' + tmdb_id + '/credits?api_key=' +
     APIkey + '&language=' + FCurrentLangShort);
 
   FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Credits);
 
-  rq := ('https://api.themoviedb.org/3/movie/' + imdb_id + '/keywords?api_key='
+  rq := ('https://api.themoviedb.org/3/movie/' + tmdb_id + '/keywords?api_key='
     + APIkey + '&language=' + FCurrentLangShort);
 
   FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Keywords);
+
+   rq := ('https://api.themoviedb.org/3/movie/' + tmdb_id + '/videos?api_key='
+    + APIkey );
+
+   FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Videos);
 
   if posterpath <> EmptyStr then
   begin
@@ -626,6 +675,44 @@ begin
 
 end;
 
+
+
+procedure TTheMoviedB_Cl.After_Thread_Search_Videos(str: string);
+var
+  i: integer;
+  FJSonReader: TlkJSONobject;
+  tp,site  : string ;
+begin
+   screen.cursor := crhourglass;
+   try
+    FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
+  except
+    screen.cursor := crdefault;
+    JRScrap_Frm.logger.error('Error: Parsing');
+  end;
+
+  if (FJSonReader.Field['results'] as TlkJSONList).Count <> 0 then
+  begin
+      for i := 0 to (FJSonReader.Field['results'] as TlkJSONList).Count - 1 do
+    begin
+         try
+         tp := ((FJSonReader.Field['results'] as TlkJSONList).child[i] as TlkJSONobject).Field['type'].value ;
+         if tp  = 'Trailer' then
+         site := ((FJSonReader.Field['results'] as TlkJSONList).child[i] as TlkJSONobject).Field['site'].value ;
+         if site  = 'YouTube' then
+         begin
+         self.trailer := 'https://www.youtube.com/watch?v=' + ((FJSonReader.Field['results'] as TlkJSONList).child[i] as TlkJSONobject).Field['key'].value ;
+          break ;
+         end;
+         except
+         end;
+
+    end;
+
+  end;
+
+end;
+
 procedure TTheMoviedB_Cl.After_Thread_Search_Keywords(str: string);
 var
   i: integer;
@@ -702,12 +789,21 @@ begin
     debug('error');
   end;
 
-  if (FJSonReader.Field['results'] as TlkJSONList).Count < 1 then
+  if (((FJSonReader.Field['results'] as TlkJSONList).Count < 1) ) then
   begin
-
+    if JRScrap_Frm.fmassscrap = false   then
+     begin
     ShowMessage(Translate_String_JRStyle('No results for this search !',
       JRScrap_Frm.FCurrentLang));
     JRScrap_Frm.ShowJRiverId(JRScrap_Frm.FCurrentJRiverId);
+     end
+     else
+     begin
+     if  JRScrap_Frm.FMassScrap = true then
+     MassScrap_frm.MassTag ;
+     end;
+
+
   end;
 
   begin

@@ -16,7 +16,6 @@ uses
   CheckPrevious in 'CheckPrevious.pas',
   ImageDropDown in 'ImageDropDown.pas',
   MC_Commands_Unit in 'MC_Commands_Unit.pas',
-  mnEdit in 'mnEdit.pas',
   Types_Unit in 'Types_Unit.pas',
   uLkJSON in 'uLkJSON.pas',
   About_Frm in 'About_Frm.pas' {Form2},
@@ -33,7 +32,9 @@ uses
   Search_Unit in 'Search_Unit.pas' {Search_Frm},
   Generic_Search_Unit in 'Generic_Search_Unit.pas',
   Image_Form_Unit in 'Image_Form_Unit.pas' {Image_Form},
-  XML_Export_Unit in 'XML_Export_Unit.pas' {XML_Export_Frm};
+  XML_Export_Unit in 'XML_Export_Unit.pas' {XML_Export_Frm},
+  Freebase_Unit in 'Freebase_Unit.pas',
+  Traileraddict_Unit in 'Traileraddict_Unit.pas';
 
 {$R *.res}
 

@@ -8,7 +8,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, uLkJSON,
   Threadsearch_Unit, Utils_Unit, JRiverXML_Unit, MediaCenter_TLB,
   Vcl.ExtCtrls, Registry, TranslateJRStyle_Unit, Vcl.CheckLst, debug_Unit,
-   TheMoviedB_Unit ,TVdb_Unit;
+   TheMoviedB_Unit ,TVdb_Unit,Freebase_Unit, Traileraddict_Unit;
 
 
 type
@@ -117,18 +117,33 @@ begin
       Exit;
     end;
     try
-      JRScrap_Frm.FCurrentJRiverId :=
-        StrToint(JRScrap_Frm.Movie_Browser.Cells[0, loop]);
+      JRScrap_Frm.FCurrentJRiverId :=StrToint(JRScrap_Frm.Movie_Browser.Cells[0, loop]);
     except
       JRScrap_Frm.logger.error('Error: 121');
     end;
    FCurrentMovie := FMoviesList.GetFile(JRScrap_Frm.FCurrentJRiverId);
     debug('FCurrentMovie' + FCurrentMovie.Name);
 
-    JRScrap_Frm.Select_MovieBrowserRow_by_JRiver_ID (JRScrap_Frm.FCurrentJRiverId);
-     //TODO !! Change this !
+     JRScrap_Frm.Select_MovieBrowserRow_by_JRiver_ID (JRScrap_Frm.FCurrentJRiverId);
 
-      if JRScrap_Frm.TheMoviedB_rd.down = true then
+      if (JRScrap_Frm.TheMoviedB_rd.down = false ) then
+      begin
+
+      if  JRScrap_Frm.Traileraddict_Search_Btn.Down = true then
+      begin
+      TTrailerAddict_Ins:= TTrailerAddict_Cl.Create   ;
+      TTrailerAddict_Ins.Search_Name;
+      end;
+
+      if ( JRScrap_Frm.freebase_Btn.down = true) then
+      begin
+      TFreebase_Ins :=   TFreebase_Cl.Create   ;
+      TFreebase_Ins.Freebase_getID() ;
+      end;
+
+      end;
+
+      if (JRScrap_Frm.TheMoviedB_rd.down = true) then
       begin
       //if assigned(TheMoviedB_Ins) then   TheMoviedB_Ins.Free ;
       TheMoviedB_Ins := TTheMoviedB_Cl.Create(JRScrap_Frm.FCurrentJRiverId,JRScrap_Frm.FCurrentLangShort);
@@ -142,6 +157,8 @@ begin
       TTvdB_Ins := TTVdB_Cl.Create(JRScrap_Frm.FCurrentJRiverId,JRScrap_Frm.FCurrentLangShort, strtoint(JRScrap_Frm.Episode_Spin_Ed.Text) ,strtoint(JRScrap_Frm.Season_Spin_Ed.Text));
       TTvdB_Ins.Auto_search ;
       end;
+
+
 
   except
   if loop <= JRScrap_Frm.Movie_Browser.RowCount then

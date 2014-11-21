@@ -23,6 +23,8 @@ public
       Production_Design, Music_by, Screenwriter, Cinematographer,
       director: TStringList;
       image: TJPEGImage;
+      trailer , budget ,revenue: string ;
+
        procedure Auto_search ;   virtual;
        procedure Display_Search;  virtual;
        procedure Display_Searches;
@@ -97,6 +99,12 @@ var
   f : extended ;
 begin
 
+
+  if trailer <> EmptyStr then
+  begin
+     JRScrap_Frm.Trailer_Ed.Text :=  trailer ;
+  end;
+
   if Original_Name <> EmptyStr then
   begin
     JRScrap_Frm.Original_title_Ed.Text := Original_Name;
@@ -127,6 +135,16 @@ begin
   if Overview <> EmptyStr then
   begin
     JRScrap_Frm.MemoOverview.Lines.Text := Overview;
+  end;
+
+  if budget <> EmptyStr then
+  begin
+    JRScrap_Frm.budget_ed.Text := budget;
+  end;
+
+  if revenue <> EmptyStr then
+  begin
+    JRScrap_Frm.revenue_ed.Text := revenue;
   end;
 
   if Genre.Count <> 0 then

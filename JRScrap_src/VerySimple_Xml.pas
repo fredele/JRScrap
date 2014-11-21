@@ -190,7 +190,7 @@ type
   TXmlVerySimple = class(TObject)
   private
   protected
-    Root: TXmlNode;
+
     [Weak] FHeader: TXmlNode;
     [Weak] FDocumentElement: TXmlNode;
     SkipIndent: Boolean;
@@ -220,6 +220,7 @@ type
     function GetPreserveWhitespace: Boolean;
     function IsSame(const Value1, Value2: String): Boolean;
   public
+    Root: TXmlNode;
     ///	<summary> Indent used for the xml output </summary>
     NodeIndentStr: String;
     ///	<summary> LineBreak used for the xml output, default set to sLineBreak which is OS dependent </summary>

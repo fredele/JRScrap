@@ -21,6 +21,9 @@ type
     JRiverVersion: TLabel;
     Label3: TLabel;
     Label5: TLabel;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
     procedure Image1MouseEnter(Sender: TObject);
     procedure Image1MouseLeave(Sender: TObject);
     procedure Image1Click(Sender: TObject);
@@ -33,6 +36,9 @@ type
     procedure gt(Sender: TObject);
     procedure Image2Click(Sender: TObject);
     procedure Image3Click(Sender: TObject);
+    procedure Image4Click(Sender: TObject);
+    procedure Image5Click(Sender: TObject);
+    procedure Image6Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -162,6 +168,34 @@ var
   MyLink: string;
 begin
   MyLink := 'http://www.opensubtitles.org';
+  ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
+    nil, SW_SHOW);
+
+end;
+
+procedure TForm2.Image4Click(Sender: TObject);
+var
+  MyLink: string;
+begin
+ MyLink := 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GNPL46T9XH5BC';
+  ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
+    nil, SW_SHOW);
+end;
+
+procedure TForm2.Image5Click(Sender: TObject);
+var
+  MyLink: string;
+begin
+ MyLink := 'https://www.freebase.com/';
+  ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
+    nil, SW_SHOW);
+end;
+
+procedure TForm2.Image6Click(Sender: TObject);
+var
+  MyLink: string;
+begin
+ MyLink := 'http://www.traileraddict.com';
   ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
     nil, SW_SHOW);
 

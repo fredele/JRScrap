@@ -6,10 +6,12 @@ uses
   jpeg;
 
 type
-  TProcedureStr = procedure(str: string) of object;
+  TProcedureStrObj = procedure(str: string) of object;
   TProcedureImg = procedure(img: TJPEGImage) of object;
-  TProcedure = procedure;
-  TProcedureobj = procedure of object;
+  TProcedureStr = procedure (str: string);
+
+  TProcedureObj = procedure of object;
+  TProcedure = procedure ;
 
 type
 

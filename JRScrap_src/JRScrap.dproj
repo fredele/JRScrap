@@ -98,12 +98,13 @@
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <DCC_ExeOutput>..\JRScrap_exe\bin</DCC_ExeOutput>
         <VerInfo_MajorVer>0</VerInfo_MajorVer>
         <VerInfo_MinorVer>0</VerInfo_MinorVer>
         <VerInfo_Release>2</VerInfo_Release>
         <DCC_DcuOutput>..\JRScrap_exe\dcu</DCC_DcuOutput>
-        <VerInfo_Keys>CompanyName=Fredele;FileDescription=JRiver Media Center add-on, connects to ThemoviedB.org;FileVersion=0.0.2.0;InternalName=JRMoviedB;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=JRMoviedB;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=Fredele;FileDescription=JRiver Media Center add-on, connects to various Web API&apos;s;FileVersion=0.0.2.0;InternalName=JRScrap;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=JRScrap;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <ItemGroup>
@@ -122,7 +123,6 @@
         <DCCReference Include="CheckPrevious.pas"/>
         <DCCReference Include="ImageDropDown.pas"/>
         <DCCReference Include="MC_Commands_Unit.pas"/>
-        <DCCReference Include="mnEdit.pas"/>
         <DCCReference Include="Types_Unit.pas"/>
         <DCCReference Include="uLkJSON.pas"/>
         <DCCReference Include="About_Frm.pas">
@@ -151,6 +151,8 @@
             <Form>XML_Export_Frm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Freebase_Unit.pas"/>
+        <DCCReference Include="Traileraddict_Unit.pas"/>
         <None Include="Reminder Notes.txt"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -224,13 +226,8 @@
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\RAD Studio\9.0\Bpl\DAV_VSTPlugin_D16.bpl">ASIO &amp; VST Project - VST Plugin Project Wizard (design-time)</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\bin\designide160.bpl">File C:\Program Files (x86)\Embarcadero\RAD Studio\9.0\bin\designide160.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclbcbsmp190.bpl">File c:\program files (x86)\embarcadero\rad studio\12.0\bin\dclbcbsmp190.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbie190.bpl">File c:\program files (x86)\embarcadero\rad studio\12.0\bin\bcbie190.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k190.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp190.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k190.bpl">File c:\program files (x86)\embarcadero\rad studio\12.0\bin\bcboffice2k190.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp190.bpl">File c:\program files (x86)\embarcadero\rad studio\12.0\bin\bcbofficexp190.bpl not found</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment>

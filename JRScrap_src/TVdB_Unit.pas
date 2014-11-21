@@ -32,10 +32,87 @@ type
      procedure SaveTags ; override;
   end;
 
+  function getlid (lg : string ): integer ;
+
 implementation
 
 uses
   Search_Unit, MassScrap_Unit, JRScrap_Unit, JRiverXML_Unit ;
+
+
+
+function getlid (lg : string ): integer ;
+begin
+result := -1 ;
+// See this values in  :
+//  http://thetvdb.com/api/1A501B293D1EF0C7/languages.xml
+
+if lg = 'da' then
+    result := 10 ;
+
+if lg = 'fi' then
+    result := 11 ;
+
+if lg = 'nl' then
+    result := 13 ;
+
+if lg = 'de' then
+    result :=  14 ;
+
+if lg = 'it' then
+    result :=  15 ;
+
+if lg = 'es' then
+    result :=  16 ;
+
+if lg = 'fr' then
+    result :=  17 ;
+
+if lg = 'pl' then
+    result :=  18 ;
+
+if lg = 'hu' then
+    result := 19 ;
+
+if lg = 'tr' then
+    result := 21 ;
+
+if lg = 'ru' then
+    result := 22 ;
+
+if lg = 'he' then
+    result :=  24 ;
+
+if lg = 'ja' then
+    result :=  25 ;
+
+if lg = 'pt' then
+    result :=  26 ;
+
+if lg = 'zh' then
+    result :=  27 ;
+
+if lg = 'cs' then
+    result :=  28 ;
+
+if lg = 'sl' then
+    result :=  30 ;
+
+if lg = 'hr' then
+    result :=  31 ;
+
+if lg = 'ko' then
+    result :=  32 ;
+
+if lg = 'en' then
+    result :=  7 ;
+
+if lg = 'sv' then
+    result :=  8 ;
+
+if lg = 'no' then
+    result :=  9 ;
+end;
 
 
 procedure TTVdB_Cl.SaveTags ;
@@ -72,25 +149,29 @@ begin
       try
         image.SaveToFile(s);
       except
-        screen.cursor := crdefault;
+       debug('except') ;
+        //screen.cursor := crdefault;
       end;
 
       try
         FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_DATABASE);
       except
-        screen.cursor := crdefault;
+      debug('except') ;
+        //screen.cursor := crdefault;
       end;
 
       try
         FCurrentMovie.SetImageFile(s, IMAGEFILE_DISPLAY);
       except
-        screen.cursor := crdefault;
+      debug('except') ;
+       // screen.cursor := crdefault;
       end;
 
       try
         FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_FILE);
       except
-        screen.cursor := crdefault;
+      debug('except') ;
+        //screen.cursor := crdefault;
       end;
  end;
 
@@ -106,6 +187,7 @@ begin
 
       FJRiverXml := TJRiverXml.Create(filename);
     except
+    debug('except') ;
       screen.cursor := crdefault;
     end;
 
@@ -332,6 +414,7 @@ begin
     // Le thread est désormais créé, et actif.
 
   except
+    debug('except') ;
     screen.Cursor := crDefault;
     JRScrap_Frm.logger.error('Error: Error for this request');
   end;
@@ -353,6 +436,7 @@ begin
       FXMLReader := CoDOMDocument.Create;
       FXMLReader.loadXML(str);
     except
+      debug('except') ;
       screen.Cursor := crDefault;
       JRScrap_Frm.logger.error('Error: Parsing');
     end;
@@ -419,7 +503,7 @@ begin
       end;
       end;
 
-   screen.Cursor := crDefault;
+
 end;
 
 procedure TTVdB_Cl.After_Thread_SearchSerieEpisode(str: string);
@@ -462,6 +546,7 @@ begin
       FXMLReader.loadXML(str);
 
     except
+      debug('except') ;
       screen.Cursor := crDefault;
       JRScrap_Frm.logger.error('Error: Parsing');
     end;
@@ -627,6 +712,7 @@ begin
     // Le thread est désormais créé, et actif.
 
   except
+    debug('except') ;
     screen.Cursor := crDefault;
   end;
 

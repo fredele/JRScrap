@@ -30,8 +30,37 @@ function serialize(List: TStrings): string; overload;
 function serialize(List: TArrayOfString ): string; overload;
 function ArrayofStringToStringList (ar : Tarrayofstring) : TstringList ;
 function replaceStr( str,org, repl :string) : string ;
+function ExtractText(const Str: string; const Delim1, Delim2: string): TStringList;
+Function StringToStream(const AString: string): TStream;
 
 implementation
+
+Function StringToStream(const AString: string): TStream;
+begin
+  Result := TStringStream.Create(AString);
+end;
+
+function ExtractText(const Str: string; const Delim1, Delim2: string): TStringList;
+var
+  c,pos1, pos2: integer;
+begin
+  result:=TStringList.Create;
+  c:=1;
+  pos1:=1;
+
+  while pos1>0 do
+  begin
+    pos1 := PosEx(Delim1, Str,c);
+    if pos1 > 0 then begin
+      pos2 := PosEx(Delim2, Str, pos1+1);
+    if pos2 > 0 then
+      result.Add(Copy(Str, pos1 + length(delim1), pos2 - (length(delim1) + pos1)));
+      c:=pos1+1;
+     end;
+
+  end;
+end;
+
 function replaceStr( str  , org, repl :string ) : string ;
 begin
 result := stringreplace(str, org, repl ,[rfReplaceAll, rfIgnoreCase]) ;

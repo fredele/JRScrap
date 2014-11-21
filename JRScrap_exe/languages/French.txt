@@ -1,5 +1,5 @@
-﻿// Translation in French
-// For JRScrap
+﻿# Translation in French
+# For JRScrap
 
 Select here fields to save :
 Sélectionnez ici les champs à enregistrer :
@@ -37,8 +37,6 @@ Ver.
 
 File locked !
 Fichier vérouillé !
-
-
 
 Current File :
 Film courrant :
@@ -288,6 +286,9 @@ ZipDownloadLink
 SubFormat
 Format du sous-titre
 
+Name :
+Nom :
+
 Director :
 Réalisateur :
 
@@ -378,5 +379,33 @@ Lancer la lecture dans JRMC
 
 No Media Found !
 Pas de Media trouvé !
+
+Date Imported
+Date importée
+
+View
+Voir
+
+Nothing to search ! Enter a Name, a IMDB or TMDB or a TheTVDB Series ID
+Rien a chercher ! Entrez un Nom ou un  IMDB ou TMDB ou un TheTVDB Series ID
+
+Search :
+Rechercher :
+
+Filter :
+Filtre :
+
+Filter
+Filtre
+
+Trailer :
+Bande-annonce :
+
+Select a Service first !
+Sélectionnez d' abord un service !
+
+Toolbar
+Barre d'outils
+
 
 

@@ -22,6 +22,7 @@ Default Fields
 * Producer
 * Sceenwriter
 * Writer
+* Budget
 
 
 Here is an example :
@@ -44,7 +45,14 @@ The new fields created are :
 * Production Company
 * Production Design
 * Novel
-
+* Revenue
+* Url Allocine
+* Url rottentomatoes
+* Url Wikipedia eng
+* Url Wikipedia
+* Url traileraddict
+* Url metacritic     
+       
 * Lock External Tag Editor : Holds a string used as a boolean (YES or NO) for the lock functionnality
 
 Here is an example :

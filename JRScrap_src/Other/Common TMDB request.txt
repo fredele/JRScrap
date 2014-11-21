@@ -1,6 +1,6 @@
 Common TMDB request :
 ------------------------------------
-
+/movie/{id}/releases
 --> https://api.themoviedb.org/3/movie/829?api_key=3b608fc11821e92cd2459320206a9d9b&language=fr
 
 {"adult":false,"backdrop_path":"/mwo3gk3BWXt9f2LSTmQar5Nu6I3.jpg","belongs_to_collection":null,"budget":3200000,"genres":[{"id":80,"name":"Crime"},{"id":18,"name":"Drame"},{"id":9648,"name":"Mystère"},{"id":53,"name":"Thriller"}],"homepage":"","id":829,"imdb_id":"tt0071315","original_title":"Chinatown","overview":"Gittes, détective privé, reçoit la visite d'une fausse Mme Mulwray, qui lui demande de filer son mari, ingénieur des eaux à Los Angeles. Celui-ci est retrouvé mort, noyé. Gittes s'obstine dans son enquête, malgré les menaces de tueurs professionnels.","popularity":0.952012011052129,"poster_path":"/fVmeuKn76w0Wovy45nv2EuSE7ci.jpg","production_companies":[{"name":"Paramount Pictures","id":4},{"name":"Penthouse","id":6226},{"name":"Long Road Productions","id":10208}],"production_countries":[{"iso_3166_1":"US","name":"United States of America"}],"release_date":"1974-06-20","revenue":29200000,"runtime":130,"spoken_languages":[{"iso_639_1":"es","name":"Español"},{"iso_639_1":"cn","name":"??? / ???"},{"iso_639_1":"en","name":"English"}],"status":"Released","tagline":"","title":"Chinatown","vote_average":7.4,"vote_count":136}

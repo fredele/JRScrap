@@ -41,19 +41,38 @@ Root: HKCU; Subkey: "Software\JRScrap"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Firstrun"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Writepicture"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "WriteSideCar"; ValueData: 1
-Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapWimdbID"; ValueData: 1  
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapWimdbID"; ValueData: 1 
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Freebase"; ValueData: 1     
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Traileraddict"; ValueData: 1     
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "TheMoviedB"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "TheTVdB"; ValueData: 0
+
+
+;Toolbar Visible booleans :
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Filter"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Playlist"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Mediasubtype"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Search"; ValueData: 0
+
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "english" ; Languages: english
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "french" ; Languages: french
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "german" ; Languages: german
 
+;Last values
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "LastMediaSubType"; ValueData: "" ;
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "LastPlayList"; ValueData: "" ;
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "LastFilterSearch"; ValueData: "" ;
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "LastSearch"; ValueData: "" ;    
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "LastAutomationSearch"; ValueData: "" ;
+;Language :
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguage"; ValueData: "eng"; Languages: english
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguage"; ValueData: "fr" ; Languages: french
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguage"; ValueData: "de" ; Languages: german
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "ImportantTask1"; Description: "Download and install vscredit_x86 by Microsoft"; GroupDescription: "Important tasks";
-Name: "ImportantTask2"; Description: "Download and install Win32OpenSSL by slproweb"; GroupDescription: "Important tasks";
+Name: "ImportantTask1"; Description: "Download and install vscredit_x86 by Microsoft"; GroupDescription: "Downloads";
+Name: "ImportantTask2"; Description: "Download and install Win32OpenSSL by slproweb"; GroupDescription:  "Downloads";
 [Run]
 Filename: "{app}\bin\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 

@@ -22,30 +22,30 @@
     <Transaction>2014/03/03 18:24:10.000.668,=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\Unit2.pas</Transaction>
     <Transaction>2014/03/03 18:24:35.000.589,D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\Unit2.pas=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\types.pas</Transaction>
     <Transaction>2014/03/03 18:25:25.000.538,D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\types.pas=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\mytypes.pas</Transaction>
-    <Transaction>2014/03/03 19:19:26.000.099,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.bdsproj</Transaction>
+    <Transaction>2014/03/03 19:19:26.000.144,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\ReceiverMain.pas</Transaction>
+    <Transaction>2014/03/03 19:19:26.000.115,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.cfg</Transaction>
+    <Transaction>2014/03/03 19:19:26.000.122,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.dpr</Transaction>
     <Transaction>2014/03/03 19:19:26.000.107,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.bdsproj.local</Transaction>
     <Transaction>2014/03/03 19:19:26.000.127,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.identcache</Transaction>
-    <Transaction>2014/03/03 19:19:26.000.144,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\ReceiverMain.pas</Transaction>
-    <Transaction>2014/03/03 19:19:26.000.122,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.dpr</Transaction>
-    <Transaction>2014/03/03 19:19:26.000.115,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.cfg</Transaction>
+    <Transaction>2014/03/03 19:19:26.000.099,=C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.bdsproj</Transaction>
     <Transaction>2014/03/03 19:53:22.000.180,=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\Unit2.pas</Transaction>
-    <Transaction>2014/03/03 19:56:12.000.101,D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\Unit2.dfm=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\FrameSingleFile.dfm</Transaction>
     <Transaction>2014/03/03 19:56:12.000.101,D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\Unit2.pas=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\FrameSingleFile.pas</Transaction>
+    <Transaction>2014/03/03 19:56:12.000.101,D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\Unit2.dfm=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\FrameSingleFile.dfm</Transaction>
     <Transaction>2014/03/03 21:06:36.000.229,D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\FrameSingleFile.pas=</Transaction>
     <Transaction>2014/03/03 21:08:40.000.984,C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.bdsproj=</Transaction>
+    <Transaction>2014/03/03 21:08:41.000.032,C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.bdsproj.local=</Transaction>
     <Transaction>2014/03/03 21:08:41.000.074,C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.identcache=</Transaction>
     <Transaction>2014/03/03 21:08:41.000.046,C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.cfg=</Transaction>
     <Transaction>2014/03/03 21:08:41.000.060,C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.dpr=</Transaction>
-    <Transaction>2014/03/03 21:08:41.000.032,C:\Users\frederic\Desktop\wm_copydata\copydata\receiver\CopyDataReceiver.bdsproj.local=</Transaction>
     <Transaction>2014/03/07 00:23:01.000.730,D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\JRMoviedB.dproj=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\themoviedbforJRiver.dproj</Transaction>
     <Transaction>2014/03/07 00:41:16.000.072,=D:\Mes Travaux\Programmes\Delphi XE5\mes programmes\themoviedb API test\ImageDropDown.pas</Transaction>
     <Transaction>2014/03/08 22:44:14.000.252,D:\Mes Travaux\Programmes\Delphi\librairies\kdl41\uFreeLocalizer.pas=</Transaction>
     <Transaction>2014/03/08 22:44:20.000.287,D:\Mes Travaux\Programmes\Delphi\librairies\kdl41\uStringUtils.pas=</Transaction>
-    <Transaction>2014/03/16 02:03:43.000.481,=D:\repo\JRMoviedB_src\mnEdit.pas</Transaction>
-    <Transaction>2014/03/16 02:03:43.000.499,=D:\repo\JRMoviedB_src\mytypes.pas</Transaction>
     <Transaction>2014/03/16 02:03:43.000.526,=D:\repo\JRMoviedB_src\uLkJSON.pas</Transaction>
-    <Transaction>2014/03/16 02:03:43.000.464,=D:\repo\JRMoviedB_src\MC_Commands_Unit.pas</Transaction>
     <Transaction>2014/03/16 02:03:43.000.444,=D:\repo\JRMoviedB_src\JRiverXML_Unit.pas</Transaction>
+    <Transaction>2014/03/16 02:03:43.000.464,=D:\repo\JRMoviedB_src\MC_Commands_Unit.pas</Transaction>
+    <Transaction>2014/03/16 02:03:43.000.499,=D:\repo\JRMoviedB_src\mytypes.pas</Transaction>
+    <Transaction>2014/03/16 02:03:43.000.481,=D:\repo\JRMoviedB_src\mnEdit.pas</Transaction>
     <Transaction>2014/03/16 02:04:02.000.496,=D:\repo\JRMoviedB_src\Utils_Unit.pas</Transaction>
     <Transaction>2014/08/01 21:57:43.000.431,=D:\JRMoviedB repo\JRMoviedB_src\Unit3.pas</Transaction>
     <Transaction>2014/08/01 22:00:14.000.535,D:\JRMoviedB repo\JRMoviedB_src\Unit2.dfm=D:\JRMoviedB repo\JRMoviedB_src\Unit3.dfm</Transaction>
@@ -67,10 +67,10 @@
     <Transaction>2014/08/25 08:57:31.000.643,D:\JRMoviedB repo\JRMoviedB_src\TranslateJRStyle_Unit.pas=D:\JRMoviedB repo\JRMoviedB_src\Unit4.pas</Transaction>
     <Transaction>2014/08/25 09:59:50.000.796,=D:\JRMoviedB repo\JRMoviedB_src\Unit4.pas</Transaction>
     <Transaction>2014/08/25 10:00:15.000.886,D:\JRMoviedB repo\JRMoviedB_src\Threadsearch_Image.pas=D:\JRMoviedB repo\JRMoviedB_src\Unit4.pas</Transaction>
-    <Transaction>2014/08/27 10:11:30.000.814,D:\JRMoviedB repo\JRMoviedB_src\Themoviedb_Frm.dfm=D:\JRMoviedB repo\JRMoviedB_src\Unit1.dfm</Transaction>
     <Transaction>2014/08/27 10:11:30.000.814,D:\JRMoviedB repo\JRMoviedB_src\Themoviedb_Frm.pas=D:\JRMoviedB repo\JRMoviedB_src\Unit1.pas</Transaction>
-    <Transaction>2014/08/27 10:12:51.000.179,D:\JRMoviedB repo\JRMoviedB_src\About_Frm.dfm=D:\JRMoviedB repo\JRMoviedB_src\Unit2.dfm</Transaction>
+    <Transaction>2014/08/27 10:11:30.000.814,D:\JRMoviedB repo\JRMoviedB_src\Themoviedb_Frm.dfm=D:\JRMoviedB repo\JRMoviedB_src\Unit1.dfm</Transaction>
     <Transaction>2014/08/27 10:12:51.000.179,D:\JRMoviedB repo\JRMoviedB_src\About_Frm.pas=D:\JRMoviedB repo\JRMoviedB_src\Unit2.pas</Transaction>
+    <Transaction>2014/08/27 10:12:51.000.179,D:\JRMoviedB repo\JRMoviedB_src\About_Frm.dfm=D:\JRMoviedB repo\JRMoviedB_src\Unit2.dfm</Transaction>
     <Transaction>2014/08/27 10:14:11.000.371,D:\JRMoviedB repo\JRMoviedB_src\MassScrap_Frm.dfm=D:\JRMoviedB repo\JRMoviedB_src\Unit3.dfm</Transaction>
     <Transaction>2014/08/27 10:14:11.000.371,D:\JRMoviedB repo\JRMoviedB_src\MassScrap_Frm.pas=D:\JRMoviedB repo\JRMoviedB_src\Unit3.pas</Transaction>
     <Transaction>2014/08/27 10:17:22.000.152,D:\JRMoviedB repo\JRMoviedB_src\mytypes.pas=D:\JRMoviedB repo\JRMoviedB_src\Types_Unit.pas</Transaction>
@@ -78,15 +78,15 @@
     <Transaction>2014/10/27 08:41:10.000.026,=D:\JRMoviedB repo - Copie\JRMoviedB_src\Unit_OpenSub.pas</Transaction>
     <Transaction>2014/10/27 08:41:39.000.570,D:\JRMoviedB repo - Copie\JRMoviedB_src\Unit_OpenSub.pas=</Transaction>
     <Transaction>2014/10/27 08:41:47.000.933,=D:\JRMoviedB repo - Copie\JRMoviedB_src\Unit3.pas</Transaction>
-    <Transaction>2014/10/27 08:45:32.000.341,D:\JRMoviedB repo - Copie\JRMoviedB_src\Unit3.pas=D:\JRMoviedB repo - Copie\JRMoviedB_src\OpenSub_Unit.pas</Transaction>
     <Transaction>2014/10/27 08:45:32.000.341,D:\JRMoviedB repo - Copie\JRMoviedB_src\Unit3.dfm=D:\JRMoviedB repo - Copie\JRMoviedB_src\OpenSub_Unit.dfm</Transaction>
+    <Transaction>2014/10/27 08:45:32.000.341,D:\JRMoviedB repo - Copie\JRMoviedB_src\Unit3.pas=D:\JRMoviedB repo - Copie\JRMoviedB_src\OpenSub_Unit.pas</Transaction>
     <Transaction>2014/10/27 10:32:06.000.718,D:\JRMoviedB repo - Copie\JRMoviedB_src\JRMoviedB.dproj=D:\JRMoviedB repo - Copie\JRMoviedB_src\JRScrap.dproj</Transaction>
     <Transaction>2014/10/30 21:49:31.000.771,=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
     <Transaction>2014/10/30 21:49:45.000.859,D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Threadsearches.pas</Transaction>
     <Transaction>2014/10/30 21:49:59.000.431,D:\JRScrap\JRScrap repo\JRScrap_src\Threadsearches.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Threadsearches_Unit.pas</Transaction>
     <Transaction>2014/10/30 22:21:42.000.609,D:\JRScrap\JRScrap repo\JRScrap_src\Threadsearches_Unit.pas=</Transaction>
-    <Transaction>2014/10/31 00:35:59.000.606,D:\JRScrap\JRScrap repo\JRScrap_src\Themoviedb_Frm.dfm=D:\JRScrap\JRScrap repo\JRScrap_src\JRScrape_Frm.dfm</Transaction>
     <Transaction>2014/10/31 00:35:59.000.606,D:\JRScrap\JRScrap repo\JRScrap_src\Themoviedb_Frm.pas=D:\JRScrap\JRScrap repo\JRScrap_src\JRScrape_Frm.pas</Transaction>
+    <Transaction>2014/10/31 00:35:59.000.606,D:\JRScrap\JRScrap repo\JRScrap_src\Themoviedb_Frm.dfm=D:\JRScrap\JRScrap repo\JRScrap_src\JRScrape_Frm.dfm</Transaction>
     <Transaction>2014/10/31 00:36:37.000.256,D:\JRScrap\JRScrap repo\JRScrap_src\JRScrape_Frm.dfm=D:\JRScrap\JRScrap repo\JRScrap_src\JRScrap_Frm.dfm</Transaction>
     <Transaction>2014/10/31 00:36:37.000.256,D:\JRScrap\JRScrap repo\JRScrap_src\JRScrape_Frm.pas=D:\JRScrap\JRScrap repo\JRScrap_src\JRScrap_Frm.pas</Transaction>
     <Transaction>2014/10/31 01:09:47.000.468,=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
@@ -100,9 +100,9 @@
     <Transaction>2014/10/31 06:07:21.000.885,D:\JRScrap\JRScrap repo\JRScrap_src\Threadsearch.pas=</Transaction>
     <Transaction>2014/10/31 06:07:41.000.466,=D:\JRScrap\JRScrap repo\JRScrap_src\Threadsearch_Unit.pas</Transaction>
     <Transaction>2014/10/31 08:46:57.000.739,=D:\JRScrap\JRScrap repo\JRScrap_src\TheMoviedB_Unit.pas</Transaction>
-    <Transaction>2014/10/31 20:39:26.000.110,=D:\JRScrap\JRScrap repo\JRScrap_src\String_Unit.pas</Transaction>
     <Transaction>2014/10/31 20:39:26.000.055,=D:\JRScrap\JRScrap repo\JRScrap_src\debug_Unit.pas</Transaction>
     <Transaction>2014/10/31 20:39:26.000.039,=D:\JRScrap\JRScrap repo\JRScrap_src\File_Unit.pas</Transaction>
+    <Transaction>2014/10/31 20:39:26.000.110,=D:\JRScrap\JRScrap repo\JRScrap_src\String_Unit.pas</Transaction>
     <Transaction>2014/10/31 22:34:18.000.453,D:\JRScrap\JRScrap repo\JRScrap_src\JRiverXML_Unit.pas=D:\JRScrap\JRScrap repo\JRScrap_src\JRiverXML_Unit_xmldom.pas</Transaction>
     <Transaction>2014/10/31 22:35:12.000.388,=D:\JRScrap\JRScrap repo\JRScrap_src\JRiverXML_Unit.pas</Transaction>
     <Transaction>2014/11/01 01:28:42.000.838,D:\JRScrap\JRScrap repo\JRScrap_src\JRiverXML_Unit_xmldom.pas=</Transaction>
@@ -113,12 +113,12 @@
     <Transaction>2014/11/01 13:21:31.000.773,D:\JRScrap\JRScrap repo\JRScrap_src\MassScrap_Unit.dfm=D:\JRScrap\JRScrap repo\JRScrap_src\MassScrap_Frm.dfm</Transaction>
     <Transaction>2014/11/02 08:09:20.000.170,=D:\JRScrap\JRScrap repo\JRScrap_src\New1.txt</Transaction>
     <Transaction>2014/11/02 21:10:55.000.402,=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
-    <Transaction>2014/11/02 21:11:12.000.582,D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.dfm=D:\JRScrap\JRScrap repo\JRScrap_src\Search_Unit.dfm</Transaction>
     <Transaction>2014/11/02 21:11:12.000.582,D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Search_Unit.pas</Transaction>
+    <Transaction>2014/11/02 21:11:12.000.582,D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.dfm=D:\JRScrap\JRScrap repo\JRScrap_src\Search_Unit.dfm</Transaction>
     <Transaction>2014/11/02 22:11:09.000.452,=D:\JRScrap\JRScrap repo\JRScrap_src\New1.txt</Transaction>
     <Transaction>2014/11/02 23:08:54.000.721,=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
-    <Transaction>2014/11/02 23:10:00.000.377,D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Movie_Frame_Unit.pas</Transaction>
     <Transaction>2014/11/02 23:10:00.000.377,D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.dfm=D:\JRScrap\JRScrap repo\JRScrap_src\Movie_Frame_Unit.dfm</Transaction>
+    <Transaction>2014/11/02 23:10:00.000.377,D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Movie_Frame_Unit.pas</Transaction>
     <Transaction>2014/11/05 04:29:31.000.891,=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
     <Transaction>2014/11/05 04:29:55.000.322,D:\JRScrap\JRScrap repo\JRScrap_src\Generic_Search_Unit.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
     <Transaction>2014/11/05 15:21:17.000.701,=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
@@ -146,6 +146,10 @@
     <Transaction>2014/11/12 19:36:50.000.733,D:\JRScrap\JRScrap repo\JRScrap_src\XML_Exp_Unit.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
     <Transaction>2014/11/12 19:38:55.000.694,D:\JRScrap\JRScrap repo\JRScrap_src\XML_Exp_Unit.pas=</Transaction>
     <Transaction>2014/11/12 21:31:31.000.665,D:\JRScrap\JRScrap repo\JRScrap_src\Movie_Frame_Unit.pas=</Transaction>
+    <Transaction>2014/11/19 13:07:37.000.813,=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
+    <Transaction>2014/11/19 13:07:52.000.908,D:\JRScrap\JRScrap repo\JRScrap_src\Freebase_Unit.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
+    <Transaction>2014/11/20 19:27:48.000.953,=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
+    <Transaction>2014/11/20 19:28:02.000.264,D:\JRScrap\JRScrap repo\JRScrap_src\Traileraddict_Unit.pas=D:\JRScrap\JRScrap repo\JRScrap_src\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="MassScrap_Unit.pas"/>
@@ -157,7 +161,6 @@
     <File Path="CheckPrevious.pas"/>
     <File Path="ImageDropDown.pas"/>
     <File Path="MC_Commands_Unit.pas"/>
-    <File Path="mnEdit.pas"/>
     <File Path="Types_Unit.pas"/>
     <File Path="Utils_Unit.pas"/>
     <File Path="uLkJSON.pas"/>
@@ -180,5 +183,7 @@
     <File Path="Reminder Notes.txt"/>
     <File Path="XML_Export_Unit.pas"/>
     <File Path="XML_Export_Unit.dfm"/>
+    <File Path="Freebase_Unit.pas"/>
+    <File Path="Traileraddict_Unit.pas"/>
   </ProjectSortOrder>
 </BorlandProject>

@@ -13,6 +13,7 @@ type
   TThreadsearch = class(TThread)
   private
     FProcedureStr: TProcedureStr;
+    FProcedureStrobj : TProcedureStrobj;
     Fquery, FParseText: string;
     Fs: TMemoryStream;
     LHandler: TIdSSLIOHandlerSocketOpenSSL;
@@ -21,8 +22,8 @@ type
     Fcod: Tcod;
     FTM: Tobject;
   public
-    constructor Create(TM: Tobject; coding: Tcod; query: string;
-      Proc: TProcedureStr);
+    constructor Create(TM: Tobject; coding: Tcod; query: string;Proc: TProcedureStr);  overload ;
+    constructor Create(TM: Tobject; coding: Tcod; query: string;Proc: TProcedureStrobj);  overload ;
     destructor Destroy; override;
     property TextToParse: string read FParseText;
     property terminated: boolean read FTerminated write FTerminated;
@@ -45,8 +46,7 @@ type
     jpeg: TJPEGImage;
     FTerminated: boolean;
 
-    constructor Create(TM: Tobject; query: string;
-      ProcImg: TProcedureImg); overload;
+    constructor Create(TM: Tobject; query: string;ProcImg: TProcedureImg); overload;
     destructor Destroy; override;
     property Image: TJPEGImage read jpeg;
     property terminated: boolean read FTerminated;
@@ -69,8 +69,7 @@ begin
   inherited;
 end;
 
-constructor TThreadsearch.Create(TM: Tobject; coding: Tcod; query: string;
-  Proc: TProcedureStr);
+constructor TThreadsearch.Create(TM: Tobject; coding: Tcod; query: string;  Proc: TProcedureStr);
 begin
   inherited Create(True);
   FTM := TM;
@@ -85,30 +84,69 @@ begin
 
 end;
 
+constructor TThreadsearch.Create(TM: Tobject; coding: Tcod; query: string;Proc: TProcedureStrobj);
+   begin
+  inherited Create(True);
+  FTM := TM;
+  FTerminated := False;
+  Fquery := query;
+  FProcedureStrobj := Proc;
+  Fcod := coding;
+  Fs := TMemoryStream.Create;
+  IdHTTP1 := TidHTTP.Create;
+  if not assigned(TM) then
+    resume;
+
+end;
 procedure TThreadsearch.Execute;
 begin
 
   JRScrap_frm.StatusLed.LedValue := true ;
   LHandler := TIdSSLIOHandlerSocketOpenSSL.Create(nil);
   IdHTTP1.IOHandler := LHandler;
-  debug(Fquery);
+
+  try
   IdHTTP1.get(Fquery, Fs);
+  except
+  debug('Error : IdHTTP get'  );
+  FTerminated := True;
+  Fs.Free;
+  Terminate;
+  end;
+
   if Fcod = Tcod.ansi then
     FParseText := MemoryStreamToString2(Fs);
   if Fcod = Tcod.utf8 then
     FParseText := MemoryStreamToString1(Fs);
    JRScrap_frm.StatusLed.LedValue := false ;
+
+  if assigned(FProcedureStr) then
+   begin
   Synchronize(
     procedure
     begin
       FProcedureStr(FParseText);
     end);
+    end;
 
-  Synchronize(
+    if assigned(FProcedureStrobj) then
+   begin
+   Synchronize(
+    procedure
+    begin
+      FProcedureStrobj(FParseText);
+    end);
+    end;
+
+
+   if assigned(FTM) then
+   begin
+   Synchronize(
     procedure
     begin
       (FTM as TThreadManager).IncFActualthreadCompleted;
     end);
+    end;
 
   // waits   FProcedure to finish ..
   FTerminated := True;

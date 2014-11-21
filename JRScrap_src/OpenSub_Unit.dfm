@@ -4,7 +4,7 @@ object OpenSub_Form: TOpenSub_Form
   BorderStyle = bsDialog
   Caption = 'Download - OpenSubtitles.org '
   ClientHeight = 326
-  ClientWidth = 1038
+  ClientWidth = 1100
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -30,10 +30,10 @@ object OpenSub_Form: TOpenSub_Form
     TabOrder = 0
   end
   object Download: TButton
-    Left = 875
-    Top = 288
+    Left = 942
+    Top = 285
     Width = 148
-    Height = 30
+    Height = 33
     Caption = 'Download'
     TabOrder = 1
     OnClick = DownloadClick
