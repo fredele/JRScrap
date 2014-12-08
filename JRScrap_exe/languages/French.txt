@@ -407,5 +407,16 @@ Sélectionnez d' abord un service !
 Toolbar
 Barre d'outils
 
+Record the picture
+Enregistrer l' image
+
+Search
+Recherche
+
+Select here the row  of the Movie to get tags from
+Sélectionnez ici la ligne qui correspond a votre recherche
+
+Erase all tags
+Effacer toutes les étiquettes
 
 

@@ -1,4 +1,11 @@
-﻿unit JRScrap_Unit;
+﻿// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+
+unit JRScrap_Unit;
 
 interface
 
@@ -13,8 +20,7 @@ uses
   IOUtils, JPEG, Traileraddict_Unit, Vcl.OleServer, MediaCenter_TLB,
   Vcl.Buttons, cyBaseFlowPanel, cyFlowPanel, cyBaseLed, cyLed, cyStatusBar,
   JvExStdCtrls, JvListBox, JvEdit, StarPanel_Unit, cyEdit, cyBasePanel, cyPanel,
-  cyBaseLabel, cyLabel, cyDBLabel,
-  MassScrap_Unit, About_Frm,
+  cyBaseLabel, cyLabel, cyDBLabel, About_Frm,
   MC_Commands_Unit, iniFiles, JRiverXML_Unit, Utils_Unit, Math, ShellApi,
     Freebase_Unit,
   Types_Unit, PngImage, ImageDropDown, StrUtils,
@@ -22,7 +28,7 @@ uses
    TVdB_Unit, JvSpeedbar, JvExExtCtrls, JvExtComponent,
   Vcl.Samples.Spin, OpenSub_Unit,  XML_Export_Unit,
   System.Actions, Vcl.ActnList,
-   cyCheckbox, Vcl.ToolWin, FredHostPanel, TransPanel_Unit,
+   cyCheckbox, Vcl.ToolWin, FredHostPanel, TransPanel_Unit, massscrap_Unit,
   Image_Form_Unit,  cyBaseButton, cyAdvButton,
  Vcl.CategoryButtons, JvExComCtrls, JvToolBar, JvBaseDlg,
   JvBrowseFolder, Vcl.OleCtrls, SHDocVw, cyBaseWebBrowser, cyCustomWebBrowser,
@@ -188,6 +194,12 @@ type
     Label42: TLabel;
     Revenue_Ed: TcyEdit;
     Label43: TLabel;
+    Image_Pop: TPopupMenu;
+    View1: TMenuItem;
+    Delete1: TMenuItem;
+    Info_Pop: TPopupMenu;
+    Erasealltags1: TMenuItem;
+
 
     // Form Procedures
 
@@ -227,7 +239,6 @@ type
     procedure TheMoviedB_rdClick(Sender: TObject);
     procedure Update_TimerTimer(Sender: TObject);
     procedure Search_ActionExecute(Sender: TObject);
-    procedure View_ActionExecute(Sender: TObject);
     procedure Write_ActionExecute(Sender: TObject);
     procedure Write_ItmClick(Sender: TObject);
     procedure Write_ImClick(Sender: TObject);
@@ -269,7 +280,6 @@ type
     procedure Writepicture1Click(Sender: TObject);
     procedure Search1Click(Sender: TObject);
     procedure Save1Click(Sender: TObject);
-    procedure Cinematographer_ListBoxMouseLeave(Sender: TObject);
     procedure Cast_GridMouseLeave(Sender: TObject);
     procedure PlayinJRiverMCClick(Sender: TObject);
     procedure PlayList_ComboChange(Sender: TObject);
@@ -302,6 +312,10 @@ type
     procedure Playlist_MnClick(Sender: TObject);
     procedure Mediasubtype_MnClick(Sender: TObject);
     procedure Search_MnClick(Sender: TObject);
+    procedure StatusLedClick(Sender: TObject);
+    procedure View1Click(Sender: TObject);
+    procedure Delete1Click(Sender: TObject);
+    procedure Erasealltags1Click(Sender: TObject);
 
     // *************************************
 
@@ -354,6 +368,8 @@ type
     url_imdb ,url_tmdb,url_tvdb : string ;
     FBrowerMouseDownRow: Integer;
     FautomationSearch : string ;
+    MassScrap_Frm: TMassScrap_frm;
+
     // My Procedures
     procedure Filter_Search ;
     procedure SortStringGrid(var GenStrGrid: TStringGrid; ThatCol: Integer);
@@ -368,6 +384,10 @@ type
     procedure SetBrowser_Serie ;
     procedure SetBrowser_Movie ;
     procedure AfterDropDownLoading(Sender: TObject);
+
+
+
+
   end;
 
 var
@@ -386,11 +406,15 @@ var
     FPlay :  IMJPlaybackAutomation ;
     FCurrentPlaylist: IMJCurPlaylistAutomation ;
     FPlaylist : IMJPlaylistsAutomation ;
+
+
+
 implementation
 
 uses
- Search_Unit;
+ Search_Unit ;
 {$R *.dfm}
+
 
 procedure  TJRScrap_Frm.AfterDropDownLoading(Sender: TObject);
 begin
@@ -501,14 +525,10 @@ if FServivesInc = FServices_Count then
 begin
    debug ('Services complete !') ;
    self.FServivesInc := 0;
-    if  JRScrap_Frm.FMassScrap = true then
+    if  FMassScrap = true then
     begin
     MassScrap_Frm.masstag ;
-    end
-    else
-    begin
-
-    end;
+    end ;
 
  end;
 
@@ -758,6 +778,11 @@ begin
 
 end;
 
+procedure TJRScrap_Frm.StatusLedClick(Sender: TObject);
+begin
+self.StatusLed.LedValue := false ;
+end;
+
 procedure TJRScrap_Frm.Traileraddict_Search_BtnClick(Sender: TObject);
    var
     RegNGFS: TRegistry;
@@ -899,18 +924,6 @@ showmessage('coucou');
 end;
 
 
-  procedure TJRScrap_Frm.Cinematographer_ListBoxMouseLeave(Sender: TObject);
-var
-i : integer ;
-begin
-
-
-
-for I := 0 to ((sender as TJvListbox).Items.Count - 1) do
-     if (sender as TJvListbox).Selected[i] then
-       (sender as TJvListbox).Selected[i]  :=  False;
-
-end;
 
 procedure TJRScrap_Frm.ShowJRiverId(currentid: Integer);
   var
@@ -1092,224 +1105,22 @@ begin
     self.Write_Btn.Enabled := true ;
 end;
 
-procedure TJRScrap_Frm.View_ActionExecute(Sender: TObject);
-  var
-    rq: String;
-  not_clear : boolean ;
+procedure TJRScrap_Frm.View1Click(Sender: TObject);
+ var
+    Img_Form1: TImage_Form;
+
   begin
-    CountServices ;
+    Img_Form1 := TImage_Form.Create(self);
+    Img_Form1.Image1.Picture.Assign(self.Picture_Img.Picture);
+    Img_Form1.Image1.Height := self.Picture_Img.Picture.Height;
+    Img_Form1.Image1.Width := self.Picture_Img.Picture.Width;
+    Img_Form1.Caption := IntToStr(self.Picture_Img.Picture.Height) + ' X ' +
+      IntToStr(self.Picture_Img.Picture.Width) + ' px';
+    Img_Form1.ShowModal;
 
-    if FServices_Count = 0 then
-    begin
-     ShowMessage(Translate_String_JRStyle('Select a Service first !', JRScrap_Frm.FCurrentLang));
-    exit ;
-    end;
+end;
 
-    not_clear := false ;
-    Fsearching := true;
-
-    self.Write_Btn.Enabled := false;
-    screen.cursor := crHourGlass;
-
-    Application.ProcessMessages;
-
-    if self.Movie_Browser.cells[7, self.Movie_Browser.row] = 'YES' then
-    begin
-      screen.cursor := crdefault;
-      if self.FMassScrap = false then
-      begin
-        ShowMessage(Translate_String_JRStyle('File locked !', FCurrentLang));
-
-        Exit;
-      end
-      else
-      begin
-        MassScrap_Frm.MassTag ;
-        exit ;
-      end;
-    end;
-
-
-
-    if self.TheMoviedB_rd.down = false  then
-    begin
-
-    // Freebase
-
-    if  self.freebase_Btn.down = true then
-    begin
-
-    TFreebase_Ins :=   TFreebase_Cl.Create   ;
-    TFreebase_Ins.Freebase_getID() ;
-
-    end;
-
-    // Traileraddict
-
-    if  self.Traileraddict_Search_Btn.Down = true then
-    begin
-    TTrailerAddict_Ins:= TTrailerAddict_Cl.Create   ;
-    TTrailerAddict_Ins.Search_Name;
-    end;
-
-    end;
-
-
-
-
-
-   // TheMoviedB
-
-    if self.TheMoviedB_rd.down = true  then
-    begin
-
-
-    if assigned(TheMoviedB_Ins) then   TheMoviedB_Ins.Free ;
-
-      TheMoviedB_Ins := TTheMoviedB_Cl.Create(FCurrentJRiverId,
-        FCurrentLangShort);
-
-      // 0 0 0
-      if ((self.Tmdb_id_Ed.Text = emptystr) and
-        (self.imdb_id_Ed.Text = emptystr) and (Name_Ed.Text = emptystr)) then
-      begin
-        if self.FMassScrap = false then
-          begin
-        ShowMessage(Translate_String_JRStyle('Nothing to search ! Enter a Name, a IMDB or TMDB or a TheTVDB Series ID', JRScrap_Frm.FCurrentLang));
-         screen.Cursor := crdefault;
-        Exit;
-          end ;
-
-      end;
-
-      // 1 0 0
-      if ((self.Tmdb_id_Ed.Text <> emptystr) and
-        (self.imdb_id_Ed.Text = emptystr) and (Name_Ed.Text = emptystr)) then
-      begin
-        TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
-        TheMoviedB_Ins.TheMoviedB_ID_Search_Proc;
-      end;
-
-      // 0 1 0
-      if ((self.Tmdb_id_Ed.Text = emptystr) and
-        (self.imdb_id_Ed.Text <> emptystr) and (Name_Ed.Text = emptystr)) then
-      begin
-        TheMoviedB_Ins.imdb_id := self.imdb_id_Ed.Text;
-        TheMoviedB_Ins.TheMoviedB_IMDB_Search_Proc;
-      end;
-
-      ///*******
-
-      // 1 1 0
-      if ((self.Tmdb_id_Ed.Text <> emptystr) and
-        (self.imdb_id_Ed.Text <> emptystr) and (Name_Ed.Text = emptystr)) then
-      begin
-        TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
-        TheMoviedB_Ins.TheMoviedB_ID_Search_Proc;
-      end;
-
-      // 0 1 1
-      if ((self.Tmdb_id_Ed.Text = emptystr) and
-        (self.imdb_id_Ed.Text <> emptystr) and (Name_Ed.Text <> emptystr)) then
-      begin
-        TheMoviedB_Ins.imdb_id := self.imdb_id_Ed.Text;
-        TheMoviedB_Ins.TheMoviedB_IMDB_Search_Proc;
-      end;
-
-      // 1 0 1
-      if ((self.Tmdb_id_Ed.Text <> emptystr) and
-        (self.imdb_id_Ed.Text = emptystr) and (Name_Ed.Text <> emptystr)) then
-      begin
-        TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
-        TheMoviedB_Ins.TheMoviedB_ID_Search_Proc;
-      end;
-
-      // 1 1 1
-      if ((self.Tmdb_id_Ed.Text <> emptystr) and
-        (self.imdb_id_Ed.Text <> emptystr) and (Name_Ed.Text <> emptystr)) then
-      begin
-        TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
-        TheMoviedB_Ins.TheMoviedB_ID_Search_Proc;
-      end;
-
-        // *********
-       // 0 0 1
-      if ((self.Tmdb_id_Ed.Text = emptystr) and
-        (self.imdb_id_Ed.Text = emptystr) and (Name_Ed.Text <> emptystr)) then
-      begin
-        Search_Frm := TSearch_frm.Create(nil, TheMoviedB_Ins);
-        Search_Frm.left := self.left + 250;
-        Search_Frm.top := self.top + 20;
-        not_clear := true ;
-        Search_Frm.ShowModal;
-      end;
-
-  end;
-
-
-
-
-
-    /// TVDB    !
-
-
-  if self.TVdb_Rd.down = true then
-   begin
-
-       if ((self.Season_Spin_Ed.Text = emptystr) or( self.Episode_Spin_Ed.Text = emptystr)) then
-       begin
-        ShowMessage(Translate_String_JRStyle('No Serie / Episode to search !', JRScrap_Frm.FCurrentLang));
-        screen.Cursor := crdefault;
-        exit ;
-       end;
-
-       if assigned(TtvdB_Ins) then   TtvdB_Ins.Free ;
-
-      TtvdB_Ins := TtvdB_Cl.Create(FCurrentJRiverId, FCurrentLangShort, strtoint( self.Episode_Spin_Ed.Text) , strtoint(self.Season_Spin_Ed.Text));
-
-     if ((tvdb_id_Ed.Text = emptystr) and ( self.Serie_Title_Ed.Text= emptystr)) then
-     begin
-         if self.FMassScrap = false then
-          begin
-            ShowMessage(Translate_String_JRStyle('Nothing to search !', JRScrap_Frm.FCurrentLang));
-           screen.Cursor := crdefault;
-            Exit;
-          end;
-
-     end;
-
-  if (tvdb_id_Ed.Text <> emptystr)  then
-   begin
-        TtvdB_Ins.tvdb_id :=  tvdb_id_Ed.Text ;
-        TtvdB_Ins.TheTVDB_ID_Search_Proc;
-    end;
-
-
-
-    if ((tvdb_id_Ed.Text = emptystr) and ( self.Serie_Title_Ed.Text <> emptystr)) then
-    begin
-        Search_Frm := TSearch_frm.Create(nil, TTVdB_Ins);
-        Search_Frm.left := self.left + 250;
-        Search_Frm.top := self.top + 20;
-        not_clear := true ;
-        Search_Frm.ShowModal;
-    end;
-
-
-
-
-
-   end;
-
-
-  if not_clear = false then
-  begin
-  //ClearAll;
-  end;
-
-  end;
-
-  procedure TJRScrap_Frm.Trailer_BtnClick(Sender: TObject);
+procedure TJRScrap_Frm.Trailer_BtnClick(Sender: TObject);
   var
   MyLink: string;
 begin
@@ -1757,7 +1568,7 @@ procedure TJRScrap_Frm.Search_ActionExecute(Sender: TObject);
       end
       else
       begin
-        MassScrap_Frm.MassTag;
+      //  MassScrap_Frm.MassTag;
         screen.cursor := crdefault;
         Exit;
       end;
@@ -1967,7 +1778,24 @@ end;
 
 
 
-  procedure TJRScrap_Frm.DeleteClick(Sender: TObject);
+  procedure TJRScrap_Frm.Delete1Click(Sender: TObject);
+begin
+try
+      FCurrentMovie.SetImageFile('', IMAGEFILE_DISPLAY);
+    except
+      screen.cursor := crdefault;
+    end;
+
+    try
+      FCurrentMovie.SetImageFile('', IMAGEFILE_In_DATABASE);
+    except
+      screen.cursor := crdefault;
+    end;
+
+ self.Picture_Img.Picture := nil;
+end;
+
+procedure TJRScrap_Frm.DeleteClick(Sender: TObject);
    var Caller: TObject;
    i : integer ;
   begin
@@ -1986,13 +1814,18 @@ end;
 
   procedure TJRScrap_Frm.addClick(Sender: TObject);
   var Caller: TObject;
+   val : string ;
   begin
     Caller := ((Sender as TMenuItem).GetParentMenu as TPopupMenu).PopupComponent;
     debug(Caller.ToString);
-    ( Caller as TJvListBox).Items.Add(InputBox('Enter a value', ' ', ' '));
+    val :=    InputBox('Enter a value', ' ', ' ') ;
+    if trim(val) <> '' then
+     begin
+    ( Caller as TJvListBox).Items.Add(val);
     ( Caller as TJvListBox).Sorted := false;
     ( Caller as TJvListBox).Sorted := true;
     self.Write_Btn.Enabled := true;
+     end;
   end;
 
   procedure TJRScrap_Frm.Dossiercourant1Click(Sender: TObject);
@@ -2000,11 +1833,11 @@ end;
     GotofolderClick(self);
   end;
 
- 
+
 
   procedure TJRScrap_Frm.scrapall1Click(Sender: TObject);
-  var
-    MassScrap_Frm: TForm;
+
+
   begin
     CountServices ;
      if FServices_Count = 0 then
@@ -2563,6 +2396,7 @@ procedure TJRScrap_Frm.FormClose(Sender: TObject; var Action: TCloseAction);
     RegNGFS: TRegistry;
   begin
 
+  debug('formshow');
     self.Movie_Browser.cells[5, 0] := Translate_String_JRStyle('Name',
       FCurrentLang);
     self.Movie_Browser.cells[8, 0] := Translate_String_JRStyle('Lock',
@@ -2988,8 +2822,220 @@ procedure TJRScrap_Frm.LanguageClick(Sender: TObject);
 
 
 procedure TJRScrap_Frm.Button2Click(Sender: TObject);
+ var
+    rq: String;
+  not_clear : boolean ;
   begin
-    View_ActionExecute(self);
+    CountServices ;
+
+    if FServices_Count = 0 then
+    begin
+     ShowMessage(Translate_String_JRStyle('Select a Service first !', JRScrap_Frm.FCurrentLang));
+    exit ;
+    end;
+
+    not_clear := false ;
+    Fsearching := true;
+
+    self.Write_Btn.Enabled := false;
+    screen.cursor := crHourGlass;
+
+    Application.ProcessMessages;
+
+    if self.Movie_Browser.cells[7, self.Movie_Browser.row] = 'YES' then
+    begin
+      screen.cursor := crdefault;
+      if self.FMassScrap = false then
+      begin
+        ShowMessage(Translate_String_JRStyle('File locked !', FCurrentLang));
+
+        Exit;
+      end
+      else
+      begin
+      //  MassScrap_Frm.MassTag ;
+        exit ;
+      end;
+    end;
+
+
+
+    if self.TheMoviedB_rd.down = false  then
+    begin
+
+    // Freebase
+
+    if  self.freebase_Btn.down = true then
+    begin
+
+    TFreebase_Ins :=   TFreebase_Cl.Create   ;
+    TFreebase_Ins.Freebase_getID() ;
+
+    end;
+
+    // Traileraddict
+
+    if  self.Traileraddict_Search_Btn.Down = true then
+    begin
+    TTrailerAddict_Ins:= TTrailerAddict_Cl.Create   ;
+    TTrailerAddict_Ins.Search_Name;
+    end;
+
+    end;
+
+
+
+
+
+   // TheMoviedB
+
+    if self.TheMoviedB_rd.down = true  then
+    begin
+
+
+    if assigned(TheMoviedB_Ins) then   TheMoviedB_Ins.Free ;
+
+      TheMoviedB_Ins := TTheMoviedB_Cl.Create(FCurrentJRiverId,
+        FCurrentLangShort);
+
+      // 0 0 0
+      if ((self.Tmdb_id_Ed.Text = emptystr) and
+        (self.imdb_id_Ed.Text = emptystr) and (Name_Ed.Text = emptystr)) then
+      begin
+        if self.FMassScrap = false then
+          begin
+        ShowMessage(Translate_String_JRStyle('Nothing to search ! Enter a Name, a IMDB or TMDB or a TheTVDB Series ID', JRScrap_Frm.FCurrentLang));
+         screen.Cursor := crdefault;
+        Exit;
+          end ;
+
+      end;
+
+      // 1 0 0
+      if ((self.Tmdb_id_Ed.Text <> emptystr) and
+        (self.imdb_id_Ed.Text = emptystr) and (Name_Ed.Text = emptystr)) then
+      begin
+        TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
+        TheMoviedB_Ins.TheMoviedB_ID_Search_Proc;
+      end;
+
+      // 0 1 0
+      if ((self.Tmdb_id_Ed.Text = emptystr) and
+        (self.imdb_id_Ed.Text <> emptystr) and (Name_Ed.Text = emptystr)) then
+      begin
+        TheMoviedB_Ins.imdb_id := self.imdb_id_Ed.Text;
+        TheMoviedB_Ins.TheMoviedB_IMDB_Search_Proc;
+      end;
+
+      ///*******
+
+      // 1 1 0
+      if ((self.Tmdb_id_Ed.Text <> emptystr) and
+        (self.imdb_id_Ed.Text <> emptystr) and (Name_Ed.Text = emptystr)) then
+      begin
+        TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
+        TheMoviedB_Ins.TheMoviedB_ID_Search_Proc;
+      end;
+
+      // 0 1 1
+      if ((self.Tmdb_id_Ed.Text = emptystr) and
+        (self.imdb_id_Ed.Text <> emptystr) and (Name_Ed.Text <> emptystr)) then
+      begin
+        TheMoviedB_Ins.imdb_id := self.imdb_id_Ed.Text;
+        TheMoviedB_Ins.TheMoviedB_IMDB_Search_Proc;
+      end;
+
+      // 1 0 1
+      if ((self.Tmdb_id_Ed.Text <> emptystr) and
+        (self.imdb_id_Ed.Text = emptystr) and (Name_Ed.Text <> emptystr)) then
+      begin
+        TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
+        TheMoviedB_Ins.TheMoviedB_ID_Search_Proc;
+      end;
+
+      // 1 1 1
+      if ((self.Tmdb_id_Ed.Text <> emptystr) and
+        (self.imdb_id_Ed.Text <> emptystr) and (Name_Ed.Text <> emptystr)) then
+      begin
+        TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
+        TheMoviedB_Ins.TheMoviedB_ID_Search_Proc;
+      end;
+
+        // *********
+       // 0 0 1
+      if ((self.Tmdb_id_Ed.Text = emptystr) and
+        (self.imdb_id_Ed.Text = emptystr) and (Name_Ed.Text <> emptystr)) then
+      begin
+        Search_Frm := TSearch_frm.Create(nil, TheMoviedB_Ins);
+        Search_Frm.left := self.left + 250;
+        Search_Frm.top := self.top + 20;
+        not_clear := true ;
+        Search_Frm.ShowModal;
+      end;
+
+  end;
+
+
+
+
+
+    /// TVDB    !
+
+
+  if self.TVdb_Rd.down = true then
+   begin
+
+       if ((self.Season_Spin_Ed.Text = emptystr) or( self.Episode_Spin_Ed.Text = emptystr)) then
+       begin
+        ShowMessage(Translate_String_JRStyle('No Serie / Episode to search !', JRScrap_Frm.FCurrentLang));
+        screen.Cursor := crdefault;
+        exit ;
+       end;
+
+       if assigned(TtvdB_Ins) then   TtvdB_Ins.Free ;
+
+      TtvdB_Ins := TtvdB_Cl.Create(FCurrentJRiverId, FCurrentLangShort, strtoint( self.Episode_Spin_Ed.Text) , strtoint(self.Season_Spin_Ed.Text));
+
+     if ((tvdb_id_Ed.Text = emptystr) and ( self.Serie_Title_Ed.Text= emptystr)) then
+     begin
+         if self.FMassScrap = false then
+          begin
+            ShowMessage(Translate_String_JRStyle('Nothing to search !', JRScrap_Frm.FCurrentLang));
+           screen.Cursor := crdefault;
+            Exit;
+          end;
+
+     end;
+
+  if (tvdb_id_Ed.Text <> emptystr)  then
+   begin
+        TtvdB_Ins.tvdb_id :=  tvdb_id_Ed.Text ;
+        TtvdB_Ins.TheTVDB_ID_Search_Proc;
+    end;
+
+
+
+    if ((tvdb_id_Ed.Text = emptystr) and ( self.Serie_Title_Ed.Text <> emptystr)) then
+    begin
+        Search_Frm := TSearch_frm.Create(nil, TTVdB_Ins);
+        Search_Frm.left := self.left + 250;
+        Search_Frm.top := self.top + 20;
+        not_clear := true ;
+        Search_Frm.ShowModal;
+    end;
+
+
+
+
+
+   end;
+
+
+  if not_clear = false then
+  begin
+  //ClearAll;
+  end;
+
 
   end;
 
@@ -3271,7 +3317,12 @@ procedure TJRScrap_Frm.Episode_Spin_WEnter(Sender: TObject);
 
   end;
 
-  procedure TJRScrap_Frm.EraseHistory1Click(Sender: TObject);
+  procedure TJRScrap_Frm.Erasealltags1Click(Sender: TObject);
+begin
+Eraseallinfo1Click(Self) ;
+end;
+
+procedure TJRScrap_Frm.EraseHistory1Click(Sender: TObject);
   begin
     RemoveAllFilesFromFolder(self.FlogFolder, '*.*');
   end;

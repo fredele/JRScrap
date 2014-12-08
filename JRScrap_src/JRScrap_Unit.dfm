@@ -104,6 +104,7 @@ object JRScrap_Frm: TJRScrap_Frm
         Font.Name = 'Calibri'
         Font.Style = []
         ParentFont = False
+        PopupMenu = Info_Pop
         TabOrder = 0
         Bevels = <>
         Degrade.Balance = 60
@@ -270,48 +271,48 @@ object JRScrap_Frm: TJRScrap_Frm
           Caption = 'Trailer :'
         end
         object Label32: TLabel
-          Left = 14
-          Top = 1050
+          Left = 12
+          Top = 1222
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Allocin'#233' :'
         end
         object Label35: TLabel
-          Left = 14
-          Top = 1083
+          Left = 12
+          Top = 1057
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Rottentomatoes :'
         end
         object Label36: TLabel
-          Left = 14
-          Top = 1116
+          Left = 12
+          Top = 1090
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Wikipedia (eng) :'
         end
         object Label38: TLabel
-          Left = 14
-          Top = 1149
+          Left = 12
+          Top = 1123
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Wikipedia :'
         end
         object Label39: TLabel
-          Left = 12
-          Top = 1182
+          Left = 10
+          Top = 1156
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Traileraddict :'
         end
         object Label40: TLabel
-          Left = 14
-          Top = 1218
+          Left = 12
+          Top = 1192
           Width = 112
           Height = 19
           AutoSize = False
@@ -518,6 +519,7 @@ object JRScrap_Frm: TJRScrap_Frm
           BevelOuter = bvNone
           Ctl3D = True
           ParentCtl3D = False
+          PopupMenu = Image_Pop
           TabOrder = 3
           object Picture_Img: TImage
             Left = 0
@@ -532,6 +534,7 @@ object JRScrap_Frm: TJRScrap_Frm
             ParentCustomHint = False
             Align = alClient
             ParentShowHint = False
+            PopupMenu = Image_Pop
             Proportional = True
             ShowHint = True
             OnDblClick = Picture_ImgDblClick
@@ -843,7 +846,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 7
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Genre_ListBox: TJvListBox
           Left = 245
@@ -869,7 +871,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 8
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Production_Company_ListBox: TJvListBox
           Left = 11
@@ -895,7 +896,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 9
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Director_ListBox: TJvListBox
           Left = 476
@@ -921,7 +921,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 10
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Executive_Producer_ListBox: TJvListBox
           Left = 476
@@ -947,7 +946,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 11
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Screenwriter_ListBox: TJvListBox
           Left = 476
@@ -973,7 +971,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 12
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Casting_ListBox: TJvListBox
           Left = 246
@@ -999,7 +996,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 13
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Cinematographer_ListBox: TJvListBox
           Left = 12
@@ -1025,11 +1021,10 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 14
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Music_by_ListBox: TJvListBox
           Left = 12
-          Top = 970
+          Top = 969
           Width = 217
           Height = 60
           ParentCustomHint = False
@@ -1051,7 +1046,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 15
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Novel_ListBox: TJvListBox
           Left = 246
@@ -1077,7 +1071,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 16
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Production_Design_ListBox: TJvListBox
           Left = 476
@@ -1103,7 +1096,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ScrollBars = ssVertical
           ShowHint = False
           TabOrder = 17
-          OnMouseLeave = Cinematographer_ListBoxMouseLeave
         end
         object Panel6: TPanel
           Left = -286
@@ -1124,8 +1116,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Trailer_BtnClick
         end
         object Allocine_Btn: TButton
-          Left = 627
-          Top = 1047
+          Left = 625
+          Top = 1219
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1140,8 +1132,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object RottenTomatoes_Btn: TButton
-          Left = 627
-          Top = 1080
+          Left = 625
+          Top = 1054
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1150,8 +1142,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object Wikipediaeng_Btn: TButton
-          Left = 627
-          Top = 1113
+          Left = 625
+          Top = 1087
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1160,8 +1152,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object Wikipedia_Btn: TButton
-          Left = 627
-          Top = 1146
+          Left = 625
+          Top = 1120
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1170,8 +1162,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object traileraddict_Btn: TButton
-          Left = 627
-          Top = 1179
+          Left = 625
+          Top = 1153
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1180,8 +1172,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object Metacritic_Btn: TButton
-          Left = 627
-          Top = 1212
+          Left = 625
+          Top = 1186
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1225,8 +1217,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnKeyPress = EdKeyPress
         end
         object Allocine_Ed: TJvEdit
-          Left = 132
-          Top = 1047
+          Left = 130
+          Top = 1219
           Width = 480
           Height = 27
           BevelKind = bkTile
@@ -1238,8 +1230,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnKeyPress = EdKeyPress
         end
         object RottenTomatoes_Ed: TJvEdit
-          Left = 132
-          Top = 1080
+          Left = 130
+          Top = 1054
           Width = 480
           Height = 27
           BevelKind = bkTile
@@ -1251,8 +1243,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnKeyPress = EdKeyPress
         end
         object Wikipediaeng_Ed: TJvEdit
-          Left = 132
-          Top = 1113
+          Left = 130
+          Top = 1087
           Width = 480
           Height = 27
           BevelKind = bkTile
@@ -1264,8 +1256,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnKeyPress = EdKeyPress
         end
         object Wikipedia_Ed: TJvEdit
-          Left = 132
-          Top = 1146
+          Left = 130
+          Top = 1120
           Width = 480
           Height = 27
           BevelKind = bkTile
@@ -1277,8 +1269,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnKeyPress = EdKeyPress
         end
         object traileraddict_Ed: TJvEdit
-          Left = 132
-          Top = 1179
+          Left = 130
+          Top = 1153
           Width = 480
           Height = 27
           BevelKind = bkTile
@@ -1290,8 +1282,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnKeyPress = EdKeyPress
         end
         object Metacritic_Ed: TJvEdit
-          Left = 132
-          Top = 1212
+          Left = 130
+          Top = 1186
           Width = 480
           Height = 27
           BevelKind = bkTile
@@ -1437,6 +1429,7 @@ object JRScrap_Frm: TJRScrap_Frm
       Width = 12
       Height = 12
       Anchors = [akRight, akBottom]
+      OnClick = StatusLedClick
       LedValue = False
       Bevels = <>
       LedColorOn = clBlue
@@ -1761,6 +1754,7 @@ object JRScrap_Frm: TJRScrap_Frm
         Width = 178
         Height = 21
         Align = alCustom
+        Alignment = taRightJustify
         BiDiMode = bdRightToLeft
         Enabled = False
         ParentBiDiMode = False
@@ -1919,8 +1913,8 @@ object JRScrap_Frm: TJRScrap_Frm
   end
   object MainMenu1: TMainMenu
     AutoHotkeys = maManual
-    Left = 192
-    Top = 291
+    Left = 23
+    Top = 181
     object Configure1: TMenuItem
       Caption = 'Menu'
       object scrapall1: TMenuItem
@@ -32879,8 +32873,8 @@ object JRScrap_Frm: TJRScrap_Frm
     end
   end
   object ListBox_Pop: TPopupMenu
-    Left = 313
-    Top = 236
+    Left = 101
+    Top = 180
     object Delete: TMenuItem
       Caption = 'Add'
       OnClick = AddClick
@@ -32891,8 +32885,8 @@ object JRScrap_Frm: TJRScrap_Frm
     end
   end
   object Movie_Browser_Pop: TPopupMenu
-    Left = 295
-    Top = 325
+    Left = 215
+    Top = 187
     object Eraseallinfo1: TMenuItem
       Caption = 'Erase all tags'
       OnClick = Eraseallinfo1Click
@@ -32904,13 +32898,33 @@ object JRScrap_Frm: TJRScrap_Frm
   end
   object Update_Timer: TTimer
     OnTimer = Update_TimerTimer
-    Left = 48
-    Top = 350
+    Left = 31
+    Top = 367
   end
   object MCAutomation: TMCAutomation
     AutoConnect = True
     ConnectKind = ckRunningOrNew
-    Left = 309
-    Top = 383
+    Left = 212
+    Top = 264
+  end
+  object Image_Pop: TPopupMenu
+    Left = 33
+    Top = 264
+    object View1: TMenuItem
+      Caption = 'View'
+      OnClick = View1Click
+    end
+    object Delete1: TMenuItem
+      Caption = 'Delete'
+      OnClick = Delete1Click
+    end
+  end
+  object Info_Pop: TPopupMenu
+    Left = 116
+    Top = 263
+    object Erasealltags1: TMenuItem
+      Caption = 'Erase all tags'
+      OnClick = Erasealltags1Click
+    end
   end
 end

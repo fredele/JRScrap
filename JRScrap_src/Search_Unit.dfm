@@ -18,8 +18,9 @@ object Search_Frm: TSearch_Frm
   object Label1: TLabel
     Left = 16
     Top = 8
-    Width = 241
+    Width = 697
     Height = 13
+    AutoSize = False
     Caption = 'Select here the row  of the Movie to get tags from'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -31,14 +32,14 @@ object Search_Frm: TSearch_Frm
   object Label2: TLabel
     Left = 31
     Top = 220
-    Width = 41
+    Width = 35
     Height = 13
     Caption = 'Status:'
   end
   object Status_Lbl: TLabel
     Left = 87
     Top = 220
-    Width = 504
+    Width = 3
     Height = 13
   end
   object Movie_Search_Grid: TStringGrid

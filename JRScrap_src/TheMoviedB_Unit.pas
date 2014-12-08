@@ -1,4 +1,10 @@
-unit TheMoviedB_Unit;
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+unit TheMoviedB_Unit;
 
 interface
 
@@ -15,13 +21,14 @@ type
   TTheMoviedB_Cl = class(TGeneric_Search)
   var
     imdb_id, tmdb_id: string;
+
   public
 
     Thrd_Search, Thrd_IMDB_ID, Thrd_Basic_Info, Thrd_Credits,
       Thrd_Keywords: TThreadsearch;
     Thrd_Image: TThreadsearch_Image;
     FManager: TThreadManager;
-
+     FMovie: IMJFileAutomation;
     constructor Create(id: integer; CurrentLangShort: string);
 
     procedure TheMoviedB_IMDB_Search_Proc;
@@ -47,11 +54,11 @@ implementation
 
 uses
 
-  MassScrap_Unit,
   JRScrap_Unit,
   Search_Unit,
   Freebase_Unit,
   Traileraddict_Unit,
+   MassScrap_Unit,
   JRiverXML_Unit ;
 var
   md: TMedia;
@@ -86,7 +93,8 @@ JRScrap_Frm.Movie_Browser.cells[5, JRScrap_Frm.Movie_Browser.row] := name;
  begin
 
     s := ExtractFilePath(Filename) + ExtractFileNameWithoutExt(Filename) + '.jpg';
-
+     if JRScrap_Frm.MassScrap_Frm.Picture_Rec_Chk.Checked = true then
+     begin
       // Save image in directory
       try
         image.SaveToFile(s);
@@ -112,6 +120,7 @@ JRScrap_Frm.Movie_Browser.cells[5, JRScrap_Frm.Movie_Browser.row] := name;
         screen.cursor := crdefault;
       end;
 
+     end;
  end;
     if not assigned(FCurrentMovie) then
     begin
@@ -129,16 +138,16 @@ JRScrap_Frm.Movie_Browser.cells[5, JRScrap_Frm.Movie_Browser.row] := name;
     end;
 
 
-      FCurrentMovie.Set_('Name', Name);
+      FMovie.Set_('Name', Name);
       FJRiverXml.SetField('Name', Name);
 
-      FCurrentMovie.Set_('original title', Original_name);
+      FMovie.Set_('original title', Original_name);
       FJRiverXml.SetField('original title', Original_name);
 
         day := StrToDate(release_date);
         s := '';
 
-      FCurrentMovie.Set_('Date', Floattostr(day));
+      FMovie.Set_('Date', Floattostr(day));
       FJRiverXml.SetField('Date', Floattostr(day));
 
        // TODO : continue this !
@@ -148,7 +157,7 @@ JRScrap_Frm.Movie_Browser.cells[5, JRScrap_Frm.Movie_Browser.row] := name;
       end;
 
       s := Copy(s, 2, length(s) - 1);
-      FCurrentMovie.Set_('Actors', s);
+      FMovie.Set_('Actors', s);
       FJRiverXml.SetField('Actors', s);
       s := '';
 
@@ -157,7 +166,7 @@ JRScrap_Frm.Movie_Browser.cells[5, JRScrap_Frm.Movie_Browser.row] := name;
         s := s + ';' +Persons[i].Character;
       end;
       s := Copy(s, 2, length(s) - 1);
-      FCurrentMovie.Set_('Character', s);
+      FMovie.Set_('Character', s);
       FJRiverXml.SetField('Character', s);
       s := '';
 
@@ -171,84 +180,84 @@ JRScrap_Frm.Movie_Browser.cells[5, JRScrap_Frm.Movie_Browser.row] := name;
         end;
       end;
       s := Copy(s, 2, length(s) - 1);
-      FCurrentMovie.Set_('ActorAsCharacter', s);
+      FMovie.Set_('ActorAsCharacter', s);
       FJRiverXml.SetField('ActorAsCharacter', s);
       s := '';
 
-      FCurrentMovie.Set_('IMDb ID', imdb_id);
+      FMovie.Set_('IMDb ID', imdb_id);
       FJRiverXml.SetField('IMDb ID',imdb_id);
 
-      FCurrentMovie.Set_('TMDB ID', Tmdb_id);
+      FMovie.Set_('TMDB ID', Tmdb_id);
       FJRiverXml.SetField('TMDB ID', Tmdb_id);
 
-      FCurrentMovie.Set_('Budget', budget);
+      FMovie.Set_('Budget', budget);
       FJRiverXml.SetField('Budget', budget);
 
-      FCurrentMovie.Set_('Revenue', revenue);
+      FMovie.Set_('Revenue', revenue);
       FJRiverXml.SetField('Revenue', revenue);
 
-      FCurrentMovie.Set_('Critic Rating', Vote_Average);
+      FMovie.Set_('Critic Rating', Vote_Average);
       FJRiverXml.SetField('Critic Rating', Vote_Average);
 
-      FCurrentMovie.Set_('Trailer', trailer);
+      FMovie.Set_('Trailer', trailer);
       FJRiverXml.SetField('Trailer',trailer);
 
-      FCurrentMovie.Set_('Description', Overview);
+      FMovie.Set_('Description', Overview);
       FJRiverXml.SetField('Description',  Overview);
 
       s := serialize(Keywords);
-      FCurrentMovie.Set_('Keywords', s);
+      FMovie.Set_('Keywords', s);
       FJRiverXml.SetField('Keywords', s);
       s := emptystr;
 
       s := serialize(Genre);
-      FCurrentMovie.Set_('Genre', s);
+      FMovie.Set_('Genre', s);
       FJRiverXml.SetField('Genre', s);
       s := emptystr;
 
       s := serialize(Production_Companies);
-      FCurrentMovie.Set_('Production Company', s);
+      FMovie.Set_('Production Company', s);
       FJRiverXml.SetField('Production Company', s);
       s := emptystr;
 
       s := serialize(Director);
-      FCurrentMovie.Set_('Director', s);
+      FMovie.Set_('Director', s);
       FJRiverXml.SetField('Director', s);
       s := emptystr;
 
       s := serialize(Executive_Producer);
-      FCurrentMovie.Set_('Executive Producer', s);
+      FMovie.Set_('Executive Producer', s);
       FJRiverXml.SetField('Executive Producer', s);
       s := emptystr;
 
       s := serialize(Cinematographer);
-      FCurrentMovie.Set_('Cinematographer', s);
+      FMovie.Set_('Cinematographer', s);
       FJRiverXml.SetField('Cinematographer', s);
       s := emptystr;
 
       s := serialize(Casting);
-      FCurrentMovie.Set_('Casting', s);
+      FMovie.Set_('Casting', s);
       FJRiverXml.SetField('Casting', s);
       s := emptystr;
 
 
       s := serialize(Screenwriter);
-      FCurrentMovie.Set_('Screenwriter', s);
+      FMovie.Set_('Screenwriter', s);
       FJRiverXml.SetField('Screenwriter', s);
       s := emptystr;
 
       s := serialize(Music_by);
-      FCurrentMovie.Set_('Music by', s);
+      FMovie.Set_('Music by', s);
       FJRiverXml.SetField('Music by', s);
       s := emptystr;
 
       s := serialize(Novel);
-      FCurrentMovie.Set_('Novel', s);
+      FMovie.Set_('Novel', s);
       FJRiverXml.SetField('Novel', s);
       s := emptystr;
 
       s := serialize(Production_Design);
-      FCurrentMovie.Set_('Production Design', s);
+      FMovie.Set_('Production Design', s);
       FJRiverXml.SetField('Production Design', s);
       s := emptystr;
 
@@ -279,7 +288,7 @@ begin
          else
          begin
           if  JRScrap_Frm.FMassScrap = true then
-          MassScrap_Frm.masstag ;
+         JRScrap_frm.WaitAllServices ;
          end;
       end;
 
@@ -345,7 +354,7 @@ begin
     else
     begin
       //if Lock = true
-      After_Manager;
+      //After_Manager;
     end;
 end;
 
@@ -402,6 +411,26 @@ constructor TTheMoviedB_Cl.Create(id: integer; CurrentLangShort: string);
 begin
   inherited Create(id, CurrentLangShort);
   APIkey := '3b608fc11821e92cd2459320206a9d9b';
+ FMovie:= FCurrentMovie;
+
+  if FMovie.Get('Lock External Tag Editor',true ) = 'YES' then
+  begin
+  if  JRScrap_Frm.FMassScrap = true then
+      JRScrap_frm.WaitAllServices ;
+
+    // Freebase
+    if  JRScrap_frm.freebase_Btn.down = true then
+    begin
+    JRScrap_frm.WaitAllServices ;
+    end;
+
+    // Traileraddict
+    if  JRScrap_frm.Traileraddict_Search_Btn.Down = true then
+    begin
+    JRScrap_frm.WaitAllServices ;
+    end;
+
+  end;
 end;
 
 procedure TTheMoviedB_Cl.TheMoviedB_IMDB_Search_Proc;
@@ -432,9 +461,14 @@ var
   rq: string;
 begin
 
-
-  rq := 'https://api.themoviedb.org/3/movie/' + self.tmdb_id + '?api_key=' +
-    APIkey + '&language=' + FCurrentLangShort;
+  if FCurrentLangShort <> 'eng' then
+  begin
+  rq := 'https://api.themoviedb.org/3/movie/' + self.tmdb_id + '?api_key=' + APIkey + '&language=' + FCurrentLangShort;
+  end
+  else
+  begin
+  rq := 'https://api.themoviedb.org/3/movie/' + self.tmdb_id + '?api_key=' + APIkey ;
+  end;
 
   self.Thrd_Basic_Info := TThreadsearch.Create(nil, Tcod.ansi, rq,
     After_Thread_Search_Basic_Info);
@@ -480,51 +514,68 @@ begin
   if FJSonReader.getint('revenue') <> 0 then
     revenue := IntToStr((FJSonReader.getint('revenue')));
   except
-
   end;
 
-  if FJSonReader.getString('imdb_id') <> '' then
+  try
     imdb_id := (FJSonReader.getString('imdb_id'));
+  except
+  end;
 
+  try
   tmdb_id := inttostr((FJSonReader.getint('id')));
-  // debug(FJSonReader.getint('id'));
+  except
+  end;
 
-  if FJSonReader.getString('original_title') <> '' then
+  try
     original_name := FJSonReader.getString('original_title');
+  except
+  end;
 
-  if FJSonReader.getString('title') <> '' then
+
+ try
     name := FJSonReader.getString('title');
+  except
+  end;
 
-  if FJSonReader.getDouble('vote_average') <> 0 then
+  try
     Vote_Average := FloatToStr(FJSonReader.getDouble('vote_average'));
+  except
+  end;
 
-  if FJSonReader.getString('release_date') <> '' then
-    release_date := formatdateEngToFrench
-      (FJSonReader.getString(('release_date')));
+  try
+    release_date := formatdateEngToFrench (FJSonReader.getString(('release_date')));
+   except
+  end;
 
-  if FJSonReader.getString('overview') <> '' then
+ try
     overview := FJSonReader.getString('overview');
+  except
+  end;
 
   if (FJSonReader.Field['genres'] as TlkJSONList).Count <> 0 then
   begin
 
     for i := 0 to (FJSonReader.Field['genres'] as TlkJSONList).Count - 1 do
     begin
-
+      try
       Genre.Add(trim((((FJSonReader.Field['genres'] as TlkJSONList)
         .child[i] as TlkJSONobject).Field['name'].value)));
+       except
+       end;
     end;
   end;
 
   if (FJSonReader.Field['production_companies'] as TlkJSONList).Count <> 0 then
   begin
-
+    try
     for i := 0 to (FJSonReader.Field['production_companies'] as TlkJSONList)
       .Count - 1 do
     begin
       production_companies.Add
         (trim((((FJSonReader.Field['production_companies'] as TlkJSONList)
         .child[i] as TlkJSONobject).Field['name'].value)));
+    end;
+    except
     end;
   end;
 
@@ -779,7 +830,6 @@ procedure TTheMoviedB_Cl.After_Thread_Search_Search(str: string);
 var
   i: integer;
   FJSonReader: TlkJSONobject;
-
 begin
   try
     FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
@@ -789,8 +839,13 @@ begin
     debug('error');
   end;
 
-  if (((FJSonReader.Field['results'] as TlkJSONList).Count < 1) ) then
+   debug('Count :');
+   debug((FJSonReader.Field['results'] as TlkJSONList).Count);
+
+  if ((FJSonReader.Field['results'] as TlkJSONList).Count = 0)  then
   begin
+
+
     if JRScrap_Frm.fmassscrap = false   then
      begin
     ShowMessage(Translate_String_JRStyle('No results for this search !',
@@ -799,35 +854,55 @@ begin
      end
      else
      begin
+
+
      if  JRScrap_Frm.FMassScrap = true then
-     MassScrap_frm.MassTag ;
+     begin
+       JRScrap_frm.WaitAllServices ;
+
+        // Freebase
+    if  JRScrap_frm.freebase_Btn.down = true then
+    begin
+    JRScrap_frm.WaitAllServices ;
+    end;
+
+    // Traileraddict
+    if  JRScrap_frm.Traileraddict_Search_Btn.Down = true then
+    begin
+    JRScrap_frm.WaitAllServices ;
+    end;
      end;
 
 
-  end;
 
+     end
+  end
+
+
+  else
   begin
+
+
     debug((FJSonReader.Field['results'] as TlkJSONList).Count);
 
-
-    debug(Search_Frm.Movie_Search_Grid.RowCount);
     try
 
       for i := 0 to (FJSonReader.Field['results'] as TlkJSONList).Count - 1 do
       begin
-
+         try
         md.name := (((FJSonReader.Field['results'] as TlkJSONList)
           .child[i] as TlkJSONobject).Field['title'].value);
         md.release_date :=
           (((FJSonReader.Field['results'] as TlkJSONList)
           .child[i] as TlkJSONobject).Field['release_date'].value);
-        debug(Search_Frm.Movie_Search_Grid.Cells[1, i]);
         md.API_Id :=
           StrToInt((((FJSonReader.Field['results'] as TlkJSONList)
           .child[i] as TlkJSONobject).Field['id'].value));
-        debug(Search_Frm.Movie_Search_Grid.Cells[2, i]);
 
         self.AddMedia(md);
+         except
+
+         end;
       end;
 
 
@@ -837,14 +912,30 @@ begin
       end
       else
       begin
-      if MassScrap_Frm.CheckBox1.Checked = true then
+
+      if JRScrap_Frm.MassScrap_Frm.CheckBox1.Checked = true then
        begin
+
        tmdb_id := inttostr( Medias[0].API_Id) ;      //Frantic 10675
        TheMoviedB_ID_Search_Proc;
+
       end
       else
       begin
-      Display_Searches;
+      JRScrap_Frm.WaitAllServices ;
+
+       // Freebase
+    if  JRScrap_frm.freebase_Btn.down = true then
+    begin
+    JRScrap_frm.WaitAllServices ;
+    end;
+
+    // Traileraddict
+    if  JRScrap_frm.Traileraddict_Search_Btn.Down = true then
+    begin
+    JRScrap_frm.WaitAllServices ;
+    end;
+
       end;
       end;
 
@@ -856,10 +947,11 @@ begin
       JRScrap_Frm.logger.error
         ('Error: Could not write results in Movie_Search_Grid');
     end;
+  end;
     application.ProcessMessages;
 
   end;
 
-end;
+
 
 end.

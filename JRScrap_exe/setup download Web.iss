@@ -42,6 +42,8 @@ Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Firstrun";
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Writepicture"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "WriteSideCar"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapWimdbID"; ValueData: 1 
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapPicture"; ValueData: 1
+
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Freebase"; ValueData: 1     
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Traileraddict"; ValueData: 1     
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "TheMoviedB"; ValueData: 1

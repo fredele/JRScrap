@@ -1,4 +1,10 @@
-unit Search_Unit;
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+unit Search_Unit;
 
 interface
 
@@ -51,6 +57,9 @@ procedure TSearch_Frm.FormActivate(Sender: TObject);
 begin
   self.Close.Caption := Translate_String_JRStyle('Close', JRScrap_frm.FCurrentLang);
   self.Status_Lbl.Caption := Translate_String_JRStyle('Searching ...', JRScrap_frm.FCurrentLang);
+  self.Label1.Caption :=
+   Translate_String_JRStyle('Select here the row  of the Movie to get tags from' ,JRScrap_Frm.FCurrentLang) ;
+  self.caption :=   Translate_String_JRStyle('Search' ,JRScrap_Frm.FCurrentLang) ;
   self.Movie_Search_Grid.ColWidths[0] := 515;
   self.Movie_Search_Grid.ColWidths[1] := 165;
   self.Movie_Search_Grid.ColWidths[2] := 0;

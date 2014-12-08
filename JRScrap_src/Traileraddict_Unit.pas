@@ -1,4 +1,10 @@
-unit Traileraddict_Unit;
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+unit Traileraddict_Unit;
 
 interface
 
@@ -17,7 +23,7 @@ TTrailerAddict_Cl = class
 private
 url_trailer : string ;
 
-
+ FMovie: IMJFileAutomation;
 public
 procedure Search_Name() ;
 procedure After_Thrd(str : string) ;
@@ -37,7 +43,15 @@ var
   link : string ;
 constructor TTrailerAddict_Cl.Create;
 begin
+    FMovie:= FCurrentMovie;
 
+  if FMovie.Get('Lock External Tag Editor',true ) = 'YES' then
+  begin
+  if  JRScrap_Frm.FMassScrap = true then
+      JRScrap_frm.WaitAllServices ;
+     freeandnil(self) ;
+     exit;
+  end;
 end;
 
 procedure TTrailerAddict_Cl.Search_Name() ;
@@ -45,12 +59,7 @@ var
   rq,name : string ;
   begin
 
-  if FCurrentMovie.Get('Lock External Tag Editor',true ) = 'YES' then
-  begin
-  if  JRScrap_Frm.FMassScrap = true then
-        MassScrap_Frm.masstag ;
-    exit;
-  end;
+
 
   if   JRScrap_Frm.Original_title_Ed.Text <> emptystr  then
   name := replacestr( JRScrap_Frm.Original_title_Ed.Text, ' ', '-' )
@@ -139,6 +148,8 @@ begin
     if JRScrap_Frm.fmassscrap = false   then
      begin
      ShowMessage('Traileraddict : ' +Translate_String_JRStyle('No results for this search !',   JRScrap_Frm.FCurrentLang));
+     screen.Cursor := crdefault ;
+     exit ;
      end;
  end;
  if  JRScrap_Frm.FMassScrap = true then

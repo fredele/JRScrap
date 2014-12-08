@@ -1378,7 +1378,7 @@ object Form2: TForm2
     Height = 13
     Alignment = taCenter
     AutoSize = False
-    Caption = 'e-mail  : frederic.klieber@gmail.com'
+    Caption = 'e-mail'
     OnClick = Label3Click
     OnMouseEnter = Image1MouseEnter
     OnMouseLeave = Image1MouseLeave

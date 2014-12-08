@@ -1,4 +1,10 @@
-unit TVdB_Unit;
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+unit TVdB_Unit;
 
 interface
 
@@ -40,6 +46,8 @@ uses
   Search_Unit, MassScrap_Unit, JRScrap_Unit, JRiverXML_Unit ;
 
 
+ var
+  MassScrap_Frm : TMassScrap_Frm ;
 
 function getlid (lg : string ): integer ;
 begin
@@ -145,6 +153,10 @@ begin
  begin
     s := ExtractFilePath(Filename) + ExtractFileNameWithoutExt(Filename) + '.jpg';
 
+
+     if JRScrap_Frm.MassScrap_Frm.Picture_Rec_Chk.Checked = true then
+     begin
+
       // Save image in directory
       try
         image.SaveToFile(s);
@@ -173,6 +185,11 @@ begin
       debug('except') ;
         //screen.cursor := crdefault;
       end;
+
+
+     end;
+
+
  end;
 
     if not assigned(FCurrentMovie) then
@@ -405,8 +422,14 @@ var
 begin
   rq := StringReplace(title, ' ', '+', [rfReplaceAll, rfIgnoreCase]);
 
-  rq := 'http://thetvdb.com/api/GetSeries.php?seriesname=' + rq + '&language=' +
-    JRScrap_Frm.FCurrentLangShort;
+  if FCurrentLangShort <> 'eng' then
+  begin
+  rq := 'http://thetvdb.com/api/GetSeries.php?seriesname=' + rq + '&language=' + JRScrap_Frm.FCurrentLangShort;
+  end
+  else
+  begin
+  rq := 'http://thetvdb.com/api/GetSeries.php?seriesname=' + rq ;
+  end;
 
   try
     MovieThreadSearch1 := TThreadsearch.Create(nil, Tcod.utf8, rq,
@@ -529,6 +552,7 @@ begin
       ShowMessage(Translate_String_JRStyle('No results for this search !',
         JRScrap_Frm.FCurrentLang));
       JRScrap_Frm.ShowJRiverId(JRScrap_Frm.FCurrentJRiverId);
+      screen.Cursor := crdefault ;
       exit;
     end
     else
@@ -704,8 +728,15 @@ var
   rq: string;
 begin
   try
-    rq := 'http://thetvdb.com/api/' + APIkey + '/series/' +
-      self.tvdb_id + '/all/' + FCurrentLangShort + '.xml';
+
+   if FCurrentLangShort <> 'eng' then
+  begin
+    rq := 'http://thetvdb.com/api/' + APIkey + '/series/' +self.tvdb_id + '/all/' + FCurrentLangShort + '.xml';
+  end
+  else
+  begin
+    rq := 'http://thetvdb.com/api/' + APIkey + '/series/' +self.tvdb_id + '/all/' ;
+  end;
 
     MovieThreadSearch1 := TThreadsearch.Create(nil, Tcod.utf8, rq,
       After_Thread_SearchSerieEpisode);

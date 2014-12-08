@@ -89,6 +89,11 @@ Thanks to the people who participated (beta-tester, translations, ..) :
 
 bytestar,oenomath,pseudoz,rlebrette,xtrax,D-Kalck and all others  !!!
 
+Licence 
+-------------
+
+GPLv3 : http://www.gnu.org/licenses/gpl.html
+
 Contact  
 -------------
 Replace what you know in the e-mail address bellow to contact me :

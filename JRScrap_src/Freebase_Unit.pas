@@ -1,4 +1,10 @@
-unit Freebase_Unit;
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+unit Freebase_Unit;
 
 interface
 
@@ -27,6 +33,8 @@ TFreebase_Cl = class
       urls_Wikipedia_eng,
       urls_Wikipedia_CurrentLang
      : TstringList ;
+
+      FMovie: IMJFileAutomation;
 public
 
 procedure Freebase_getID() ;
@@ -60,43 +68,42 @@ end;
 
 procedure  TFreebase_Cl.savetags ;
 begin
-
+application.ProcessMessages ;
 if self.url_Allocine <> emptystr then
 begin
-FCurrentMovie.Set_('Url Allocine', self.url_Allocine);
+FMovie.Set_('Url Allocine', self.url_Allocine);
 JRScrap_frm.FJRiverXml.SetField('Url Allocine', self.url_Allocine);
 end;
 
 if self.url_rottentomatoes <> emptystr then
 begin
-FCurrentMovie.Set_('Url rottentomatoes', self.url_rottentomatoes);
+FMovie.Set_('Url rottentomatoes', self.url_rottentomatoes);
 JRScrap_frm.FJRiverXml.SetField('Url rottentomatoes', self.url_rottentomatoes);
 end;
 
 if self.url_Wikipedia_eng <> emptystr then
 begin
-FCurrentMovie.Set_('Url Wikipedia eng', self.url_Wikipedia_eng);
+FMovie.Set_('Url Wikipedia eng', self.url_Wikipedia_eng);
 JRScrap_frm.FJRiverXml.SetField('Url Wikipedia eng', self.url_Wikipedia_eng);
 end;
 
 if self.url_Wikipedia_CurrentLang <> emptystr then
 begin
-FCurrentMovie.Set_('Url Wikipedia', self.url_Wikipedia_CurrentLang);
+FMovie.Set_('Url Wikipedia', self.url_Wikipedia_CurrentLang);
 JRScrap_frm.FJRiverXml.SetField('Url Wikipedia', self.url_Wikipedia_CurrentLang);
 end;
 
 if self.url_traileraddict <> emptystr then
 begin
-FCurrentMovie.Set_('Url traileraddict', self.url_traileraddict);
+FMovie.Set_('Url traileraddict', self.url_traileraddict);
 JRScrap_frm.FJRiverXml.SetField('Url traileraddict', self.url_traileraddict);
 end;
 
 if self.url_metacritic <> emptystr then
 begin
-FCurrentMovie.Set_('Url metacritic', self.url_metacritic);
+FMovie.Set_('Url metacritic', self.url_metacritic);
 JRScrap_frm.FJRiverXml.SetField('Url metacritic', self.url_metacritic);
 end;
-
 
 end;
 
@@ -106,7 +113,7 @@ procedure TFreebase_Cl.Display ;
 begin
 
 
-   if   self.url_Allocine <> emptystr then
+  if   self.url_Allocine <> emptystr then
    JRScrap_frm.allocine_ed.text := self.url_Allocine ;
     if   self.url_rottentomatoes <> emptystr then
    JRScrap_frm.RottenTomatoes_Ed.Text := self.url_rottentomatoes ;
@@ -125,9 +132,10 @@ begin
   if  JRScrap_Frm.FMassScrap = true then
   begin
     self.saveTags;
+   JRScrap_frm.WaitAllServices ;
   end ;
 
-  JRScrap_frm.WaitAllServices ;
+
 
 
 end;
@@ -137,6 +145,15 @@ begin
 
   urls_Wikipedia_eng  := TstringList.create ;
   urls_Wikipedia_CurrentLang  := TstringList.create ;
+  FMovie:= FCurrentMovie;
+
+  if FMovie.Get('Lock External Tag Editor',true ) = 'YES' then
+  begin
+  if  JRScrap_Frm.FMassScrap = true then
+      JRScrap_frm.WaitAllServices ;
+    freeandnil(self) ;
+    exit;
+  end;
 
 end;
 
@@ -146,7 +163,7 @@ var
  id , rq: string ;
  i ,count: integer ;
 begin
-  id := '';
+id := '';
 
   try
     FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
@@ -171,7 +188,15 @@ begin
      else
      begin
      if  JRScrap_Frm.FMassScrap = true then
-       MassScrap_Frm.masstag ;
+     begin
+       JRScrap_frm.WaitAllServices ;
+     end
+     else
+     begin
+     ShowMessage('Freebase : ' +Translate_String_JRStyle('No results for this search !',   JRScrap_Frm.FCurrentLang));
+     screen.Cursor := crdefault ;
+     exit ;
+     end;
      end;
 
 end;
@@ -186,6 +211,7 @@ begin
 debug(str);
 httpList :=  TstringList.Create ;
 httpList := ExtractText( str , '<http://','>' );
+
 
 for i := 0 to httpList.Count -1 do
 begin
@@ -258,7 +284,7 @@ var
   if FCurrentMovie.Get('Lock External Tag Editor',true ) = 'YES' then
   begin
   if  JRScrap_Frm.FMassScrap = true then
-        MassScrap_Frm.masstag ;
+      //  MassScrap_Frm.masstag ;
     exit;
   end;
 

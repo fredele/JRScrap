@@ -1,3 +1,10 @@
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+
 unit OpenSub_Unit;
 
 interface
@@ -8,7 +15,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, IdHTTP, Vcl.StdCtrls, ComObj, MSXML,
   Vcl.Grids, AbBase, AbBrowse, AbZBrows, AbUnzper, Vcl.OleServer, Registry,
   ShellAPI,  String_Unit,
-  MediaCenter_TLB, Vcl.Menus, TranslateJRStyle_Unit;
+  MediaCenter_TLB, Vcl.Menus, TranslateJRStyle_Unit, debug_unit;
 
 type
   TOpenSub_Form = class(TForm)
@@ -328,7 +335,7 @@ var
 
 begin
 
-
+  debug('activate');
    imdb := strtoint( replacestr(FCurrentMovie.Get('IMDb ID' ,true),'tt','') );
 
   Flangshort := JRScrap_Frm.FCurrentLangShort;

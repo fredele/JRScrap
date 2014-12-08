@@ -20,7 +20,7 @@ object MassScrap_Frm: TMassScrap_Frm
   TextHeight = 13
   object progresscount_Lbl: TLabel
     Left = 195
-    Top = 68
+    Top = 84
     Width = 16
     Height = 13
     Caption = '0/0'
@@ -40,7 +40,7 @@ object MassScrap_Frm: TMassScrap_Frm
   end
   object Label1: TLabel
     Left = 108
-    Top = 68
+    Top = 84
     Width = 49
     Height = 13
     Caption = 'Progress :'
@@ -54,7 +54,7 @@ object MassScrap_Frm: TMassScrap_Frm
   end
   object Button2: TButton
     Left = 17
-    Top = 175
+    Top = 176
     Width = 356
     Height = 26
     Caption = 'Go !'
@@ -73,16 +73,16 @@ object MassScrap_Frm: TMassScrap_Frm
   object Picture_Rec_Chk: TCheckBox
     Left = 24
     Top = 45
-    Width = 141
+    Width = 368
     Height = 17
     Caption = 'Record the picture'
     TabOrder = 3
-    OnClick = CheckBox1Click
+    OnClick = Picture_Rec_ChkClick
   end
   object Timer1: TTimer
     Interval = 400
     OnTimer = Timer1Timer
-    Left = 327
-    Top = 58
+    Left = 342
+    Top = 87
   end
 end

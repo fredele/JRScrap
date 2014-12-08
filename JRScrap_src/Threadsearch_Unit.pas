@@ -1,4 +1,10 @@
-unit Threadsearch_Unit;
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+unit Threadsearch_Unit;
 
 interface
 
@@ -72,6 +78,7 @@ end;
 constructor TThreadsearch.Create(TM: Tobject; coding: Tcod; query: string;  Proc: TProcedureStr);
 begin
   inherited Create(True);
+   FParseText := '' ;
   FTM := TM;
   FTerminated := False;
   Fquery := query;
@@ -87,6 +94,7 @@ end;
 constructor TThreadsearch.Create(TM: Tobject; coding: Tcod; query: string;Proc: TProcedureStrobj);
    begin
   inherited Create(True);
+  FParseText := '' ;
   FTM := TM;
   FTerminated := False;
   Fquery := query;
@@ -113,11 +121,15 @@ begin
   Fs.Free;
   Terminate;
   end;
-
+  try
   if Fcod = Tcod.ansi then
     FParseText := MemoryStreamToString2(Fs);
   if Fcod = Tcod.utf8 then
     FParseText := MemoryStreamToString1(Fs);
+   except
+
+   end;
+
    JRScrap_frm.StatusLed.LedValue := false ;
 
   if assigned(FProcedureStr) then

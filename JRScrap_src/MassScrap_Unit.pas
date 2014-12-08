@@ -1,4 +1,11 @@
-unit MassScrap_Unit;
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+
+unit MassScrap_Unit;
 
 interface
 
@@ -29,13 +36,13 @@ type
     procedure Timer1Timer(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure Picture_Rec_ChkClick(Sender: TObject);
   public
 
   end;
 
 var
   stop: boolean;
-  MassScrap_Frm: TMassScrap_Frm;
   MyThreadSearch: TThreadsearch;
   loop: integer;
   check: boolean; // KEEP IT !
@@ -84,13 +91,9 @@ end;
 
 procedure TMassScrap_Frm.MassTag;
 begin
-  try
+debug ('MassScrap');
+ try
 
-    if ((firstrun = False) and (FileinParamFound = true)) then
-    begin
-      JRScrap_Frm.FMassScrap := False;
-      Exit ;//halt;
-    end;
 
     firstrun := False;
     Inc(loop);
@@ -110,7 +113,7 @@ begin
       Exit;
     end;
 
-    Application.ProcessMessages;
+
     if JRScrap_Frm.FMassScrap = False then
     begin
       Button2Click(self);
@@ -128,28 +131,41 @@ begin
 
       if (JRScrap_Frm.TheMoviedB_rd.down = false ) then
       begin
-
+      try
       if  JRScrap_Frm.Traileraddict_Search_Btn.Down = true then
       begin
+      debug('Traileraddict');
       TTrailerAddict_Ins:= TTrailerAddict_Cl.Create   ;
       TTrailerAddict_Ins.Search_Name;
       end;
+      except
 
+      end;
+
+      try
       if ( JRScrap_Frm.freebase_Btn.down = true) then
       begin
+      debug('freebase');
       TFreebase_Ins :=   TFreebase_Cl.Create   ;
       TFreebase_Ins.Freebase_getID() ;
       end;
+      except
 
       end;
+      end;
 
+      try
       if (JRScrap_Frm.TheMoviedB_rd.down = true) then
       begin
       //if assigned(TheMoviedB_Ins) then   TheMoviedB_Ins.Free ;
       TheMoviedB_Ins := TTheMoviedB_Cl.Create(JRScrap_Frm.FCurrentJRiverId,JRScrap_Frm.FCurrentLangShort);
       TheMoviedB_Ins.Auto_search ;
       end;
+      except
 
+      end;
+
+      try
       if JRScrap_Frm.TVdb_Rd.down= true then
       begin
      // if assigned(TTvdB_Ins) then  TTvdB_Ins.Free ;
@@ -157,15 +173,40 @@ begin
       TTvdB_Ins := TTVdB_Cl.Create(JRScrap_Frm.FCurrentJRiverId,JRScrap_Frm.FCurrentLangShort, strtoint(JRScrap_Frm.Episode_Spin_Ed.Text) ,strtoint(JRScrap_Frm.Season_Spin_Ed.Text));
       TTvdB_Ins.Auto_search ;
       end;
+      except
 
+
+      end;
 
 
   except
+  debug('except');
   if loop <= JRScrap_Frm.Movie_Browser.RowCount then
- MassTag
+  begin
+  //MassTag ;
+  end
  else
  exit;
   end;
+end;
+
+procedure TMassScrap_Frm.Picture_Rec_ChkClick(Sender: TObject);
+var
+  RegNGFS: TRegistry;
+begin
+
+  RegNGFS := TRegistry.Create;
+  try
+    RegNGFS.RootKey := HKEY_CURRENT_USER;
+    if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
+    begin
+      RegNGFS.Writebool('MassScrapPicture', self.Picture_Rec_Chk.Checked);
+    end;
+
+  except
+    RegNGFS.Free;
+  end;
+
 end;
 
 procedure TMassScrap_Frm.Timer1Timer(Sender: TObject);
@@ -237,6 +278,7 @@ begin
     begin
       try
         self.CheckBox1.Checked := RegNGFS.Readbool('MassScrapWimdbID');
+        self.Picture_Rec_Chk.Checked := RegNGFS.Readbool('MassScrapPicture');
       except
 
       end;

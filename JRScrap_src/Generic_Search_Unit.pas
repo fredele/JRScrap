@@ -1,4 +1,10 @@
-unit Generic_Search_Unit;
+// This file is part of th JRScrap project.
+// Licence : GPL v 3
+// Website : https://github.com/fredele/JRScrap/
+// Year : 2014
+// Author : frederic klieber
+
+unit Generic_Search_Unit;
 
 interface
 
