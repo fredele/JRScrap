@@ -54,9 +54,9 @@ object JRScrap_Frm: TJRScrap_Frm
     Caption = 'Budget :'
   end
   object Panel_Right: TPanel
-    Left = 415
+    Left = 440
     Top = 92
-    Width = 750
+    Width = 725
     Height = 770
     Align = alRight
     Caption = 'Panel_Right'
@@ -67,21 +67,10 @@ object JRScrap_Frm: TJRScrap_Frm
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    object cyDBLabel1: TcyDBLabel
-      Left = 431
-      Top = 598
-      Width = 55
-      Height = 13
-      Transparent = False
-      Bevels = <>
-      Degrade.FromColor = clWhite
-      Degrade.SpeedPercent = 100
-      Degrade.ToColor = clBtnFace
-    end
     object ScrollBox1: TScrollBox
       Left = 1
       Top = 1
-      Width = 748
+      Width = 723
       Height = 768
       VertScrollBar.ButtonSize = 2
       VertScrollBar.Smooth = True
@@ -95,8 +84,8 @@ object JRScrap_Frm: TJRScrap_Frm
       object Info_Panel: TCyPanel
         Left = 0
         Top = 0
-        Width = 727
-        Height = 1300
+        Width = 702
+        Height = 1500
         Align = alTop
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -106,12 +95,33 @@ object JRScrap_Frm: TJRScrap_Frm
         ParentFont = False
         PopupMenu = Info_Pop
         TabOrder = 0
+        OnClick = Info_PanelClick
         Bevels = <>
         Degrade.Balance = 60
         Degrade.FromColor = clWhite
         Degrade.Orientation = dgdAngle
         Degrade.SpeedPercent = 98
         Degrade.ToColor = clGray
+        object Bkg_img: TImage
+          Left = -195
+          Top = -184
+          Width = 2500
+          Height = 1700
+          Hint = 'Drag&Drop Image here'
+          Margins.Left = 5
+          Margins.Top = 5
+          Margins.Right = 5
+          Margins.Bottom = 5
+          ParentCustomHint = False
+          Align = alCustom
+          ParentShowHint = False
+          PopupMenu = Image_Pop
+          Proportional = True
+          ShowHint = True
+          Stretch = True
+          OnDblClick = Picture_ImgDblClick
+          OnMouseEnter = Picture_ImgMouseEnter
+        end
         object Label1: TLabel
           Left = 13
           Top = 20
@@ -121,24 +131,24 @@ object JRScrap_Frm: TJRScrap_Frm
           Caption = 'Name :'
         end
         object Label8: TLabel
-          Left = 13
-          Top = 135
+          Left = 17
+          Top = 174
           Width = 150
           Height = 19
           AutoSize = False
           Caption = 'Picture :'
         end
         object Label9: TLabel
-          Left = 184
-          Top = 135
+          Left = 188
+          Top = 174
           Width = 233
           Height = 19
           AutoSize = False
           Caption = 'Overview :'
         end
         object Label10: TLabel
-          Left = 436
-          Top = 135
+          Left = 440
+          Top = 174
           Width = 143
           Height = 19
           AutoSize = False
@@ -146,7 +156,7 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Label14: TLabel
           Left = 11
-          Top = 496
+          Top = 556
           Width = 217
           Height = 19
           AutoSize = False
@@ -154,7 +164,7 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Label15: TLabel
           Left = 245
-          Top = 497
+          Top = 557
           Width = 216
           Height = 19
           AutoSize = False
@@ -162,87 +172,87 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Label16: TLabel
           Left = 476
-          Top = 496
+          Top = 556
           Width = 217
           Height = 19
           AutoSize = False
           Caption = 'Keywords :'
         end
         object Label17: TLabel
-          Left = 184
-          Top = 385
+          Left = 299
+          Top = 439
           Width = 115
           Height = 19
           AutoSize = False
           Caption = 'Critic Rating :'
         end
         object Label18: TLabel
-          Left = 12
-          Top = 634
+          Left = 11
+          Top = 694
           Width = 451
           Height = 19
           AutoSize = False
           Caption = 'Cast :'
         end
         object Label19: TLabel
-          Left = 477
-          Top = 634
+          Left = 476
+          Top = 694
           Width = 209
           Height = 19
           AutoSize = False
           Caption = 'Director :'
         end
         object Label20: TLabel
-          Left = 476
-          Top = 859
+          Left = 475
+          Top = 927
           Width = 216
           Height = 19
           AutoSize = False
           Caption = 'Executive Producer :'
         end
         object Label21: TLabel
-          Left = 476
-          Top = 745
+          Left = 475
+          Top = 805
           Width = 217
           Height = 19
           AutoSize = False
           Caption = 'Screenwriter :'
         end
         object Label22: TLabel
-          Left = 246
-          Top = 859
+          Left = 245
+          Top = 927
           Width = 215
           Height = 19
           AutoSize = False
           Caption = 'Casting :'
         end
         object Label23: TLabel
-          Left = 12
-          Top = 859
+          Left = 11
+          Top = 927
           Width = 217
           Height = 19
           AutoSize = False
           Caption = 'Cinematographer :'
         end
         object Label24: TLabel
-          Left = 12
-          Top = 947
+          Left = 11
+          Top = 1015
           Width = 217
           Height = 19
           AutoSize = False
           Caption = 'Music by :'
         end
         object Label25: TLabel
-          Left = 246
-          Top = 947
+          Left = 245
+          Top = 1015
           Width = 214
           Height = 19
           AutoSize = False
           Caption = 'Novel :'
         end
         object Label26: TLabel
-          Left = 476
-          Top = 944
+          Left = 475
+          Top = 1012
           Width = 215
           Height = 19
           AutoSize = False
@@ -264,55 +274,55 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Label5: TLabel
           Left = 12
-          Top = 418
+          Top = 482
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Trailer :'
         end
         object Label32: TLabel
-          Left = 12
-          Top = 1222
+          Left = 11
+          Top = 1284
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Allocin'#233' :'
         end
         object Label35: TLabel
-          Left = 12
-          Top = 1057
+          Left = 11
+          Top = 1119
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Rottentomatoes :'
         end
         object Label36: TLabel
-          Left = 12
-          Top = 1090
+          Left = 11
+          Top = 1152
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Wikipedia (eng) :'
         end
         object Label38: TLabel
-          Left = 12
-          Top = 1123
+          Left = 11
+          Top = 1185
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Wikipedia :'
         end
         object Label39: TLabel
-          Left = 10
-          Top = 1156
+          Left = 9
+          Top = 1218
           Width = 112
           Height = 19
           AutoSize = False
           Caption = 'Traileraddict :'
         end
         object Label40: TLabel
-          Left = 12
-          Top = 1192
+          Left = 11
+          Top = 1254
           Width = 112
           Height = 19
           AutoSize = False
@@ -320,7 +330,7 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Label41: TLabel
           Left = 11
-          Top = 456
+          Top = 520
           Width = 157
           Height = 19
           AutoSize = False
@@ -328,24 +338,52 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Label43: TLabel
           Left = 323
-          Top = 456
+          Top = 520
           Width = 147
           Height = 19
           AutoSize = False
           Caption = 'Revenue :'
         end
+        object Label44: TLabel
+          Left = 11
+          Top = 439
+          Width = 167
+          Height = 19
+          AutoSize = False
+          Caption = 'County :'
+        end
+        object Label12: TLabel
+          Left = 229
+          Top = 128
+          Width = 62
+          Height = 19
+          Caption = 'IMDB  ID:'
+          OnClick = Label12Click
+          OnMouseEnter = Web_LblMouseEnter
+          OnMouseLeave = Web_LblMouseLeave
+        end
+        object Label13: TLabel
+          Left = 469
+          Top = 128
+          Width = 66
+          Height = 19
+          Caption = 'TMDB ID :'
+          OnClick = Label13Click
+          OnMouseEnter = Web_LblMouseEnter
+          OnMouseLeave = Web_LblMouseLeave
+        end
         object MemoOverview: TMemo
           Left = 181
-          Top = 167
+          Top = 205
           Width = 513
-          Height = 206
+          Height = 215
           Hint = 'Modify the Overview here'
           ParentCustomHint = False
           TabStop = False
           BevelKind = bkTile
           BiDiMode = bdLeftToRight
           BorderStyle = bsNone
-          Color = cl3DLight
+          Color = clBtnFace
           Ctl3D = True
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -358,16 +396,17 @@ object JRScrap_Frm: TJRScrap_Frm
           ParentShowHint = False
           ScrollBars = ssVertical
           ShowHint = True
-          TabOrder = 0
+          TabOrder = 1
           OnKeyPress = EdKeyPress
         end
         object Release_date_Ed: TcyEdit
-          Left = 576
-          Top = 132
+          Left = 580
+          Top = 171
           Width = 114
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
+          Color = cl3DLight
           Ctl3D = True
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -375,10 +414,9 @@ object JRScrap_Frm: TJRScrap_Frm
           Font.Name = 'Calibri'
           Font.Style = []
           MaxLength = 10
-          ParentColor = True
           ParentCtl3D = False
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 2
           OnKeyPress = EdKeyPress
           CharRules = <
             item
@@ -505,27 +543,27 @@ object JRScrap_Frm: TJRScrap_Frm
             end>
         end
         object Star_Panel: TStar_Panel
-          Left = 428
-          Top = 384
+          Left = 427
+          Top = 438
           Width = 188
           Height = 22
-          TabOrder = 2
+          TabOrder = 3
         end
         object Picture_Panel: TPanel
           Left = 13
-          Top = 167
+          Top = 205
           Width = 150
-          Height = 206
+          Height = 215
           BevelOuter = bvNone
           Ctl3D = True
           ParentCtl3D = False
           PopupMenu = Image_Pop
-          TabOrder = 3
+          TabOrder = 4
           object Picture_Img: TImage
             Left = 0
             Top = 0
             Width = 150
-            Height = 206
+            Height = 215
             Hint = 'Drag&Drop Image here'
             Margins.Left = 5
             Margins.Top = 5
@@ -539,20 +577,21 @@ object JRScrap_Frm: TJRScrap_Frm
             ShowHint = True
             OnDblClick = Picture_ImgDblClick
             OnMouseEnter = Picture_ImgMouseEnter
-            ExplicitLeft = -42
-            ExplicitTop = 12
+            ExplicitTop = 4
+            ExplicitHeight = 202
           end
         end
         object Cast_Grid: TStringGrid
-          Left = 12
-          Top = 659
+          Left = 11
+          Top = 719
           Width = 450
           Height = 190
           ParentCustomHint = False
+          TabStop = False
           BevelKind = bkTile
           BiDiMode = bdLeftToRight
           BorderStyle = bsNone
-          Color = clBtnFace
+          Color = cl3DLight
           ColCount = 3
           Ctl3D = True
           DefaultRowHeight = 20
@@ -575,19 +614,16 @@ object JRScrap_Frm: TJRScrap_Frm
           ParentShowHint = False
           ScrollBars = ssVertical
           ShowHint = False
-          TabOrder = 4
+          TabOrder = 0
           StyleElements = []
           OnExit = Cast_GridExit
-          OnMouseEnter = Cast_GridMouseEnter
-          OnMouseLeave = Cast_GridMouseLeave
-          OnSetEditText = Cast_GridSetEditText
           ColWidths = (
             64
             64
             66)
         end
         object Serie_Pnl: TPanel
-          Left = 2
+          Left = 3
           Top = 51
           Width = 710
           Height = 67
@@ -600,8 +636,8 @@ object JRScrap_Frm: TJRScrap_Frm
           ParentFont = False
           TabOrder = 5
           object Label4: TLabel
-            Left = 381
-            Top = 41
+            Left = 317
+            Top = 40
             Width = 59
             Height = 19
             Caption = 'Episode :'
@@ -620,8 +656,8 @@ object JRScrap_Frm: TJRScrap_Frm
             Caption = 'Serie Title :'
           end
           object Label7: TLabel
-            Left = 502
-            Top = 40
+            Left = 469
+            Top = 41
             Width = 62
             Height = 19
             Caption = 'TVDB ID :'
@@ -630,26 +666,26 @@ object JRScrap_Frm: TJRScrap_Frm
             OnMouseLeave = Web_LblMouseLeave
           end
           object Label28: TLabel
-            Left = 264
-            Top = 40
+            Left = 182
+            Top = 41
             Width = 54
             Height = 19
             Caption = 'Season :'
           end
-          object Season_Spin_Ed: TcyEdit
-            Left = 336
+          object Season_Ed: TcyEdit
+            Left = 255
             Top = 37
             Width = 25
-            Height = 27
+            Height = 26
             Alignment = taRightJustify
             BevelKind = bkTile
             BorderStyle = bsNone
+            Color = cl3DLight
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
             Font.Name = 'Calibri'
             Font.Style = []
-            ParentColor = True
             ParentFont = False
             TabOrder = 0
             OnKeyPress = EdKeyPress
@@ -659,20 +695,20 @@ object JRScrap_Frm: TJRScrap_Frm
                 FromPosition = 1
               end>
           end
-          object Episode_Spin_Ed: TcyEdit
-            Left = 458
-            Top = 37
+          object Episode_Ed: TcyEdit
+            Left = 394
+            Top = 36
             Width = 25
             Height = 27
             Alignment = taRightJustify
             BevelKind = bkTile
             BorderStyle = bsNone
+            Color = cl3DLight
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
             Font.Name = 'Calibri'
             Font.Style = []
-            ParentColor = True
             ParentFont = False
             TabOrder = 1
             OnKeyPress = EdKeyPress
@@ -683,19 +719,19 @@ object JRScrap_Frm: TJRScrap_Frm
               end>
           end
           object tvdb_id_Ed: TcyEdit
-            Left = 578
+            Left = 576
             Top = 37
             Width = 114
             Height = 27
             BevelKind = bkTile
             BorderStyle = bsNone
+            Color = cl3DLight
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
             Font.Name = 'Calibri'
             Font.Style = []
             MaxLength = 5
-            ParentColor = True
             ParentFont = False
             TabOrder = 2
             OnKeyPress = EdKeyPress
@@ -705,10 +741,10 @@ object JRScrap_Frm: TJRScrap_Frm
                 FromPosition = 1
               end>
           end
-          object Serie_Title_Ed: TJvEdit
-            Left = 182
-            Top = 4
-            Width = 511
+          object Serie_Name_Ed: TJvEdit
+            Left = 203
+            Top = 7
+            Width = 480
             Height = 27
             BevelKind = bkTile
             Alignment = taRightJustify
@@ -719,10 +755,10 @@ object JRScrap_Frm: TJRScrap_Frm
           end
         end
         object Movie_Pnl: TPanel
-          Left = 0
-          Top = 51
+          Left = 3
+          Top = 55
           Width = 710
-          Height = 75
+          Height = 64
           BevelOuter = bvNone
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -732,91 +768,23 @@ object JRScrap_Frm: TJRScrap_Frm
           ParentFont = False
           TabOrder = 6
           object Label11: TLabel
-            Left = 8
-            Top = 9
+            Left = 5
+            Top = 8
             Width = 160
             Height = 19
             AutoSize = False
             Caption = 'Original Title :'
           end
-          object Label13: TLabel
-            Left = 466
-            Top = 42
-            Width = 66
-            Height = 19
-            Caption = 'TMDB ID :'
-            OnClick = Label13Click
-            OnMouseEnter = Web_LblMouseEnter
-            OnMouseLeave = Web_LblMouseLeave
-          end
-          object Label12: TLabel
-            Left = 226
-            Top = 42
-            Width = 62
-            Height = 19
-            Caption = 'IMDB  ID:'
-            OnClick = Label12Click
-            OnMouseEnter = Web_LblMouseEnter
-            OnMouseLeave = Web_LblMouseLeave
-          end
-          object imdb_id_Ed: TcyEdit
-            Left = 309
-            Top = 38
-            Width = 110
-            Height = 27
-            BevelKind = bkTile
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            MaxLength = 5
-            ParentColor = True
-            ParentFont = False
-            TabOrder = 0
-            OnKeyPress = EdKeyPress
-            CharRules = <
-              item
-                AllowedChars = 't'
-                FromPosition = 1
-                ToPosition = 2
-              end>
-          end
-          object Tmdb_id_Ed: TcyEdit
-            Left = 576
-            Top = 39
-            Width = 113
-            Height = 27
-            BevelKind = bkTile
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -16
-            Font.Name = 'Calibri'
-            Font.Style = []
-            MaxLength = 5
-            ParentColor = True
-            ParentFont = False
-            TabOrder = 1
-            OnEnter = Tmdb_id_EdEnter
-            OnKeyPress = EdKeyPress
-            CharRules = <
-              item
-                AllowedChars = '0123456789'
-                FromPosition = 1
-              end>
-          end
           object Original_title_Ed: TJvEdit
-            Left = 181
+            Left = 203
             Top = 5
-            Width = 513
+            Width = 488
             Height = 27
             BevelKind = bkTile
             Alignment = taRightJustify
             BorderStyle = bsNone
             Color = clBtnFace
-            TabOrder = 2
+            TabOrder = 0
             Text = ''
             OnChange = EdChange
             OnKeyPress = EdKeyPress
@@ -824,12 +792,12 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Keywords_ListBox: TJvListBox
           Left = 476
-          Top = 524
+          Top = 584
           Width = 217
           Height = 104
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -849,12 +817,12 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Genre_ListBox: TJvListBox
           Left = 245
-          Top = 524
+          Top = 584
           Width = 217
           Height = 104
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -874,12 +842,12 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Production_Company_ListBox: TJvListBox
           Left = 11
-          Top = 524
+          Top = 584
           Width = 217
           Height = 104
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -898,13 +866,13 @@ object JRScrap_Frm: TJRScrap_Frm
           TabOrder = 9
         end
         object Director_ListBox: TJvListBox
-          Left = 476
-          Top = 659
+          Left = 475
+          Top = 719
           Width = 217
           Height = 83
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -923,13 +891,13 @@ object JRScrap_Frm: TJRScrap_Frm
           TabOrder = 10
         end
         object Executive_Producer_ListBox: TJvListBox
-          Left = 476
-          Top = 880
+          Left = 475
+          Top = 948
           Width = 217
           Height = 57
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -948,13 +916,13 @@ object JRScrap_Frm: TJRScrap_Frm
           TabOrder = 11
         end
         object Screenwriter_ListBox: TJvListBox
-          Left = 476
-          Top = 766
+          Left = 475
+          Top = 826
           Width = 217
           Height = 83
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -973,13 +941,13 @@ object JRScrap_Frm: TJRScrap_Frm
           TabOrder = 12
         end
         object Casting_ListBox: TJvListBox
-          Left = 246
-          Top = 880
+          Left = 245
+          Top = 948
           Width = 217
           Height = 57
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -998,13 +966,13 @@ object JRScrap_Frm: TJRScrap_Frm
           TabOrder = 13
         end
         object Cinematographer_ListBox: TJvListBox
-          Left = 12
-          Top = 880
+          Left = 11
+          Top = 948
           Width = 217
           Height = 57
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -1023,13 +991,13 @@ object JRScrap_Frm: TJRScrap_Frm
           TabOrder = 14
         end
         object Music_by_ListBox: TJvListBox
-          Left = 12
-          Top = 969
+          Left = 10
+          Top = 1039
           Width = 217
           Height = 60
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -1048,13 +1016,13 @@ object JRScrap_Frm: TJRScrap_Frm
           TabOrder = 15
         end
         object Novel_ListBox: TJvListBox
-          Left = 246
-          Top = 970
+          Left = 245
+          Top = 1040
           Width = 217
           Height = 60
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -1073,13 +1041,13 @@ object JRScrap_Frm: TJRScrap_Frm
           TabOrder = 16
         end
         object Production_Design_ListBox: TJvListBox
-          Left = 476
-          Top = 969
+          Left = 475
+          Top = 1039
           Width = 217
           Height = 61
           ParentCustomHint = False
           BiDiMode = bdLeftToRight
-          Color = clBtnFace
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -1107,7 +1075,7 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Trailer_Btn: TButton
           Left = 628
-          Top = 415
+          Top = 479
           Width = 68
           Height = 27
           Caption = 'View'
@@ -1116,8 +1084,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Trailer_BtnClick
         end
         object Allocine_Btn: TButton
-          Left = 625
-          Top = 1219
+          Left = 624
+          Top = 1281
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1132,8 +1100,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object RottenTomatoes_Btn: TButton
-          Left = 625
-          Top = 1054
+          Left = 624
+          Top = 1116
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1142,8 +1110,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object Wikipediaeng_Btn: TButton
-          Left = 625
-          Top = 1087
+          Left = 624
+          Top = 1149
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1152,8 +1120,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object Wikipedia_Btn: TButton
-          Left = 625
-          Top = 1120
+          Left = 624
+          Top = 1182
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1162,8 +1130,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object traileraddict_Btn: TButton
-          Left = 625
-          Top = 1153
+          Left = 624
+          Top = 1215
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1172,8 +1140,8 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object Metacritic_Btn: TButton
-          Left = 625
-          Top = 1186
+          Left = 624
+          Top = 1248
           Width = 70
           Height = 27
           Caption = 'View'
@@ -1182,9 +1150,9 @@ object JRScrap_Frm: TJRScrap_Frm
           OnClick = Netflix_BtnClick
         end
         object Name_Ed: TJvEdit
-          Left = 181
+          Left = 206
           Top = 12
-          Width = 514
+          Width = 487
           Height = 33
           BevelKind = bkTile
           Alignment = taRightJustify
@@ -1203,92 +1171,90 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Trailer_Ed: TJvEdit
           Left = 181
-          Top = 415
+          Top = 479
           Width = 434
           Height = 27
           BevelKind = bkTile
-          Flat = False
-          ParentFlat = False
           BorderStyle = bsNone
-          Color = clBtnFace
+          Color = cl3DLight
           TabOrder = 27
           Text = ''
           OnChange = EdChange
           OnKeyPress = EdKeyPress
         end
         object Allocine_Ed: TJvEdit
-          Left = 130
-          Top = 1219
+          Left = 129
+          Top = 1281
           Width = 480
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
-          Color = clBtnFace
+          Color = cl3DLight
           TabOrder = 28
           Text = ''
           OnChange = EdChange
           OnKeyPress = EdKeyPress
         end
         object RottenTomatoes_Ed: TJvEdit
-          Left = 130
-          Top = 1054
+          Left = 129
+          Top = 1116
           Width = 480
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
-          Color = clBtnFace
+          Color = cl3DLight
           TabOrder = 29
           Text = ''
           OnChange = EdChange
           OnKeyPress = EdKeyPress
         end
         object Wikipediaeng_Ed: TJvEdit
-          Left = 130
-          Top = 1087
+          Left = 129
+          Top = 1149
           Width = 480
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
-          Color = clBtnFace
+          Color = cl3DLight
           TabOrder = 30
           Text = ''
           OnChange = EdChange
           OnKeyPress = EdKeyPress
         end
         object Wikipedia_Ed: TJvEdit
-          Left = 130
-          Top = 1120
+          Left = 129
+          Top = 1182
           Width = 480
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
-          Color = clBtnFace
+          Color = cl3DLight
           TabOrder = 31
           Text = ''
           OnChange = EdChange
           OnKeyPress = EdKeyPress
         end
         object traileraddict_Ed: TJvEdit
-          Left = 130
-          Top = 1153
+          Left = 129
+          Top = 1215
           Width = 480
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
-          Color = clBtnFace
+          Color = cl3DLight
           TabOrder = 32
           Text = ''
           OnChange = EdChange
           OnKeyPress = EdKeyPress
         end
         object Metacritic_Ed: TJvEdit
-          Left = 130
-          Top = 1186
+          Left = 129
+          Top = 1248
           Width = 480
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
-          Color = clBtnFace
+          Color = cl3DLight
           TabOrder = 33
           Text = ''
           OnChange = EdChange
@@ -1296,18 +1262,18 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Budget_Ed: TcyEdit
           Left = 181
-          Top = 453
+          Top = 513
           Width = 126
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
           Font.Name = 'Calibri'
           Font.Style = []
           MaxLength = 5
-          ParentColor = True
           ParentFont = False
           TabOrder = 34
           OnEnter = Tmdb_id_EdEnter
@@ -1320,20 +1286,95 @@ object JRScrap_Frm: TJRScrap_Frm
         end
         object Revenue_Ed: TcyEdit
           Left = 489
-          Top = 453
+          Top = 513
           Width = 126
           Height = 27
           BevelKind = bkTile
           BorderStyle = bsNone
+          Color = cl3DLight
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
           Font.Name = 'Calibri'
           Font.Style = []
           MaxLength = 5
-          ParentColor = True
           ParentFont = False
           TabOrder = 35
+          OnEnter = Tmdb_id_EdEnter
+          OnKeyPress = EdKeyPress
+          CharRules = <
+            item
+              AllowedChars = '0123456789'
+              FromPosition = 1
+            end>
+        end
+        object Country_Listbox: TJvListBox
+          Left = 181
+          Top = 431
+          Width = 84
+          Height = 42
+          ParentCustomHint = False
+          BiDiMode = bdLeftToRight
+          Color = cl3DLight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Calibri'
+          Font.Style = []
+          ItemHeight = 19
+          Background.FillMode = bfmTile
+          Background.Visible = False
+          ParentFlat = False
+          ParentBiDiMode = False
+          ParentFont = False
+          ParentShowHint = False
+          PopupMenu = ListBox_Pop
+          ScrollBars = ssVertical
+          ShowHint = False
+          Style = lbOwnerDrawFixed
+          TabOrder = 36
+          OnDrawItem = Country_ListboxDrawItem
+        end
+        object imdb_id_Ed: TcyEdit
+          Left = 312
+          Top = 124
+          Width = 110
+          Height = 27
+          BevelKind = bkTile
+          BorderStyle = bsNone
+          Color = cl3DLight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Calibri'
+          Font.Style = []
+          MaxLength = 5
+          ParentFont = False
+          TabOrder = 37
+          OnKeyPress = EdKeyPress
+          CharRules = <
+            item
+              AllowedChars = 't'
+              FromPosition = 1
+              ToPosition = 2
+            end>
+        end
+        object Tmdb_id_Ed: TcyEdit
+          Left = 579
+          Top = 125
+          Width = 113
+          Height = 27
+          BevelKind = bkTile
+          BorderStyle = bsNone
+          Color = cl3DLight
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Calibri'
+          Font.Style = []
+          MaxLength = 5
+          ParentFont = False
+          TabOrder = 38
           OnEnter = Tmdb_id_EdEnter
           OnKeyPress = EdKeyPress
           CharRules = <
@@ -1348,7 +1389,7 @@ object JRScrap_Frm: TJRScrap_Frm
   object Panel_Left: TPanel
     Left = 0
     Top = 92
-    Width = 415
+    Width = 440
     Height = 770
     Align = alClient
     Caption = 'Panel_Left'
@@ -1356,7 +1397,7 @@ object JRScrap_Frm: TJRScrap_Frm
     object Movie_Browser: TStringGrid
       Left = 1
       Top = 1
-      Width = 413
+      Width = 438
       Height = 768
       ParentCustomHint = False
       Align = alClient
@@ -1463,10 +1504,107 @@ object JRScrap_Frm: TJRScrap_Frm
     Degrade.FromColor = cl3DLight
     Degrade.SpeedPercent = 100
     Degrade.ToColor = clSilver
-    object CyPanel1: TCyPanel
+    object Mode_Bar: TCyPanel
       Left = 1
       Top = 1
-      Width = 624
+      Width = 200
+      Height = 30
+      BiDiMode = bdRightToLeft
+      ParentBiDiMode = False
+      TabOrder = 6
+      Bevels = <
+        item
+        end>
+      RunTimeDesign.OutsideParentRect = False
+      Degrade.FromColor = clWhite
+      Degrade.SpeedPercent = 100
+      Degrade.ToColor = clSilver
+      object Movie_Btn: TSpeedButton
+        Left = 6
+        Top = 2
+        Width = 90
+        Height = 24
+        AllowAllUp = True
+        GroupIndex = 1
+        Caption = 'MOVIE'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = Movie_BtnClick
+      end
+      object Serie_Btn: TSpeedButton
+        Left = 98
+        Top = 2
+        Width = 90
+        Height = 24
+        AllowAllUp = True
+        GroupIndex = 2
+        Caption = 'SERIE'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = Serie_BtnClick
+      end
+    end
+    object Search_Save_Bar: TCyPanel
+      Left = 201
+      Top = 1
+      Width = 200
+      Height = 30
+      BiDiMode = bdRightToLeft
+      ParentBiDiMode = False
+      TabOrder = 1
+      Bevels = <
+        item
+        end>
+      RunTimeDesign.OutsideParentRect = False
+      Degrade.FromColor = clWhite
+      Degrade.SpeedPercent = 100
+      Degrade.ToColor = clSilver
+      object Button2: TButton
+        Left = 3
+        Top = 2
+        Width = 97
+        Height = 24
+        Align = alCustom
+        Caption = 'Search'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 0
+        OnClick = Button2Click
+      end
+      object Write_Btn: TButton
+        Left = 103
+        Top = 2
+        Width = 91
+        Height = 24
+        Align = alCustom
+        Caption = 'Save'
+        Enabled = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 1
+        OnClick = Write_BtnClick
+      end
+    end
+    object APIs_Bar: TCyPanel
+      Left = 401
+      Top = 1
+      Width = 540
       Height = 30
       TabOrder = 0
       Bevels = <
@@ -1476,9 +1614,9 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.FromColor = clWhite
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
-      object TVdb_Rd: TSpeedButton
-        Left = 123
-        Top = 2
+      object TVdb_Btn: TSpeedButton
+        Left = 180
+        Top = 3
         Width = 120
         Height = 24
         ParentCustomHint = False
@@ -1497,11 +1635,11 @@ object JRScrap_Frm: TJRScrap_Frm
         ParentBiDiMode = False
         ShowHint = False
         Transparent = False
-        OnClick = TVdb_RdClick
+        OnClick = TVdb_BtnClick
       end
-      object TheMoviedB_rd: TSpeedButton
-        Left = 4
-        Top = 2
+      object TheMoviedB_Btn: TSpeedButton
+        Left = 61
+        Top = 3
         Width = 120
         Height = 24
         ParentCustomHint = False
@@ -1520,11 +1658,11 @@ object JRScrap_Frm: TJRScrap_Frm
         ParentBiDiMode = False
         ShowHint = False
         Transparent = False
-        OnClick = TheMoviedB_rdClick
+        OnClick = TheMoviedB_BtnClick
       end
       object Freebase_Btn: TSpeedButton
-        Left = 243
-        Top = 2
+        Left = 299
+        Top = 3
         Width = 117
         Height = 24
         ParentCustomHint = False
@@ -1546,8 +1684,8 @@ object JRScrap_Frm: TJRScrap_Frm
         OnClick = Freebase_BtnClick
       end
       object Traileraddict_Search_Btn: TSpeedButton
-        Left = 359
-        Top = 2
+        Left = 415
+        Top = 3
         Width = 116
         Height = 24
         ParentCustomHint = False
@@ -1568,25 +1706,21 @@ object JRScrap_Frm: TJRScrap_Frm
         Transparent = False
         OnClick = Traileraddict_Search_BtnClick
       end
-      object Subtitle_Btn: TButton
-        Left = 503
-        Top = 2
-        Width = 115
-        Height = 24
-        Caption = 'OpenSubtitles.org'
-        Enabled = False
-        TabOrder = 0
-        OnClick = Subtitle_BtnClick
+      object Label47: TLabel
+        Left = 10
+        Top = 8
+        Width = 45
+        Height = 13
+        AutoSize = False
+        Caption = 'Infos :'
       end
     end
-    object CyPanel3: TCyPanel
-      Left = 625
-      Top = 1
-      Width = 200
+    object Poster_Bar: TCyPanel
+      Left = 1
+      Top = 31
+      Width = 290
       Height = 30
-      BiDiMode = bdRightToLeft
-      ParentBiDiMode = False
-      TabOrder = 1
+      TabOrder = 7
       Bevels = <
         item
         end>
@@ -1594,42 +1728,77 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.FromColor = clWhite
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
-      object Button2: TButton
-        Left = 3
-        Top = 0
-        Width = 97
-        Height = 28
-        Align = alCustom
-        Caption = 'Search'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 0
-        OnClick = Button2Click
+      object Label45: TLabel
+        Left = 6
+        Top = 9
+        Width = 53
+        Height = 13
+        AutoSize = False
+        Caption = 'Poster :'
       end
-      object Write_Btn: TButton
-        Left = 103
-        Top = 0
-        Width = 91
-        Height = 27
-        Align = alCustom
-        Caption = 'Save'
+      object fanart_Poster_Btn: TButton
+        Left = 51
+        Top = 4
+        Width = 115
+        Height = 24
+        Caption = 'fanart.tv'
         Enabled = False
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
+        TabOrder = 0
+        OnClick = fanart_Poster_BtnClick
+      end
+      object TheMoviedB_Poster_Btn: TButton
+        Left = 165
+        Top = 4
+        Width = 115
+        Height = 24
+        Caption = 'TheMoviedB.org'
+        Enabled = False
         TabOrder = 1
-        OnClick = Write_BtnClick
+        OnClick = TheMoviedB_Poster_BtnClick
+      end
+    end
+    object Subtitle_Bar: TCyPanel
+      Left = 291
+      Top = 31
+      Width = 302
+      Height = 30
+      TabOrder = 8
+      Bevels = <
+        item
+        end>
+      RunTimeDesign.OutsideParentRect = False
+      Degrade.FromColor = clWhite
+      Degrade.SpeedPercent = 100
+      Degrade.ToColor = clSilver
+      object Label46: TLabel
+        Left = 7
+        Top = 9
+        Width = 53
+        Height = 13
+        AutoSize = False
+        Caption = 'Subtitles :'
+      end
+      object OpenSubtitle_Btn: TButton
+        Left = 67
+        Top = 4
+        Width = 115
+        Height = 24
+        Caption = 'OpenSubtitles.org'
+        TabOrder = 0
+        OnClick = OpenSubtitle_BtnClick
+      end
+      object SubDB_Btn: TButton
+        Left = 180
+        Top = 4
+        Width = 115
+        Height = 24
+        Caption = 'Thesubdb.com'
+        TabOrder = 1
+        OnClick = SubDB_BtnClick
       end
     end
     object Filter_Bar: TCyPanel
-      Left = 1
+      Left = 593
       Top = 31
       Width = 370
       Height = 30
@@ -1763,7 +1932,7 @@ object JRScrap_Frm: TJRScrap_Frm
       end
     end
     object Playlist_Bar: TCyPanel
-      Left = 371
+      Left = 963
       Top = 31
       Width = 200
       Height = 30
@@ -1796,8 +1965,8 @@ object JRScrap_Frm: TJRScrap_Frm
       end
     end
     object Mediasubtype_Bar: TCyPanel
-      Left = 571
-      Top = 31
+      Left = 1
+      Top = 61
       Width = 200
       Height = 30
       TabOrder = 4
@@ -1838,7 +2007,7 @@ object JRScrap_Frm: TJRScrap_Frm
       end
     end
     object Search_Bar: TCyPanel
-      Left = 1
+      Left = 201
       Top = 61
       Width = 515
       Height = 30
@@ -1924,20 +2093,20 @@ object JRScrap_Frm: TJRScrap_Frm
       object N5: TMenuItem
         Caption = '-'
       end
-      object SelectQuerylanguage: TMenuItem
-        Caption = 'Select Query language'
-      end
       object Gotofolder: TMenuItem
         Caption = 'Go to current Folder'
+        GroupIndex = 1
         ImageIndex = 0
         ShortCut = 16454
         OnClick = GotofolderClick
       end
       object N3: TMenuItem
         Caption = '-'
+        GroupIndex = 1
       end
       object Lock1: TMenuItem
         Caption = 'Lock'
+        GroupIndex = 1
         object All2: TMenuItem
           Caption = 'All'
           ShortCut = 16460
@@ -1951,9 +2120,11 @@ object JRScrap_Frm: TJRScrap_Frm
       end
       object N1: TMenuItem
         Caption = '-'
+        GroupIndex = 1
       end
       object oolbar1: TMenuItem
         Caption = 'Toolbar'
+        GroupIndex = 1
         object Filter_Mn: TMenuItem
           Caption = 'Filter'
           OnClick = Filter_MnClick
@@ -1970,25 +2141,45 @@ object JRScrap_Frm: TJRScrap_Frm
           Caption = 'Search'
           OnClick = Search_MnClick
         end
+        object Poster_Mn: TMenuItem
+          Caption = 'Poster'
+          OnClick = Poster_MnClick
+        end
+        object Subtitle_Mn: TMenuItem
+          Caption = 'Subtitle'
+          OnClick = Subtitle_MnClick
+        end
       end
       object N4: TMenuItem
         Caption = '-'
+        GroupIndex = 1
       end
       object EnterKeyforthemmoviedbAPI1: TMenuItem
         Caption = 'Configure'
+        GroupIndex = 1
+        object SelectQuerylanguage: TMenuItem
+          Caption = 'Select Query language'
+          SubMenuImages = Flag_ImgList
+          GroupIndex = 1
+          ImageIndex = 0
+        end
         object Writepicture1: TMenuItem
           Caption = 'Write picture'
+          GroupIndex = 1
           OnClick = Writepicture1Click
         end
         object WriteXMLsideCar1: TMenuItem
           Caption = 'Write XML side Car'
+          GroupIndex = 1
           OnClick = WriteXMLsideCar1Click
         end
         object Selectlanguage1: TMenuItem
           Caption = 'Select language'
+          GroupIndex = 1
         end
         object SeeLogFile1: TMenuItem
           Caption = 'Log'
+          GroupIndex = 1
           object OpenFolder1: TMenuItem
             Bitmap.Data = {
               26040000424D2604000000000000360000002800000012000000120000000100
@@ -2077,14 +2268,17 @@ object JRScrap_Frm: TJRScrap_Frm
       end
       object XML_Export: TMenuItem
         Caption = 'Export'
+        GroupIndex = 1
         OnClick = XML_ExportClick
       end
       object PlayinJRiverMC: TMenuItem
         Caption = 'Play in JRMC'
+        GroupIndex = 1
         OnClick = PlayinJRiverMCClick
       end
       object N2: TMenuItem
         Caption = '-'
+        GroupIndex = 1
       end
       object Close1: TMenuItem
         Bitmap.Data = {
@@ -2129,6 +2323,7 @@ object JRScrap_Frm: TJRScrap_Frm
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
           FFFFFFFFFFFFFFFFFFFF}
         Caption = 'Quit'
+        GroupIndex = 1
         ShortCut = 16465
         OnClick = Close1Click
       end
@@ -32926,5 +33121,10 @@ object JRScrap_Frm: TJRScrap_Frm
       Caption = 'Erase all tags'
       OnClick = Erasealltags1Click
     end
+  end
+  object Flag_ImgList: TImageList
+    ShareImages = True
+    Left = 326
+    Top = 401
   end
 end

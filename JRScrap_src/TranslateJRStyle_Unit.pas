@@ -1,20 +1,24 @@
-// This file is part of th JRScrap project.
-// Licence : GPL v 3
-// Website : https://github.com/fredele/JRScrap/
-// Year : 2014
-// Author : frederic klieber
-
-unit TranslateJRStyle_Unit;
+// This file is part of the JRScrap project.
 
+// Licence : GPL v 3
+
+// Website : https://github.com/fredele/JRScrap/
+
+// Year : 2014
+
+// Author : frederic klieber
+
+unit TranslateJRStyle_Unit;
+
 interface
 
 uses
 
-  Vcl.Menus, Vcl.StdCtrls,
+  Vcl.Menus, Vcl.StdCtrls, Vcl.buttons,
   Vcl.Controls, Vcl.ExtCtrls, Vcl.ComCtrls, System.Classes,
   System.SysUtils, System.Variants, Vcl.Forms,
   mystringutil, File_Unit, IOUtils, JPEG, Vcl.CheckLst,
-  Types_Unit, StrUtils, debug_Unit, MediaCenter_TLB ;
+  Types_Unit, StrUtils, debug_Unit, MediaCenter_TLB;
 
 var
 
@@ -29,8 +33,6 @@ implementation
 
 uses
   JRScrap_Unit;
-
-
 
 function Translate_String_JRStyle(ENGStrToTranslate: string;
   lang: string): string;
@@ -254,6 +256,23 @@ begin
             capt := StringReplace(capt, TranslateArray[k].original,
               TranslateArray[k].translate, [rfReplaceAll, rfIgnoreCase]);
             (application.Components[i].Components[j] as TButton)
+              .Caption := capt;
+          end;
+        end;
+      end;
+
+      if application.Components[i].Components[j].InheritsFrom(TSpeedButton) then
+      begin
+        for k := 0 to length(TranslateArray) - 1 do
+        begin
+          if (application.Components[i].Components[j] as TSpeedButton)
+            .Caption = TranslateArray[k].original then
+          begin
+            capt := (application.Components[i].Components[j]
+              as TSpeedButton).Caption;
+            capt := StringReplace(capt, TranslateArray[k].original,
+              TranslateArray[k].translate, [rfReplaceAll, rfIgnoreCase]);
+            (application.Components[i].Components[j] as TSpeedButton)
               .Caption := capt;
           end;
         end;

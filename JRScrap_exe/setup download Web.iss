@@ -34,15 +34,16 @@ Source: "{#SourcePath}\XSL\*"; DestDir: "{commonappdata}\JRScrap"; Flags: ignore
 Name: "{group}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"; Tasks: desktopicon
-;Name: "{commondesktop}\{#MyAppName} MassScrap"; Filename: "{app}\bin\{#MyAppExeName}"; Tasks: desktopicon ;Parameters: "-MassScrap"
+
 [Registry]                                                                                 
 Root: HKCU; Subkey: "Software\JRScrap"; Flags: uninsdeletekey
-;Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "APIKey"; ValueData: "3b608fc11821e92cd2459320206a9d9b"
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Firstrun"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Writepicture"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "WriteSideCar"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapWimdbID"; ValueData: 1 
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapPicture"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Movie"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Serie"; ValueData: 0
 
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Freebase"; ValueData: 1     
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Traileraddict"; ValueData: 1     
@@ -55,6 +56,8 @@ Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Fi
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Playlist"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Mediasubtype"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Search"; ValueData: 0
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Subtitle"; ValueData: 1
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Poster"; ValueData: 1
 
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "english" ; Languages: english
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "french" ; Languages: french

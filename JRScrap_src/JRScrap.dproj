@@ -153,7 +153,16 @@
         </DCCReference>
         <DCCReference Include="Freebase_Unit.pas"/>
         <DCCReference Include="Traileraddict_Unit.pas"/>
-        <None Include="Reminder Notes.txt"/>
+        <DCCReference Include="Poster_Unit.pas">
+            <Form>Poster_Frm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Bitmap_Unit.pas"/>
+        <DCCReference Include="Math_Unit.pas"/>
+        <DCCReference Include="SubDB_Unit.pas">
+            <Form>SubDB_Frm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

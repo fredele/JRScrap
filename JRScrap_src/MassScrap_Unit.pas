@@ -1,12 +1,15 @@
-// This file is part of th JRScrap project.
-// Licence : GPL v 3
-// Website : https://github.com/fredele/JRScrap/
-// Year : 2014
-// Author : frederic klieber
-
-
-unit MassScrap_Unit;
+// This file is part of the JRScrap project.
 
+// Licence : GPL v 3
+
+// Website : https://github.com/fredele/JRScrap/
+
+// Year : 2014
+
+// Author : frederic klieber
+
+unit MassScrap_Unit;
+
 interface
 
 uses
@@ -15,20 +18,21 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, uLkJSON,
   Threadsearch_Unit, Utils_Unit, JRiverXML_Unit, MediaCenter_TLB,
   Vcl.ExtCtrls, Registry, TranslateJRStyle_Unit, Vcl.CheckLst, debug_Unit,
-   TheMoviedB_Unit ,TVdb_Unit,Freebase_Unit, Traileraddict_Unit;
-
+  TheMoviedB_Unit, TVdb_Unit, Freebase_Unit, Traileraddict_Unit, cyBasePanel,
+  cyPanel;
 
 type
   TMassScrap_Frm = class(TForm)
-    ProgressBar1: TProgressBar;
-    progresscount_Lbl: TLabel;
-    Label2: TLabel;
+    CyPanel1: TCyPanel;
+    Button2: TButton;
+    CheckBox1: TCheckBox;
     Film_Lbl: TLabel;
     Label1: TLabel;
-    Button2: TButton;
-    Timer1: TTimer;
-    CheckBox1: TCheckBox;
+    Label2: TLabel;
     Picture_Rec_Chk: TCheckBox;
+    ProgressBar1: TProgressBar;
+    progresscount_Lbl: TLabel;
+    Timer1: TTimer;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button2Click(Sender: TObject);
@@ -91,9 +95,8 @@ end;
 
 procedure TMassScrap_Frm.MassTag;
 begin
-debug ('MassScrap');
- try
-
+  debug('MassScrap');
+  try
 
     firstrun := False;
     Inc(loop);
@@ -113,80 +116,83 @@ debug ('MassScrap');
       Exit;
     end;
 
-
     if JRScrap_Frm.FMassScrap = False then
     begin
       Button2Click(self);
       Exit;
     end;
     try
-      JRScrap_Frm.FCurrentJRiverId :=StrToint(JRScrap_Frm.Movie_Browser.Cells[0, loop]);
+      JRScrap_Frm.FCurrentJRiverId :=
+        StrToint(JRScrap_Frm.Movie_Browser.Cells[0, loop]);
     except
       JRScrap_Frm.logger.error('Error: 121');
     end;
-   FCurrentMovie := FMoviesList.GetFile(JRScrap_Frm.FCurrentJRiverId);
+    FCurrentMovie := FMoviesList.GetFile(JRScrap_Frm.FCurrentJRiverId);
     debug('FCurrentMovie' + FCurrentMovie.Name);
 
-     JRScrap_Frm.Select_MovieBrowserRow_by_JRiver_ID (JRScrap_Frm.FCurrentJRiverId);
+    JRScrap_Frm.Select_MovieBrowserRow_by_JRiver_ID
+      (JRScrap_Frm.FCurrentJRiverId);
 
-      if (JRScrap_Frm.TheMoviedB_rd.down = false ) then
-      begin
+    if (JRScrap_Frm.TheMoviedB_Btn.down = False) then
+    begin
       try
-      if  JRScrap_Frm.Traileraddict_Search_Btn.Down = true then
-      begin
-      debug('Traileraddict');
-      TTrailerAddict_Ins:= TTrailerAddict_Cl.Create   ;
-      TTrailerAddict_Ins.Search_Name;
-      end;
+        if JRScrap_Frm.Traileraddict_Search_Btn.down = true then
+        begin
+          debug('Traileraddict');
+          TTrailerAddict_Ins := TTrailerAddict_Cl.Create;
+          TTrailerAddict_Ins.Search_Name;
+        end;
       except
 
       end;
 
       try
-      if ( JRScrap_Frm.freebase_Btn.down = true) then
-      begin
-      debug('freebase');
-      TFreebase_Ins :=   TFreebase_Cl.Create   ;
-      TFreebase_Ins.Freebase_getID() ;
-      end;
+        if (JRScrap_Frm.freebase_Btn.down = true) then
+        begin
+          debug('freebase');
+          TFreebase_Ins := TFreebase_Cl.Create;
+          TFreebase_Ins.Freebase_getID();
+        end;
       except
 
       end;
-      end;
+    end;
 
-      try
-      if (JRScrap_Frm.TheMoviedB_rd.down = true) then
+    try
+      if (JRScrap_Frm.TheMoviedB_Btn.down = true) then
       begin
-      //if assigned(TheMoviedB_Ins) then   TheMoviedB_Ins.Free ;
-      TheMoviedB_Ins := TTheMoviedB_Cl.Create(JRScrap_Frm.FCurrentJRiverId,JRScrap_Frm.FCurrentLangShort);
-      TheMoviedB_Ins.Auto_search ;
+        // if assigned(TheMoviedB_Ins) then   TheMoviedB_Ins.Free ;
+        TheMoviedB_Ins := TTheMoviedB_Cl.Create(JRScrap_Frm.FCurrentJRiverId,
+          JRScrap_Frm.FCurrentLangShort);
+        TheMoviedB_Ins.Auto_search;
       end;
-      except
+    except
 
-      end;
+    end;
 
-      try
-      if JRScrap_Frm.TVdb_Rd.down= true then
+    try
+      if JRScrap_Frm.TVdb_Btn.down = true then
       begin
-     // if assigned(TTvdB_Ins) then  TTvdB_Ins.Free ;
+        // if assigned(TTvdB_Ins) then  TTvdB_Ins.Free ;
 
-      TTvdB_Ins := TTVdB_Cl.Create(JRScrap_Frm.FCurrentJRiverId,JRScrap_Frm.FCurrentLangShort, strtoint(JRScrap_Frm.Episode_Spin_Ed.Text) ,strtoint(JRScrap_Frm.Season_Spin_Ed.Text));
-      TTvdB_Ins.Auto_search ;
+        TTvdB_Ins := TTVdB_Cl.Create(JRScrap_Frm.FCurrentJRiverId,
+          JRScrap_Frm.FCurrentLangShort,
+          StrToint(JRScrap_Frm.Episode_Ed.Text),
+          StrToint(JRScrap_Frm.Season_Ed.Text));
+        TTvdB_Ins.Auto_search;
       end;
-      except
+    except
 
-
-      end;
-
+    end;
 
   except
-  debug('except');
-  if loop <= JRScrap_Frm.Movie_Browser.RowCount then
-  begin
-  //MassTag ;
-  end
- else
- exit;
+    debug('except');
+    if loop <= JRScrap_Frm.Movie_Browser.RowCount then
+    begin
+      // MassTag ;
+    end
+    else
+      Exit;
   end;
 end;
 
@@ -212,7 +218,7 @@ end;
 procedure TMassScrap_Frm.Timer1Timer(Sender: TObject);
 begin
   try
-    self.Film_Lbl.Caption :=FCurrentMovie.get('name', true);
+    self.Film_Lbl.Caption := FCurrentMovie.get('name', true);
     self.ProgressBar1.Position := loop - 1;
     self.progresscount_Lbl.Caption := IntToStr(loop - 1) + ' / ' +
       IntToStr(JRScrap_Frm.FMoviesCount);
@@ -263,6 +269,9 @@ var
 
 begin
 
+  self.Top := JRScrap_frm.Top + round((JRScrap_frm.Height - self.Height) / 2);
+  self.Left := JRScrap_frm.Left + round((JRScrap_frm.Width - self.Width) / 2);
+
   RegNGFS := TRegistry.Create;
 
   self.Height := 270;
@@ -305,7 +314,7 @@ begin
       Delete(s, 1, 6);
       for I := 0 to JRScrap_Frm.FMoviesCount - 1 do
       begin
-        s2 :=FMoviesList.GetFile(I).Filename;
+        s2 := FMoviesList.GetFile(I).Filename;
         if s2 = s then
         begin
           FileinParamFound := true;
@@ -349,8 +358,8 @@ begin
     JRScrap_Frm.FCurrentLang);
   self.CheckBox1.Caption := Translate_String_JRStyle
     ('Scrap first Media found if API ID is missing', JRScrap_Frm.FCurrentLang);
-  self.Picture_Rec_Chk.Caption := Translate_String_JRStyle
-    ('Record the picture', JRScrap_Frm.FCurrentLang);
+  self.Picture_Rec_Chk.Caption := Translate_String_JRStyle('Record the picture',
+    JRScrap_Frm.FCurrentLang);
 end;
 
 procedure TMassScrap_Frm.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -374,7 +383,8 @@ begin
   if JRScrap_Frm.FHideForm = true then
     ShowWindow(Application.Handle, SW_HIDE);
 
-  self.Caption := Translate_String_JRStyle('Scrap Medias from this line' ,JRScrap_Frm.FCurrentLang) ;
+  self.Caption := Translate_String_JRStyle('Scrap Medias from this line',
+    JRScrap_Frm.FCurrentLang);
 
 end;
 

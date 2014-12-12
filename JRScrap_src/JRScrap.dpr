@@ -2,11 +2,11 @@ program JRScrap;
 
 uses
   TConfiguratorUnit,
-  MassScrap_Unit in 'MassScrap_Unit.pas' {MassScrap_Frm},
-  OpenSub_Unit in 'OpenSub_Unit.pas' {OpenSub_Form},
+  MassScrap_Unit in 'MassScrap_Unit.pas' {MassScrap_Frm} ,
+  OpenSub_Unit in 'OpenSub_Unit.pas' {OpenSub_Form} ,
   Dialogs,
   Vcl.Forms,
-  JRScrap_Unit in 'JRScrap_Unit.pas' {JRScrap_Frm},
+  JRScrap_Unit in 'JRScrap_Unit.pas' {JRScrap_Frm} ,
   Vcl.Themes,
   Vcl.Styles,
   Winapi.Windows,
@@ -18,7 +18,7 @@ uses
   MC_Commands_Unit in 'MC_Commands_Unit.pas',
   Types_Unit in 'Types_Unit.pas',
   uLkJSON in 'uLkJSON.pas',
-  About_Frm in 'About_Frm.pas' {Form2},
+  About_Frm in 'About_Frm.pas' {Form2} ,
   TranslateJRStyle_Unit in 'TranslateJRStyle_Unit.pas',
   Threadsearch_Unit in 'Threadsearch_Unit.pas',
   TheMoviedB_Unit in 'TheMoviedB_Unit.pas',
@@ -29,12 +29,16 @@ uses
   String_Unit in 'String_Unit.pas',
   JRiverXML_Unit in 'JRiverXML_Unit.pas',
   ThreadManager_Unit in 'ThreadManager_Unit.pas',
-  Search_Unit in 'Search_Unit.pas' {Search_Frm},
+  Search_Unit in 'Search_Unit.pas' {Search_Frm} ,
   Generic_Search_Unit in 'Generic_Search_Unit.pas',
-  Image_Form_Unit in 'Image_Form_Unit.pas' {Image_Form},
-  XML_Export_Unit in 'XML_Export_Unit.pas' {XML_Export_Frm},
+  Image_Form_Unit in 'Image_Form_Unit.pas' {Image_Form} ,
+  XML_Export_Unit in 'XML_Export_Unit.pas' {XML_Export_Frm} ,
   Freebase_Unit in 'Freebase_Unit.pas',
-  Traileraddict_Unit in 'Traileraddict_Unit.pas';
+  Traileraddict_Unit in 'Traileraddict_Unit.pas',
+  Poster_Unit in 'Poster_Unit.pas' {Poster_Frm} ,
+  Bitmap_Unit in 'Bitmap_Unit.pas',
+  Math_Unit in 'Math_Unit.pas',
+  SubDB_Unit in 'SubDB_Unit.pas' {SubDB_Frm};
 
 {$R *.res}
 
@@ -75,9 +79,11 @@ begin
     Application.MainFormOnTaskbar := false;
     Application.ShowMainForm := True;
     Application.CreateForm(TJRScrap_Frm, JRScrap_Frm);
-  Application.CreateForm(TImage_Form, Image_Form);
-  Application.CreateForm(TXML_Export_Frm, XML_Export_Frm);
-  Application.Run;
+    Application.CreateForm(TImage_Form, Image_Form);
+    Application.CreateForm(TXML_Export_Frm, XML_Export_Frm);
+    Application.CreateForm(TPoster_Frm, Poster_Frm);
+    Application.CreateForm(TSubDB_Frm, SubDB_Frm);
+    Application.Run;
 
   end
   else

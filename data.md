@@ -23,7 +23,8 @@ Default Fields
 * Sceenwriter
 * Writer
 * Budget
-
+* Gross Revenue
+* Country
 
 Here is an example :
 
@@ -45,7 +46,6 @@ The new fields created are :
 * Production Company
 * Production Design
 * Novel
-* Revenue
 * Url Allocine
 * Url rottentomatoes
 * Url Wikipedia eng

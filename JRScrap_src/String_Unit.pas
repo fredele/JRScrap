@@ -1,10 +1,13 @@
-// This file is part of th JRScrap project.
+// This file is part of the JRScrap project.
 // Licence : GPL v 3
-// Website : https://github.com/fredele/JRScrap/
-// Year : 2014
-// Author : frederic klieber
 
-unit String_Unit;
+// Website : https://github.com/fredele/JRScrap/
+
+// Year : 2014
+
+// Author : frederic klieber
+
+unit String_Unit;
 
 interface
 
@@ -33,70 +36,105 @@ procedure deleteAllIdentical(strlist: TStringList);
 function CapitalizeFirstLetter(str: string): string;
 function serialize(List: TStringList): string; overload;
 function serialize(List: TStrings): string; overload;
-function serialize(List: TArrayOfString ): string; overload;
-function ArrayofStringToStringList (ar : Tarrayofstring) : TstringList ;
-function replaceStr( str,org, repl :string) : string ;
-function ExtractText(const Str: string; const Delim1, Delim2: string): TStringList;
-Function StringToStream(const AString: string): TStream;
+function serialize(List: TArrayOfString): string; overload;
+function ArrayofStringToStringList(ar: TArrayOfString): TStringList;
+function replaceStr(str, org, repl: string): string;
+function ExtractText(const str: string; const Delim1, Delim2: string)
+  : TStringList;
+Function StringToStream(const aString: string): TStream;
+procedure StringToFile(const filename, SourceString: string);
+function SplitString2(sep: char; str: string): TStrings;
 
 implementation
 
-Function StringToStream(const AString: string): TStream;
+procedure StringToFile(const filename, SourceString: string);
+
 begin
-  Result := TStringStream.Create(AString);
+  with TStringList.Create do
+    try
+      Add(SourceString);
+      SaveToFile(filename);
+    finally
+      Free;
+    end;
+
 end;
 
-function ExtractText(const Str: string; const Delim1, Delim2: string): TStringList;
+function SplitString2(sep: char; str: string): TStrings;
 var
-  c,pos1, pos2: integer;
+  List: TStrings;
 begin
-  result:=TStringList.Create;
-  c:=1;
-  pos1:=1;
 
-  while pos1>0 do
+  List := TStringList.Create;
+  try
+    List.Clear;
+    List.Delimiter := sep;
+    List.DelimitedText := str;
+    result := List;
+  finally
+    debug(List.count);
+  end;
+end;
+
+Function StringToStream(const aString: string): TStream;
+begin
+  result := TStringStream.Create(aString);
+end;
+
+function ExtractText(const str: string; const Delim1, Delim2: string)
+  : TStringList;
+var
+  c, pos1, pos2: Integer;
+begin
+  result := TStringList.Create;
+  c := 1;
+  pos1 := 1;
+
+  while pos1 > 0 do
   begin
-    pos1 := PosEx(Delim1, Str,c);
-    if pos1 > 0 then begin
-      pos2 := PosEx(Delim2, Str, pos1+1);
-    if pos2 > 0 then
-      result.Add(Copy(Str, pos1 + length(delim1), pos2 - (length(delim1) + pos1)));
-      c:=pos1+1;
-     end;
+    pos1 := PosEx(Delim1, str, c);
+    if pos1 > 0 then
+    begin
+      pos2 := PosEx(Delim2, str, pos1 + 1);
+      if pos2 > 0 then
+        result.Add(Copy(str, pos1 + length(Delim1),
+          pos2 - (length(Delim1) + pos1)));
+      c := pos1 + 1;
+    end;
 
   end;
 end;
 
-function replaceStr( str  , org, repl :string ) : string ;
+function replaceStr(str, org, repl: string): string;
 begin
-result := stringreplace(str, org, repl ,[rfReplaceAll, rfIgnoreCase]) ;
+  result := stringreplace(str, org, repl, [rfReplaceAll, rfIgnoreCase]);
 end;
 
-function ArrayofStringToStringList (ar : Tarrayofstring) : TstringList ;
+function ArrayofStringToStringList(ar: TArrayOfString): TStringList;
 var
- i : integer ;
-sl : TstringList;
+  i: Integer;
+  sl: TStringList;
 begin
-sl := TstringList.Create;
-for i := 0 to length(ar)-1 do
-begin
-  if ar[i] <> emptystr then
-   sl.Add(ar[i]);
-end;
-  result := sl ;
+  sl := TStringList.Create;
+  for i := 0 to length(ar) - 1 do
+  begin
+    if ar[i] <> emptystr then
+      sl.Add(ar[i]);
+  end;
+  result := sl;
 end;
 
-function serialize(List: TArrayOfString ): string ;
+function serialize(List: TArrayOfString): string;
 var
- i : integer ;
-s :string;
+  i: Integer;
+  s: string;
 begin
-for i := 0 to length(List)-1 do
-begin
-  s :=  List[i]+';';
-end;
-s := deletelastchar(s) ;
-result := s;
+  for i := 0 to length(List) - 1 do
+  begin
+    s := List[i] + ';';
+  end;
+  s := Deletelastchar(s);
+  result := s;
 end;
 
 function serialize(List: TStringList): string;
@@ -104,7 +142,7 @@ var
   s: string;
   i: Integer;
 begin
-  for i := 0 to List.Count - 1 do
+  for i := 0 to List.count - 1 do
   begin
     s := s + ';' + List[i];
   end;
@@ -116,7 +154,7 @@ var
   s: string;
   i: Integer;
 begin
-  for i := 0 to List.Count - 1 do
+  for i := 0 to List.count - 1 do
   begin
     s := s + ';' + List[i];
   end;
@@ -207,7 +245,7 @@ end;
 
 function DeleteAllSpaces(AText: String): string;
 begin
-  result := StringReplace(AText, ' ', '', [rfReplaceAll]);
+  result := stringreplace(AText, ' ', '', [rfReplaceAll]);
 end;
 
 function DeleteAccents(AText: String): string;
@@ -221,7 +259,7 @@ begin
   sTemp := AText;
   For i := 1 to length(Char_Accents) do
     // sTemp := FastReplace(sTemp, Char_Accents[i], Char_Sans_Accents[i]);
-    sTemp := StringReplace(sTemp, Char_Accents[i], Char_Sans_Accents[i],
+    sTemp := stringreplace(sTemp, Char_Accents[i], Char_Sans_Accents[i],
       [rfReplaceAll]);
   result := sTemp;
 end;
@@ -243,7 +281,7 @@ var
   i: Integer;
 begin
   result := false;
-  for i := 0 to L1.Count - 1 do
+  for i := 0 to L1.count - 1 do
     if L1[i] = str then
       result := true;
 
@@ -253,7 +291,7 @@ procedure MergeStrinList(L1: TStringList; L2: TStringList);
 var
   i: Integer;
 begin
-  for i := 0 to L2.Count - 1 do
+  for i := 0 to L2.count - 1 do
     L1.Add(L2[i]);
 end;
 
@@ -261,8 +299,8 @@ function SplitStr(chaine: String; delimiteur: string): TStringList;
 var
   L: TStringList;
 begin
-  L := TStringList.create;
-  L.text := StringReplace(chaine, delimiteur, #13#10, [rfReplaceAll]);
+  L := TStringList.Create;
+  L.text := stringreplace(chaine, delimiteur, #13#10, [rfReplaceAll]);
 
   SplitStr := L;
 end;
@@ -273,12 +311,12 @@ var
   cnt: Integer;
 begin
   stringList.Sort;
-  buffer := TStringList.create;
+  buffer := TStringList.Create;
   try
     buffer.Sorted := true;
     buffer.Duplicates := dupIgnore;
     buffer.BeginUpdate;
-    for cnt := 0 to stringList.Count - 1 do
+    for cnt := 0 to stringList.count - 1 do
       buffer.Add(stringList[cnt]);
     buffer.EndUpdate;
     stringList.Assign(buffer);

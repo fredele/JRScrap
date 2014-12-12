@@ -1,10 +1,13 @@
-// This file is part of th JRScrap project.
+// This file is part of the JRScrap project.
 // Licence : GPL v 3
-// Website : https://github.com/fredele/JRScrap/
-// Year : 2014
-// Author : frederic klieber
 
-unit ThreadManager_Unit;
+// Website : https://github.com/fredele/JRScrap/
+
+// Year : 2014
+
+// Author : frederic klieber
+
+unit ThreadManager_Unit;
 
 interface
 
@@ -27,20 +30,25 @@ type
     Threadsearch_ImageArray: array of TThreadsearch_Image;
     procedure resume;
 
-    procedure Addthread(coding: Tcod; query: string; Proc: TProcedureStr); overload;
-    procedure Addthread(coding: Tcod; query: string; Proc: TProcedureStrobj); overload;
+    procedure Addthread(coding: Tcod; query: string;
+      Proc: TProcedureStr); overload;
+    procedure Addthread(coding: Tcod; query: string;
+      Proc: TProcedureStrobj); overload;
     procedure Addthread(query: string; ProcImg: TProcedureImg); overload;
 
     procedure IncFActualthreadCompleted;
     constructor Create(AOwner: TGeneric_Search; Proc: TProcedureobj); overload;
     constructor Create(AOwner: TGeneric_Search; Proc: TProcedure); overload;
+    constructor Create(Proc: TProcedureobj); overload;
+    constructor Create(Proc: TProcedure); overload;
     property ActualthreadCompleted: integer read FActualthreadCompleted;
     property terminated: boolean read Fterminated write Fterminated;
   end;
 
 implementation
 
-procedure TThreadManager.Addthread(coding: Tcod; query: string; Proc: TProcedureStr);
+procedure TThreadManager.Addthread(coding: Tcod; query: string;
+  Proc: TProcedureStr);
 var
   th: TThreadsearch;
 begin
@@ -49,7 +57,8 @@ begin
   ThreadsearchArray[length(ThreadsearchArray) - 1] := th;
 end;
 
-procedure TThreadManager.Addthread(coding: Tcod; query: string; Proc: TProcedureStrobj);
+procedure TThreadManager.Addthread(coding: Tcod; query: string;
+  Proc: TProcedureStrobj);
 var
   th: TThreadsearch;
 begin
@@ -57,7 +66,6 @@ begin
   Setlength(ThreadsearchArray, length(ThreadsearchArray) + 1);
   ThreadsearchArray[length(ThreadsearchArray) - 1] := th;
 end;
-
 
 procedure TThreadManager.Addthread(query: string; ProcImg: TProcedureImg);
 
@@ -79,6 +87,20 @@ end;
 constructor TThreadManager.Create(AOwner: TGeneric_Search; Proc: TProcedure);
 begin
   FProcedure := Proc;
+  FActualthreadCompleted := 0;
+  Fterminated := False;
+end;
+
+constructor TThreadManager.Create(Proc: TProcedure);
+begin
+  FProcedure := Proc;
+  FActualthreadCompleted := 0;
+  Fterminated := False;
+end;
+
+constructor TThreadManager.Create(Proc: TProcedureobj);
+begin
+  FProcedureobj := Proc;
   FActualthreadCompleted := 0;
   Fterminated := False;
 end;
@@ -107,7 +129,7 @@ begin
       end;
 
     }
-    debug('fait !') ;
+    debug('fait !');
     if assigned(FProcedure) then
     begin
       FProcedure;

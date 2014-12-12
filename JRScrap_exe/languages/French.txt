@@ -386,14 +386,20 @@ Date importée
 View
 Voir
 
-Nothing to search ! Enter a Name, a IMDB or TMDB or a TheTVDB Series ID
-Rien a chercher ! Entrez un Nom ou un  IMDB ou TMDB ou un TheTVDB Series ID
+Nothing to search ! Enter a Name, a IMDB or TMDB 
+Rien a chercher ! Entrez un Nom ou un  IMDB ou un TMDB
+
+Nothing to search ! Enter a Name, a TheTVDB Series ID or TMDB
+Rien a chercher ! Entrez un Nom ou un TheTVDB Series ID ou un TMDB
 
 Search :
 Rechercher :
 
 Filter :
 Filtre :
+
+County :
+Pays :
 
 Filter
 Filtre
@@ -419,4 +425,14 @@ Sélectionnez ici la ligne qui correspond a votre recherche
 Erase all tags
 Effacer toutes les étiquettes
 
+Hash Search
+Recherche par Hash
 
+Imdb Search
+Recherche par Imdb
+
+MOVIE
+FILM
+
+SERIE
+SERIE

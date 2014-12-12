@@ -1,71 +1,81 @@
-// This file is part of th JRScrap project.
+// This file is part of the JRScrap project.
 // Licence : GPL v 3
-// Website : https://github.com/fredele/JRScrap/
-// Year : 2014
-// Author : frederic klieber
 
-unit Generic_Search_Unit;
+// Website : https://github.com/fredele/JRScrap/
+
+// Year : 2014
+
+// Author : frederic klieber
+
+unit Generic_Search_Unit;
 
 interface
 
 uses
   Classes, Types_Unit, system.Sysutils, debug_Unit, jpeg, Dialogs,
-  TranslateJRStyle_Unit, vcl.Forms,string_Unit;
+  TranslateJRStyle_Unit, vcl.Forms, string_Unit ,JvListBox;
 
 type
 
   TGeneric_Search = class
 
-
-public
-     var
-      lock : boolean ;
-      FMediaList_Id: integer;
-      FileName,Name, Original_Name, Overview, APIkey, FCurrentLangShort, Vote_Average,
+  public
+  var
+    lock: boolean;
+    FMediaList_Id: integer;
+    FileName, Name, Original_Name, Overview, FCurrentLangShort, Vote_Average,
       release_date: string;
-      Medias: array of TMedia;
-      Persons: array of TPerson;
-      Genre, production_companies, Keywords, Casting, Executive_Producer, Novel,
-      Production_Design, Music_by, Screenwriter, Cinematographer,
+    Medias: array of TMedia;
+    Persons: array of TPerson;
+    Country, Genre, production_companies, Keywords, Casting, Executive_Producer,
+      Novel, Production_Design, Music_by, Screenwriter, Cinematographer,
       director: TStringList;
-      image: TJPEGImage;
-      trailer , budget ,revenue: string ;
+    image: TJPEGImage;
+    trailer, budget, revenue: string;
+    imdb_id, tmdb_id ,tvdb_id: string;
+    Episode, Season: integer;
+    Serie_Name: string;
 
-       procedure Auto_search ;   virtual;
-       procedure Display_Search;  virtual;
-       procedure Display_Searches;
-       procedure Searchfiles(title: string); virtual; abstract;
-       procedure SaveTags; virtual; abstract;
-       constructor Create(id: integer; CurrentLangShort: string);
-       procedure AddPerson(pe: TPerson);
-       procedure AddMedia(md: TMedia);
+    procedure Auto_search; virtual;
+    procedure Display_Search; virtual;
+    procedure Display_Searches;
+    procedure Searchfiles(title: string); virtual; abstract;
+    procedure SaveTags; virtual; abstract;
+    constructor Create(id: integer; CurrentLangShort: string);
+    procedure AddPerson(pe: TPerson);
+    procedure AddMedia(md: TMedia);
   private
 
     procedure Debug_search;
     procedure Erase_search;
 
-
   end;
+
+function ItemExists(ListBox: TJvListBox; const Item: string): Boolean;
 
 implementation
 
 uses
   JRScrap_Unit, Search_Unit;
 
-
-
-procedure TGeneric_Search.Auto_search ;
-var
-lockstr : string ;
+function ItemExists(ListBox: TJvListBox; const Item: string): Boolean;
 begin
-   Name := FMoviesList.GetFile(FMediaList_Id ).Get('Name',true ) ;
-   FileName := FMoviesList.GetFile(FMediaList_Id ).Get('Filename',true ) ;
-   lockstr := FMoviesList.GetFile(FMediaList_Id ).Get('Lock External Tag Editor',true ) ;
+  Result := ListBox.Items.IndexOf(Item) >= 0;
+end;
 
-   if lockstr = 'YES' then
-        lock := true
-   else
-        lock := false ;
+procedure TGeneric_Search.Auto_search;
+var
+  lockstr: string;
+begin
+  Name := FMoviesList.GetFile(FMediaList_Id).Get('Name', true);
+  FileName := FMoviesList.GetFile(FMediaList_Id).Get('Filename', true);
+  lockstr := FMoviesList.GetFile(FMediaList_Id)
+    .Get('Lock External Tag Editor', true);
+
+  if lockstr = 'YES' then
+    lock := true
+  else
+    lock := false;
 end;
 
 constructor TGeneric_Search.Create(id: integer; CurrentLangShort: string);
@@ -75,6 +85,8 @@ begin
   FMediaList_Id := id;
   Genre := TStringList.Create;
   Genre.Duplicates := dupIgnore;
+  Country := TStringList.Create;
+  Country.Duplicates := dupIgnore;
   production_companies := TStringList.Create;
   production_companies.Duplicates := dupIgnore;
   Keywords := TStringList.Create;
@@ -96,19 +108,21 @@ begin
   director := TStringList.Create;
   director.Duplicates := dupIgnore;
 
+  season := -1 ;
+  episode := - 1;
+
 end;
 
 procedure TGeneric_Search.Display_Search;
 var
   i: integer;
   pe: TPerson;
-  f : extended ;
+  f: extended;
 begin
-
 
   if trailer <> EmptyStr then
   begin
-     JRScrap_Frm.Trailer_Ed.Text :=  trailer ;
+    JRScrap_Frm.Trailer_Ed.Text := trailer;
   end;
 
   if Original_Name <> EmptyStr then
@@ -121,15 +135,20 @@ begin
     JRScrap_Frm.Name_Ed.Text := Name;
   end;
 
+  if Serie_Name <> EmptyStr then
+  begin
+    JRScrap_Frm.Serie_Name_Ed.Text := Serie_Name;
+  end;
+
   if Vote_Average <> EmptyStr then
   begin
-  try
-      Vote_Average := replaceStr( Vote_Average ,'.', ',' );
-    f := StrToFloat(Vote_Average) ;
-    JRScrap_Frm.Star_Panel.DrawStar(round(f));
- except
+    try
+      Vote_Average := replaceStr(Vote_Average, '.', ',');
+      f := StrToFloat(Vote_Average);
+      JRScrap_Frm.Star_Panel.DrawStar(round(f));
+    except
 
-  end;
+    end;
 
   end;
 
@@ -158,6 +177,11 @@ begin
     JRScrap_Frm.Genre_ListBox.Items := Genre;
   end;
 
+  if Country.Count <> 0 then
+  begin
+    JRScrap_Frm.Country_ListBox.Items := Country;
+  end;
+
   if production_companies.Count <> 0 then
   begin
     JRScrap_Frm.Production_Company_ListBox.Items := production_companies;
@@ -173,6 +197,19 @@ begin
       JRScrap_Frm.Cast_Grid.Cells[1, i] := pe.Character;
       JRScrap_Frm.Cast_Grid.Cells[2, i] := IntToStr(pe.id);
     end;
+  end;
+
+  if self.tmdb_id <> emptystr then  JRScrap_Frm.Tmdb_id_Ed.Text :=  self.tmdb_id  ;
+  if self.imdb_id <> emptystr then  JRScrap_Frm.imdb_id_Ed.Text :=  self.imdb_id  ;
+  if self.tvdb_id <> emptystr then  JRScrap_Frm.Tvdb_id_Ed.Text :=  self.tvdb_id  ;
+  try
+  if self.Episode <> 0  then  JRScrap_Frm.Episode_Ed.Text := inttostr(self.Episode) ;
+  except
+  end;
+
+  try
+  if self.season <> 0  then  JRScrap_Frm.season_Ed.Text := inttostr(self.season) ;
+  except
   end;
 
   if Keywords.Count <> 0 then
@@ -220,15 +257,14 @@ begin
     JRScrap_Frm.director_ListBox.Items := director;
   end;
 
-
   if image <> nil then
   begin
-  try
-   JRScrap_Frm.Picture_Img.Picture.Assign(image);
-  except
+    try
+      JRScrap_Frm.Picture_Img.Picture.Assign(image);
+    except
 
-  end;
-  JRScrap_Frm.Write_Btn.Enabled := true;
+    end;
+    JRScrap_Frm.Write_Btn.Enabled := true;
   end;
 
   application.ProcessMessages;
@@ -271,26 +307,32 @@ begin
 
   if length(Medias) = 0 then
   begin
-   // ShowMessage(Translate_String_JRStyle('No results for this search !', JRScrap_Frm.FCurrentLang));
+    // ShowMessage(Translate_String_JRStyle('No results for this search !', JRScrap_Frm.FCurrentLang));
     JRScrap_Frm.ShowJRiverId(JRScrap_Frm.FCurrentJRiverId);
 
     Exit;
   end;
 
   try
-  for i := 0 to length(Medias) - 1 do
-  begin
+    for i := 0 to length(Medias) - 1 do
+    begin
 
-    md := Medias[i];
-    Search_Frm.Movie_Search_Grid.Cells[0, Search_Frm.Movie_Search_Grid.rowcount -1] := md.Name;
-    Search_Frm.Movie_Search_Grid.Cells[1, Search_Frm.Movie_Search_Grid.rowcount -1] := md.release_date;
-    Search_Frm.Movie_Search_Grid.Cells[2, Search_Frm.Movie_Search_Grid.rowcount -1] := IntToStr(md.API_Id);
-    Search_Frm.Movie_Search_Grid.RowCount  := Search_Frm.Movie_Search_Grid.RowCount  +1 ;
-  end;
-     Search_Frm.Movie_Search_Grid.RowCount  := Search_Frm.Movie_Search_Grid.RowCount - 1 ;
-     Search_Frm.Status_Lbl.Caption := Translate_String_JRStyle('OK', JRScrap_frm.FCurrentLang);
- except
- //
+      md := Medias[i];
+      Search_Frm.Movie_Search_Grid.Cells
+        [0, Search_Frm.Movie_Search_Grid.RowCount - 1] := md.Name;
+      Search_Frm.Movie_Search_Grid.Cells
+        [1, Search_Frm.Movie_Search_Grid.RowCount - 1] := md.release_date;
+      Search_Frm.Movie_Search_Grid.Cells
+        [2, Search_Frm.Movie_Search_Grid.RowCount - 1] := IntToStr(md.API_Id);
+      Search_Frm.Movie_Search_Grid.RowCount :=
+        Search_Frm.Movie_Search_Grid.RowCount + 1;
+    end;
+    Search_Frm.Movie_Search_Grid.RowCount :=
+      Search_Frm.Movie_Search_Grid.RowCount - 1;
+    Search_Frm.Status_Lbl.Caption := Translate_String_JRStyle('OK',
+      JRScrap_Frm.FCurrentLang);
+  except
+    //
   end;
 
 end;

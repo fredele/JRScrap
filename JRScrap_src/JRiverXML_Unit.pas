@@ -1,11 +1,15 @@
-// This file is part of th JRScrap project.
-// Licence : GPL v 3
-// Website : https://github.com/fredele/JRScrap/
-// Year : 2014
-// Author : frederic klieber
-
-unit JRiverXML_Unit;
+// This file is part of the JRScrap project.
 
+// Licence : GPL v 3
+
+// Website : https://github.com/fredele/JRScrap/
+
+// Year : 2014
+
+// Author : frederic klieber
+
+unit JRiverXML_Unit;
+
 interface
 
 uses
@@ -55,7 +59,10 @@ uses
 
 procedure TJRiverXML.Save_Close;
 begin
-  XMLDoc.SaveToFile(FXMLfile);
+  if JRScrap_Frm.WriteXMLsideCar1.Checked = true then
+  begin
+    XMLDoc.SaveToFile(FXMLfile);
+  end;
   XMLDoc := nil;
 end;
 
@@ -96,10 +103,14 @@ var
   FieldNode: TXmlNode;
   nodenbr: integer;
 begin
+
+  if (trim(value) = emptystr) then
+    exit;
   if JRScrap_Frm.WriteXMLsideCar1.Checked = false then
-    Exit;
+    exit;
 
   try
+
     name := CapitalizeFirstLetter(name);
     nodenbr := -1;
     nodenbr := FieldExists(name);
@@ -135,7 +146,7 @@ begin
   if not FileExists(mediafile) then
   begin
     raise Exception.Create('No such mediafile!');
-    Exit;
+    exit;
   end;
 
   MediaFileExt := ExtractFileExt(FMediafile);

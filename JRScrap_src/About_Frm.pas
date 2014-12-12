@@ -1,11 +1,15 @@
-// This file is part of th JRScrap project.
-// Licence : GPL v 3
-// Website : https://github.com/fredele/JRScrap/
-// Year : 2014
-// Author : frederic klieber
-
-unit About_Frm;
+// This file is part of the JRScrap project.
 
+// Licence : GPL v 3
+
+// Website : https://github.com/fredele/JRScrap/
+
+// Year : 2014
+
+// Author : frederic klieber
+
+unit About_Frm;
+
 interface
 
 uses
@@ -30,6 +34,8 @@ type
     Image4: TImage;
     Image5: TImage;
     Image6: TImage;
+    Image7: TImage;
+    Image8: TImage;
     procedure Image1MouseEnter(Sender: TObject);
     procedure Image1MouseLeave(Sender: TObject);
     procedure Image1Click(Sender: TObject);
@@ -45,6 +51,8 @@ type
     procedure Image4Click(Sender: TObject);
     procedure Image5Click(Sender: TObject);
     procedure Image6Click(Sender: TObject);
+    procedure Image7Click(Sender: TObject);
+    procedure Image8Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -86,13 +94,21 @@ end;
 
 procedure TForm2.FormActivate(Sender: TObject);
 begin
+
+  self.Top := JRScrap_frm.Top + round((JRScrap_frm.Height - self.Height) / 2);
+  self.Left := JRScrap_frm.Left + round((JRScrap_frm.Width - self.Width) / 2);
+
   self.Label_Version.Caption := 'Version : ' + GetFileVersion(ParamStr(0));
   JRiverVersion.Caption := 'JRiver Version :' + JRVersion.Version;
 
-  self.Caption := Translate_String_JRStyle('About' ,JRScrap_Frm.FCurrentLang) ;
-  self.Label1.Caption :=   Translate_String_JRStyle('This app. is powered by :' ,JRScrap_Frm.FCurrentLang) ;
-  self.Label2.Caption :=   Translate_String_JRStyle('Please, consider helping them by providing your data' ,JRScrap_Frm.FCurrentLang) ;
-  self.Label4.Caption :=   Translate_String_JRStyle('Click me to see my page on Github !!' ,JRScrap_Frm.FCurrentLang) ;
+  self.Caption := Translate_String_JRStyle('About', JRScrap_frm.FCurrentLang);
+  self.Label1.Caption := Translate_String_JRStyle('This app. is powered by :',
+    JRScrap_frm.FCurrentLang);
+  self.Label2.Caption := Translate_String_JRStyle
+    ('Please, consider helping them by providing your data',
+    JRScrap_frm.FCurrentLang);
+  self.Label4.Caption := Translate_String_JRStyle
+    ('Click me to see my page on Github !!', JRScrap_frm.FCurrentLang);
 
 end;
 
@@ -126,16 +142,16 @@ begin
 end;
 
 procedure TForm2.Label3Click(Sender: TObject);
-var em_subject, em_body, em_mail : string;
- begin
-   em_subject := 'JRScrap user feedback';
-   em_body := 'Hello,';
+var
+  em_subject, em_body, em_mail: string;
+begin
+  em_subject := 'JRScrap user feedback';
+  em_body := 'Hello,';
 
-   em_mail := 'mailto:frederic.klieber@gmail.com?subject=' +
-     em_subject + '&body=' + em_body ;
+  em_mail := 'mailto:frederic.klieber@gmail.com?subject=' + em_subject +
+    '&body=' + em_body;
 
-   ShellExecute(Handle,'open',
-     PChar(em_mail), nil, nil, SW_SHOWNORMAL) ;
+  ShellExecute(Handle, 'open', PChar(em_mail), nil, nil, SW_SHOWNORMAL);
 
 end;
 
@@ -180,28 +196,59 @@ begin
 end;
 
 procedure TForm2.Image4Click(Sender: TObject);
-var
-  MyLink: string;
-begin
- MyLink := 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GNPL46T9XH5BC';
+
+var
+
+  MyLink: string;
+
+begin
+  MyLink := 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GNPL46T9XH5BC';
   ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
     nil, SW_SHOW);
 end;
 
 procedure TForm2.Image5Click(Sender: TObject);
-var
+
+var
   MyLink: string;
-begin
- MyLink := 'https://www.freebase.com/';
+
+begin
+  MyLink := 'https://www.freebase.com/';
   ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
     nil, SW_SHOW);
 end;
 
 procedure TForm2.Image6Click(Sender: TObject);
-var
+
+var
   MyLink: string;
-begin
- MyLink := 'http://www.traileraddict.com';
+
+begin
+  MyLink := 'http://www.traileraddict.com';
+  ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
+    nil, SW_SHOW);
+
+end;
+
+procedure TForm2.Image7Click(Sender: TObject);
+
+var
+  MyLink: string;
+
+begin
+  MyLink := 'https://fanart.tv/';
+  ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
+    nil, SW_SHOW);
+
+end;
+
+procedure TForm2.Image8Click(Sender: TObject);
+
+var
+  MyLink: string;
+
+begin
+  MyLink := 'http://thesubdb.com/';
   ShellExecute(Application.Handle, PChar('open'), PChar(MyLink), nil,
     nil, SW_SHOW);
 

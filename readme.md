@@ -20,8 +20,11 @@ http://www.opensubtitles.org
 * **traileraddict.com API**
 http://www.traileraddict.com
 
-* **freebase.com API**
+* **Freebase.com API**
 https://www.freebase.com/
+
+* **Fanart API** 
+https://fanart.tv/
  
 
 In fact, the information for know retrieved by JRiver are far from perfect, this app was created in order to retrieve Movie information in my native language : **FRENCH**.

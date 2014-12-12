@@ -1,23 +1,28 @@
-// This file is part of th JRScrap project.
-// Licence : GPL v 3
-// Website : https://github.com/fredele/JRScrap/
-// Year : 2014
-// Author : frederic klieber
-
-unit Types_Unit;
+// This file is part of the JRScrap project.
 
+// Licence : GPL v 3
+
+// Website : https://github.com/fredele/JRScrap/
+
+// Year : 2014
+
+// Author : frederic klieber
+
+unit Types_Unit;
+
 interface
 
 uses
-  jpeg;
+  jpeg, vcl.graphics;
 
 type
+
   TProcedureStrObj = procedure(str: string) of object;
   TProcedureImg = procedure(img: TJPEGImage) of object;
-  TProcedureStr = procedure (str: string);
+  TProcedureStr = procedure(str: string);
 
   TProcedureObj = procedure of object;
-  TProcedure = procedure ;
+  TProcedure = procedure;
 
 type
 
