@@ -93,13 +93,21 @@ begin
     FileName := JRScrap_frm.FCurrentMoviePath +
       CalcSubDBHash(FCurrentMovie.FileName) + '.srt';
     StringToFile(FileName, str);
-
+    if Fileexists(FileName ) then
+    begin
     showmessage(Translate_String_JRStyle('File Downloaded !',
       JRScrap_frm.FCurrentLang));
+    end
+    else
+    begin
+      showmessage(Translate_String_JRStyle('Not Downloaded !',
+      JRScrap_frm.FCurrentLang));
+    end;
   end
   else
   begin
-
+     showmessage(Translate_String_JRStyle('Not Downloaded !',
+     JRScrap_frm.FCurrentLang));
   end;
   screen.Cursor := crdefault;
 end;

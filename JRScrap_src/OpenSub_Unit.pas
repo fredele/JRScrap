@@ -29,6 +29,7 @@ type
     Status_Lbl: TLabel;
     Hash_Search: TButton;
     Imdb_Search: TButton;
+    Status_Lbl2: TLabel;
     procedure LogIn_Proc;
     procedure FormActivate(Sender: TObject);
     procedure Parse_Proc(str: string);
@@ -118,7 +119,7 @@ begin
   Stream.Seek(-HashPartSize, soEnd);
   UpdateHashFromStream(Stream, result);
 
-  // use "IntToHex(result, 16);" to get a string and "StrToInt64('$' +hash);" to get your Int64 back
+  // use "IntToHex(result, 16);" to get a string and "StrToInt64('$' +hash);" to get your Int64 back !!
 end;
 
 function CalcGabestHash(const filename: TFileName): Int64;
@@ -303,7 +304,8 @@ begin
     s := FCurrentMovie.get('Filename', true);
     filesize := Get_FileSize(s);
     hash_nbr := CalcGabestHash(s);
-    Hash := Int64ToHex(hash_nbr);
+    Hash := IntToHex(hash_nbr, 16) ;
+     //Hash := Int64ToHex(hash_nbr); // Inutile, puisque ca existe ...
     s := SearchSubtitles(Token, 'all', Hash, filesize);
     Parse_Proc(s);
   except
@@ -434,12 +436,13 @@ begin
     begin
       self.StringGrid1.RowCount := 1;
     end;
-    self.Status_Lbl.Caption := Translate_String_JRStyle('OK',
+    self.Status_Lbl2.Caption := Translate_String_JRStyle('OK',
       JRScrap_frm.FCurrentLang);
   except
 
     showmessage(Translate_String_JRStyle('No results for this search !',
       JRScrap_frm.FCurrentLang));
+      self.Status_Lbl2.Caption :='';
     //PostMessage(self.Handle, wm_close, 0, 0);
 
   end;
@@ -447,14 +450,14 @@ end;
 
 procedure TOpenSub_Form.Hash_SearchClick(Sender: TObject);
 begin
-  self.Status_Lbl.Caption := Translate_String_JRStyle('Searching ...',
+  self.Status_Lbl2.Caption := Translate_String_JRStyle('Searching ...',
     JRScrap_frm.FCurrentLang);
   Search_Hash_Proc;
 end;
 
 procedure TOpenSub_Form.Imdb_SearchClick(Sender: TObject);
 begin
-  self.Status_Lbl.Caption := Translate_String_JRStyle('Searching ...',
+  self.Status_Lbl2.Caption := Translate_String_JRStyle('Searching ...',
     JRScrap_frm.FCurrentLang);
   Search_imdbID_Proc;
 end;
@@ -463,19 +466,34 @@ procedure TOpenSub_Form.DownloadClick(Sender: TObject);
 var
   AbUnZipper1: TAbUnZipper;
   zipfile: string;
+
+  name : string ;
 begin
   if self.StringGrid1.RowCount <> 1 then
   begin
+
+    name := self.StringGrid1.Cells[1, self.StringGrid1.Row] ;
+    debug(name);
     zipfile := ExtractFilePath(FCurrentMovie.filename) + 'file.zip';
     DownloadFile(self.StringGrid1.Cells[6, self.StringGrid1.Row], zipfile);
     AbUnZipper1 := TAbUnZipper.Create(nil);
     AbUnZipper1.filename := zipfile;
     AbUnZipper1.BaseDirectory := ExtractFilePath(AbUnZipper1.filename);
-    AbUnZipper1.ExtractFiles(self.StringGrid1.Cells[0, self.StringGrid1.Row]);
+    AbUnZipper1.Count ;
+    AbUnZipper1.ExtractFiles(name);
     AbUnZipper1.Free;
     deletefile(zipfile);
+    name := ExtractFilePath(FCurrentMovie.filename) + name ;
+    if Fileexists(name) then
+    begin
     showmessage(Translate_String_JRStyle('File Downloaded !',
       JRScrap_frm.FCurrentLang));
+    end
+    else
+    begin
+     showmessage(Translate_String_JRStyle('Not Downloaded !',
+      JRScrap_frm.FCurrentLang));
+    end;
   end;
 end;
 

@@ -252,6 +252,9 @@ Fichier téléchargé !
 Subtitle
 Sous-titre
 
+Subtitles :
+Sous-titres :
+
 Serie Title :
 Titre de la Série :
 
@@ -338,7 +341,7 @@ No XSL selected !
 Pas de XSL sélectionné !
 
 This app. is powered by :
-Cette apllication foncionne grâce à :
+Cette application fonctionne grâce à :
 
 
 Please, consider helping them by providing your data
@@ -436,3 +439,6 @@ FILM
 
 SERIE
 SERIE
+
+Not Downloaded !
+Pas téléchargés !

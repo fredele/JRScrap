@@ -5,7 +5,7 @@ What ?
 
 Well, it' a scraper written as an add-on for the **JRiver Media Center** software.
 
-It connects to : 
+JRScrap connects to : 
 
 * **TheMoviedb.org API**
 http://www.themoviedb.org/
@@ -26,6 +26,8 @@ https://www.freebase.com/
 * **Fanart API** 
 https://fanart.tv/
  
+* **SubDB API** 
+http://thesubdb.com/
 
 In fact, the information for know retrieved by JRiver are far from perfect, this app was created in order to retrieve Movie information in my native language : **FRENCH**.
 As the APIs supports it, it could be used for other languages, (german and italian tested.)
@@ -42,7 +44,8 @@ As the APIs supports it, it could be used for other languages, (german and itali
 Setup
 -------------
 
-[Setup](https://github.com/fredele/JRScrap/releases/download/first_release/Setup_for_JRScrap.exe)
+[Setup]
+See the release section on this site.
 
 Donate
 -------------

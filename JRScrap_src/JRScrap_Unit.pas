@@ -34,7 +34,7 @@ uses
   TVdB_Unit, JvSpeedbar, JvExExtCtrls, JvExtComponent,
   Vcl.Samples.Spin, OpenSub_Unit, XML_Export_Unit, SubDB_Unit,
   System.Actions, Vcl.ActnList,
-  cyCheckbox, Vcl.ToolWin, FredHostPanel, TransPanel_Unit, massscrap_Unit,
+  cyCheckbox, Vcl.ToolWin, TransPanel_Unit, massscrap_Unit,
   Image_Form_Unit, cyBaseButton, cyAdvButton,
   Vcl.CategoryButtons, JvExComCtrls, JvToolBar, JvBaseDlg,
   JvBrowseFolder, Vcl.OleCtrls, SHDocVw, cyBaseWebBrowser, cyCustomWebBrowser,
@@ -464,7 +464,7 @@ end;
 procedure TJRScrap_Frm.SetBrowser_Movie;
 begin
   self.Movie_Browser.Options := self.Movie_Browser.Options - [goRangeSelect];
-
+   self.TheMoviedB_Poster_Btn.Enabled := true ;
   Serie_Btn.Down := false;
   Movie_Btn.Down := true;
   self.TVdb_Btn.Enabled := false;
@@ -524,14 +524,17 @@ end;
 procedure TJRScrap_Frm.SetBrowser_Serie;
 begin
 
+  self.TheMoviedB_Poster_Btn.Enabled := false ;
   Serie_Btn.Down := true;
   Movie_Btn.Down := false;
   self.TVdb_Btn.Enabled := true;
   self.TVdb_Btn.Down := true;
   self.TheMoviedB_Btn.Down := false;
 
+  self.Traileraddict_Search_Btn.AllowAllUp := true ;
   self.Traileraddict_Search_Btn.Enabled := false;
   self.Traileraddict_Search_Btn.Down := false;
+  self.Freebase_Btn.AllowAllUp := true ;
   self.Freebase_Btn.Enabled := false;
   self.TheMoviedB_Btn.Enabled := true; //
   self.Freebase_Btn.Down := false;
@@ -631,7 +634,6 @@ var
   png: TPNGImage;
   bmp: TBitmap;
 begin
-  debug(Country_Listbox.Items[Index]);
   with Country_Listbox.Canvas do
   begin
 
@@ -760,7 +762,7 @@ begin
     try
       application.ProcessMessages;
       s := FMoviesList.GetFile(i).name;
-      debug(inttostr(i) + ':' + s);
+      //debug(inttostr(i) + ':' + s);
       self.Movie_Browser.cells[0, i + 1] := inttostr(i);
       self.Movie_Browser.cells[5, i + 1] := FMoviesList.GetFile(i).name;
       self.Movie_Browser.cells[2, i + 1] := FMoviesList.GetFile(i)
@@ -842,7 +844,7 @@ var
   CountItem, i, j, k, ThePosition: Integer;
   MyList: TStringList;
   MyString, TempString, currentid: string;
-  s1, s2: string;
+  s1, s2,s: string;
   d: Integer;
 begin
   currentid := GenStrGrid.cells[0, GenStrGrid.row];
@@ -855,13 +857,12 @@ begin
   try
     begin
       for i := 1 to (CountItem - 1) do
-      begin
-        s1 := GenStrGrid.Rows[i].Strings[ThatCol];
-        s2 := GenStrGrid.Rows[i].Text;
-        s2 := GenStrGrid.Rows[i].Strings[3];
-        MyList.Add(GenStrGrid.Rows[i].Strings[ThatCol] + GenStrGrid.Rows[i]
-          .Strings[3] + GenStrGrid.Rows[i].Strings[4] + TheSeparator +
-          GenStrGrid.Rows[i].Text);
+      begin                                  // Add Season/Serie
+         s := GenStrGrid.cells[ThatCol,i] +  GenStrGrid.cells[3,i] +  GenStrGrid.cells[4,i] + TheSeparator + GenStrGrid.Rows[i].Text ;
+       if s<> emptystr then
+         begin
+        MyList.Add(s);
+         end;
       end;
       // Sort the List
       if FMovieColumnsSortOrder[ThatCol] = true then
@@ -1066,33 +1067,20 @@ begin
   end;
 
   s := FCurrentMovie.GetImageFile(IMAGEFILE_DISPLAY);
+  FCurrentMoviePicture := '';
 
-  if ((Fileexists(s)) and (FileSize(s) <> 0)) then
+
+  if ((Fileexists(s)) and (FileSize(s) <> 0) and (ExtractFileName(s) <> 'Logo.png')) then
   begin
     try
-      if Fileexists(s) then
-      begin
-        try
           self.Picture_Img.Picture.LoadFromFile(s);
-          self.Bkg_img.Picture := nil;
           self.Bkg_img.Picture.LoadFromFile(s);
           SetImageAlpha(self.Bkg_img, 30);
           self.Movie_Pnl.Repaint;
           self.Serie_Pnl.Repaint;
           self.ScrollBox1.Repaint;
+          FCurrentMoviePicture := s;
 
-        except
-
-        end;
-        FCurrentMoviePicture := s;
-
-        if ExtractFileName(s) = 'Logo.png' then
-        begin
-          FCurrentMoviePicture := '';
-          self.Picture_Img.Picture := nil;
-        end;
-
-      end;
     except
       screen.Cursor := crdefault;
       logger.error('Error: loading Picture');
@@ -1100,7 +1088,10 @@ begin
   end
   else
   begin
-    self.Picture_Img.Picture := nil;
+   self.Bkg_img.Picture := nil;
+   self.Picture_Img.Picture := nil;
+  self.Movie_Pnl.Repaint ;
+  self.Serie_Pnl.Repaint;
   end;
 
   try
@@ -2167,7 +2158,7 @@ begin
         begin
 
           RegNGFS.Writebool('Firstrun', false);
-          RegNGFS.Writestring('QueryLanguages', 'eng,fr,it,de,es,pt,nl,no');
+          RegNGFS.Writestring('QueryLanguages', 'eng,fr,it,de,es,pt,nl,no,ru');
 
           if not RegNGFS.ValueExists('Language') then
           begin
@@ -2477,7 +2468,7 @@ begin
       self.Filter_Combo.ItemIndex := 0;
 
       self.Star_Panel.Reset;
-      ShowJRiverId(FCurrentJRiverId);
+      //ShowJRiverId(FCurrentJRiverId);
 
       self.Filter_Combo.Items.Add('Filename');
       self.Filter_Combo.Items.Add('Name');
@@ -2561,7 +2552,7 @@ begin
   TranslateJRStyle(FCurrentLang, false); // translate to NextLang
 
   self.Button2.SetFocus;
-
+  self.ScrollBox1.VertScrollBar.Position := 0 ;
 end;
 
 procedure TJRScrap_Frm.Freebase_BtnClick(Sender: TObject);
@@ -2691,9 +2682,6 @@ begin
 
   self.PlayList_Combo.ItemIndex := -1;
   self.SpeedButton1.Down := false;
-
-  self.Name_Ed.Text := emptystr;
-  debug((Sender as TSpeedButton).name);
 
 end;
 
@@ -2990,6 +2978,8 @@ begin
     if self.Freebase_Btn.Down = true then
     begin
 
+    if assigned(TFreebase_Ins) then
+        TFreebase_Ins.Free;
       TFreebase_Ins := TFreebase_Cl.Create;
       TFreebase_Ins.Freebase_getID();
 
@@ -2999,6 +2989,8 @@ begin
 
     if self.Traileraddict_Search_Btn.Down = true then
     begin
+       if assigned(TTrailerAddict_Ins) then
+        TTrailerAddict_Ins.Free;
       TTrailerAddict_Ins := TTrailerAddict_Cl.Create;
       TTrailerAddict_Ins.Search_Name;
     end;
@@ -3362,7 +3354,7 @@ begin
     RegNGFS.RootKey := HKEY_CURRENT_USER;
     if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
     begin
-      RegNGFS.Writebool('WritePicture', WriteXMLsideCar1.Checked);
+      RegNGFS.Writebool('WritePicture', WritePicture1.Checked);
       RegNGFS.Free;
     end;
   end
@@ -3372,7 +3364,7 @@ begin
     RegNGFS.RootKey := HKEY_CURRENT_USER;
     if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
     begin
-      RegNGFS.Writebool('WritePicture', WriteXMLsideCar1.Checked);
+      RegNGFS.Writebool('WritePicture', WritePicture1.Checked);
       RegNGFS.Free;
     end;
   end;
@@ -3690,10 +3682,10 @@ begin
 
     FMovieColumnsSortOrder[ACol] := not FMovieColumnsSortOrder[ACol];
 
-    if ACol = 9 then
+    if ACol = 9 then    // Date imported
     begin
-      ACol := 2;
-      FMovieColumnsSortOrder[2] := not FMovieColumnsSortOrder[2];
+      ACol := 6;
+      FMovieColumnsSortOrder[6] := not FMovieColumnsSortOrder[6];
     end;
 
     if ACol = 8 then
@@ -3851,6 +3843,7 @@ procedure TJRScrap_Frm.Movie_BtnClick(Sender: TObject);
 var
   RegNGFS: TRegistry;
 begin
+
   self.Bkg_img.Picture := nil;
   self.Serie_Pnl.Repaint;
   self.Movie_Pnl.Repaint;
@@ -3872,6 +3865,7 @@ procedure TJRScrap_Frm.Serie_BtnClick(Sender: TObject);
 var
   RegNGFS: TRegistry;
 begin
+
   self.Bkg_img.Picture := nil;
   self.Serie_Pnl.Repaint;
   self.Movie_Pnl.Repaint;

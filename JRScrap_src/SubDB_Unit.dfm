@@ -30,10 +30,6 @@ object SubDB_Frm: TSubDB_Frm
     Degrade.FromColor = clWhite
     Degrade.SpeedPercent = 100
     Degrade.ToColor = clSilver
-    ExplicitLeft = 51
-    ExplicitTop = 106
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object Status_Lbl: TLabel
       Left = 9
       Top = 133

@@ -33,9 +33,16 @@ object OpenSub_Form: TOpenSub_Form
     object Status_Lbl: TLabel
       Left = 14
       Top = 297
-      Width = 35
+      Width = 43
       Height = 13
       Caption = 'Status:'
+    end
+    object Status_Lbl2: TLabel
+      Left = 61
+      Top = 297
+      Width = 227
+      Height = 13
+      AutoSize = False
     end
     object Download: TButton
       Left = 942

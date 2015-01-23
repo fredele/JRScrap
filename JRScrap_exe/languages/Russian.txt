@@ -1,0 +1,453 @@
+﻿# Translation in Russian version 0.1
+# For JRScrap
+
+Select here fields to save :
+Выберите поля для сохранения :
+
+Picture
+Изображение
+
+Title
+Название
+
+Original Title
+Оригинальное Название
+
+Open Folder
+Открыть Папку
+
+Erase History
+Очистить Историю
+
+Send Update DB from Tags
+Обновить БД из Тэгов
+
+Filename
+Имя файла
+
+Scrap first Movie found if IMBD ID is missing
+Брать первый найденый Фильм если нет IMBD ID
+
+Name
+Имя
+
+Lock
+Блок
+
+
+File locked !
+Файл заблокирован !
+
+Current File :
+Текущий Файл :
+
+Progress :
+Прогресс :
+
+Scrap Medias from this line
+Запросить Объекты от этой линии
+# шляпа
+
+Type in the Media Title and hit Search
+Пишите в Media Title и жмите Поиск
+# шляпа
+
+Enter Key
+Введите Ключ
+
+Please enter your API key
+Укажите ваш API key
+
+Check the Fields and hit Write
+Проверьте Поля и нажмите Запись
+# ММм зааапись..
+
+Select the Media you want and hit Get and view
+Выберите Объект и нажмите Получить
+# шляпа
+
+Done !
+Готово !
+
+Help
+Помощь
+
+About
+О программе
+
+JRScrap Help
+Помощь JRScrap
+
+By Title
+По Названию
+
+By ImdB/TvdB Id
+По ImdB/TvdB Id
+
+Correct the Movie title here
+Откорректируйте название Фильма здесь
+
+Query language :
+Язык запроса :
+
+
+Search this Media
+Искать этот Объект
+#шляпа
+
+Title
+Название
+
+Date
+Дата
+
+Select here the row  of the Movie to get tags from
+Выберите строку Фильма для получения тэгов
+
+Retrieve this Media
+Запросить это Объект
+
+Movie Info
+Информация о Фильме
+
+Additionnal Info
+Инфо +
+
+Picture :
+Image :
+
+
+Title :
+Название :
+
+Original Title :
+Оригинальное Название :
+
+Release date :
+Дата Релиза :
+
+imdb ID :
+imdb ID :
+
+Overview :
+Overview :
+
+Duration :
+Длительность :
+
+Vote Average :
+Средний Голос :
+
+Genres :
+Жанры :
+
+
+Production company :
+Производство :
+
+Keywords :
+Ключевые слова :
+
+Movie Count :
+Кол-во Фильмов :
+
+Name
+Имя
+
+Recent
+Свежее
+
+Menu
+Меню
+
+help
+помощь
+
+Cast :
+Состав :
+
+Actors
+Актёры
+
+Character
+Персонажи
+
+Crew :
+Команда : 
+
+Profession
+Профессия
+
+Name
+Имя
+
+Write this !
+Записать это !
+
+Configure
+Настроить
+
+Select
+Выбрать
+
+Select language
+Выбрать язык
+
+Select Query language
+Выбрать язык Запроса
+
+Go to current Folder
+Открыть эту Папку
+
+Select Style
+Выберите Стиль
+
+Quit
+Выход
+
+Enter a key
+Введите Ключ
+
+Write XML side Car
+Записывать XML side Car
+
+Create the new fields
+Создавать новые поля
+
+None
+Нет
+
+All
+Всё
+
+Add
+Добавить
+
+Delete
+Удалить
+
+Enter a value
+Ввести значение
+
+Request in :
+Запросить в :
+
+Enter a Media Name !
+Введите Имя Объекта !
+#шляпа
+
+Cannot process multiple files for now
+Пока нельзя обрабатывать несколько файлов 
+
+No results for this search !
+Нет совпадений для этого запроса !
+
+IMDB Id does not begin with tt !
+IMDB Id не должен начинаться с tt !
+
+New Fields created !
+Новое Поле создано !
+
+Please enter your API key :
+Укажите ваш API key :
+
+File Downloaded !
+Файл Загружен !
+
+Subtitle
+Субтитры
+
+Subtitles :
+Субтитры :
+
+Serie Title :
+Название Сериала :
+
+Season :
+Сезон :
+
+Select service here
+Выберите сервис тут
+# не тут?
+
+Scrap first Media found if API ID is missing
+Брать первый найденый Объект если нет API ID
+#объект?
+
+No API ID provided
+API ID не указан
+
+
+FileName
+ИмяФайла
+
+Add Date
+Добавить Дату
+
+Downld. Count
+Кол-фо Загрузок
+
+UserNickName
+Псевдоним
+#ИмяПользователя?
+
+ZipDownloadLink
+ZipDownloadLink
+
+SubFormat
+Формат субтитров
+
+Name :
+Имя :
+
+Director :
+Режисёр :
+
+Executive Producer :
+Исполнительный Продюсер :
+
+Cinematographer :
+Фотограф :
+
+Casting :
+Подбор актёров :
+
+Screenwriter :
+Сценарист :
+
+Music by :
+Музыка :
+
+Novel :
+По произведению :
+
+Production design :
+Художник-постановщик :
+
+Critic Rating :
+Рейтинг Критиков :
+
+contains : 
+содержит :
+
+Search
+Поиск
+
+Save
+Сохранить
+
+Select XSL rendering file :
+Выбрать XSL рендеринг файл :
+
+Create
+Создать
+
+Processing :
+Обработка :
+
+No XSL selected !
+XSL не выбран !
+
+This app. is powered by :
+Это приложение использует :
+
+
+Please, consider helping them by providing your data
+Пожулуйста, помогайте им, предоставляя свои данные
+
+Click me to see my page on Github !!
+Нажмите для посещения моей страницы на Github !!
+
+Write picture
+Записать изображение
+
+Print
+Печать
+
+Export
+Экспорт
+
+Save XML/XSL
+Сохранить XML/XSL
+
+Save HTML
+Сохранить HTML
+
+Generate
+Генерировать
+
+Overview
+Обзор
+
+Searching ...
+Поиск ...
+
+Close
+Закрыть
+
+Play in JRMC
+Проиграть в JRMC
+
+No Media Found !
+Объект Не Найден !
+
+Date Imported
+Дата Импорта
+
+View
+Вид
+
+Nothing to search ! Enter a Name, a IMDB or TMDB 
+Нечего искать! Укажите Имя, IMDB или TMDB
+
+Nothing to search ! Enter a Name, a TheTVDB Series ID or TMDB
+Нечего искать! Укажите Имя, TheTVDB Series ID или TMDB
+
+Search :
+Поиск :
+
+Filter :
+Фильтр :
+
+County :
+Страна :
+
+Filter
+Фильтр
+
+Trailer :
+Трейлер :
+
+Select a Service first !
+Сначала выберите Службу !
+
+Toolbar
+Тулбар
+
+Record the picture
+Запись изображения
+
+Search
+Поиск
+
+Select here the row  of the Movie to get tags from
+Выберите строку Фильма для получения тэгов
+
+
+Erase all tags
+Очистить все тэги
+
+Hash Search
+Поиск по Хэшу
+
+Imdb Search
+Поиск Imdb
+
+MOVIE
+ФИЛЬМ
+
+SERIE
+СЕРИЯ
+
+Not Downloaded !
+Не Загружено !

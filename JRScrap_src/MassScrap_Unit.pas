@@ -200,19 +200,8 @@ procedure TMassScrap_Frm.Picture_Rec_ChkClick(Sender: TObject);
 var
   RegNGFS: TRegistry;
 begin
-
-  RegNGFS := TRegistry.Create;
-  try
-    RegNGFS.RootKey := HKEY_CURRENT_USER;
-    if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
-    begin
-      RegNGFS.Writebool('MassScrapPicture', self.Picture_Rec_Chk.Checked);
-    end;
-
-  except
-    RegNGFS.Free;
-  end;
-
+ JRScrap_Frm.Writepicture1.Checked :=  not self.Picture_Rec_Chk .checked;
+ JRScrap_Frm.Writepicture1Click(nil);
 end;
 
 procedure TMassScrap_Frm.Timer1Timer(Sender: TObject);
@@ -287,7 +276,7 @@ begin
     begin
       try
         self.CheckBox1.Checked := RegNGFS.Readbool('MassScrapWimdbID');
-        self.Picture_Rec_Chk.Checked := RegNGFS.Readbool('MassScrapPicture');
+        self.Picture_Rec_Chk.Checked := RegNGFS.Readbool('WritePicture');
       except
 
       end;

@@ -253,6 +253,16 @@ var
   i: integer;
 begin
   debug(str);
+
+   if str = emptystr then
+    begin
+      showmessage(Translate_String_JRStyle('No results for this search !',
+        JRScrap_frm.FCurrentLang));
+      screen.cursor := crdefault;
+     modalresult := mrok;
+       exit ;
+    end;
+
   try
     FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
   except
@@ -305,6 +315,16 @@ var
   img_Count: integer;
 begin
   debug(str);
+
+  if str = emptystr then
+    begin
+      showmessage(Translate_String_JRStyle('No results for this search !',
+        JRScrap_frm.FCurrentLang));
+      screen.cursor := crdefault;
+      modalresult := mrok;
+      exit ;
+    end;
+
   if FService = 'FanArt' then
   begin
     try

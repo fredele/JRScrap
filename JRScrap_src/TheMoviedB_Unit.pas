@@ -112,8 +112,7 @@ begin
     filename;
   JRScrap_Frm.Movie_Browser.cells[10, JRScrap_Frm.Movie_Browser.row] := imdb_id;
 
-  if JRScrap_Frm.Writepicture1.Checked = true then
-  begin
+
 
     s := ExtractFilePath(filename) + ExtractFileNameWithoutExt
       (filename) + '.jpg';
@@ -145,7 +144,7 @@ begin
       end;
 
     end;
-  end;
+
   if not assigned(FCurrentMovie) then
   begin
     ShowMessage(Translate_String_JRStyle('No Movie selected !',

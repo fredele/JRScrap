@@ -73,6 +73,7 @@ object JRScrap_Frm: TJRScrap_Frm
       Width = 723
       Height = 768
       VertScrollBar.ButtonSize = 2
+      VertScrollBar.Position = 619
       VertScrollBar.Smooth = True
       VertScrollBar.Style = ssFlat
       VertScrollBar.Tracking = True
@@ -83,7 +84,7 @@ object JRScrap_Frm: TJRScrap_Frm
       TabOrder = 0
       object Info_Panel: TCyPanel
         Left = 0
-        Top = 0
+        Top = -619
         Width = 702
         Height = 1500
         Align = alTop
@@ -744,7 +745,7 @@ object JRScrap_Frm: TJRScrap_Frm
           object Serie_Name_Ed: TJvEdit
             Left = 203
             Top = 7
-            Width = 480
+            Width = 488
             Height = 27
             BevelKind = bkTile
             Alignment = taRightJustify
@@ -755,8 +756,8 @@ object JRScrap_Frm: TJRScrap_Frm
           end
         end
         object Movie_Pnl: TPanel
-          Left = 3
-          Top = 55
+          Left = 2
+          Top = 51
           Width = 710
           Height = 64
           BevelOuter = bvNone
@@ -1201,8 +1202,10 @@ object JRScrap_Frm: TJRScrap_Frm
           Width = 480
           Height = 27
           BevelKind = bkTile
+          GroupIndex = 0
           BorderStyle = bsNone
           Color = cl3DLight
+          HideSelection = False
           TabOrder = 29
           Text = ''
           OnChange = EdChange
@@ -1520,10 +1523,12 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object Movie_Btn: TSpeedButton
-        Left = 6
-        Top = 2
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
         Width = 90
-        Height = 24
+        Height = 22
+        Align = alLeft
         AllowAllUp = True
         GroupIndex = 1
         Caption = 'MOVIE'
@@ -1534,12 +1539,17 @@ object JRScrap_Frm: TJRScrap_Frm
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = Movie_BtnClick
+        ExplicitLeft = 6
+        ExplicitTop = 2
+        ExplicitHeight = 24
       end
       object Serie_Btn: TSpeedButton
-        Left = 98
-        Top = 2
+        AlignWithMargins = True
+        Left = 100
+        Top = 4
         Width = 90
-        Height = 24
+        Height = 22
+        Align = alLeft
         AllowAllUp = True
         GroupIndex = 2
         Caption = 'SERIE'
@@ -1550,12 +1560,15 @@ object JRScrap_Frm: TJRScrap_Frm
         Font.Style = [fsBold]
         ParentFont = False
         OnClick = Serie_BtnClick
+        ExplicitLeft = 98
+        ExplicitTop = 2
+        ExplicitHeight = 24
       end
     end
     object Search_Save_Bar: TCyPanel
       Left = 201
       Top = 1
-      Width = 200
+      Width = 204
       Height = 30
       BiDiMode = bdRightToLeft
       ParentBiDiMode = False
@@ -1568,11 +1581,12 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object Button2: TButton
-        Left = 3
-        Top = 2
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
         Width = 97
-        Height = 24
-        Align = alCustom
+        Height = 22
+        Align = alLeft
         Caption = 'Search'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -1584,11 +1598,12 @@ object JRScrap_Frm: TJRScrap_Frm
         OnClick = Button2Click
       end
       object Write_Btn: TButton
-        Left = 103
-        Top = 2
+        AlignWithMargins = True
+        Left = 107
+        Top = 4
         Width = 91
-        Height = 24
-        Align = alCustom
+        Height = 22
+        Align = alLeft
         Caption = 'Save'
         Enabled = False
         Font.Charset = DEFAULT_CHARSET
@@ -1602,9 +1617,9 @@ object JRScrap_Frm: TJRScrap_Frm
       end
     end
     object APIs_Bar: TCyPanel
-      Left = 401
+      Left = 405
       Top = 1
-      Width = 540
+      Width = 552
       Height = 30
       TabOrder = 0
       Bevels = <
@@ -1615,11 +1630,13 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object TVdb_Btn: TSpeedButton
-        Left = 180
-        Top = 3
+        AlignWithMargins = True
+        Left = 181
+        Top = 4
         Width = 120
-        Height = 24
+        Height = 22
         ParentCustomHint = False
+        Align = alLeft
         AllowAllUp = True
         BiDiMode = bdLeftToRight
         GroupIndex = 3
@@ -1636,13 +1653,18 @@ object JRScrap_Frm: TJRScrap_Frm
         ShowHint = False
         Transparent = False
         OnClick = TVdb_BtnClick
+        ExplicitLeft = 180
+        ExplicitTop = 3
+        ExplicitHeight = 24
       end
       object TheMoviedB_Btn: TSpeedButton
-        Left = 61
-        Top = 3
+        AlignWithMargins = True
+        Left = 55
+        Top = 4
         Width = 120
-        Height = 24
+        Height = 22
         ParentCustomHint = False
+        Align = alLeft
         AllowAllUp = True
         BiDiMode = bdLeftToRight
         GroupIndex = 2
@@ -1659,13 +1681,18 @@ object JRScrap_Frm: TJRScrap_Frm
         ShowHint = False
         Transparent = False
         OnClick = TheMoviedB_BtnClick
+        ExplicitLeft = 61
+        ExplicitTop = 3
+        ExplicitHeight = 24
       end
       object Freebase_Btn: TSpeedButton
-        Left = 299
-        Top = 3
+        AlignWithMargins = True
+        Left = 307
+        Top = 4
         Width = 117
-        Height = 24
+        Height = 22
         ParentCustomHint = False
+        Align = alLeft
         AllowAllUp = True
         BiDiMode = bdLeftToRight
         GroupIndex = 1
@@ -1682,13 +1709,18 @@ object JRScrap_Frm: TJRScrap_Frm
         ShowHint = False
         Transparent = False
         OnClick = Freebase_BtnClick
+        ExplicitLeft = 299
+        ExplicitTop = 3
+        ExplicitHeight = 24
       end
       object Traileraddict_Search_Btn: TSpeedButton
-        Left = 415
-        Top = 3
+        AlignWithMargins = True
+        Left = 430
+        Top = 4
         Width = 116
-        Height = 24
+        Height = 22
         ParentCustomHint = False
+        Align = alLeft
         AllowAllUp = True
         BiDiMode = bdLeftToRight
         GroupIndex = 4
@@ -1705,20 +1737,29 @@ object JRScrap_Frm: TJRScrap_Frm
         ShowHint = False
         Transparent = False
         OnClick = Traileraddict_Search_BtnClick
+        ExplicitLeft = 415
+        ExplicitTop = 3
+        ExplicitHeight = 24
       end
       object Label47: TLabel
-        Left = 10
-        Top = 8
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
         Width = 45
-        Height = 13
+        Height = 22
+        Align = alLeft
         AutoSize = False
         Caption = 'Infos :'
+        Layout = tlCenter
+        ExplicitLeft = 10
+        ExplicitTop = 9
+        ExplicitHeight = 13
       end
     end
     object Poster_Bar: TCyPanel
       Left = 1
       Top = 31
-      Width = 290
+      Width = 304
       Height = 30
       TabOrder = 7
       Bevels = <
@@ -1729,28 +1770,38 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object Label45: TLabel
-        Left = 6
-        Top = 9
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
         Width = 53
-        Height = 13
+        Height = 22
+        Align = alLeft
         AutoSize = False
         Caption = 'Poster :'
+        Layout = tlCenter
+        ExplicitLeft = 6
+        ExplicitTop = 9
+        ExplicitHeight = 13
       end
       object fanart_Poster_Btn: TButton
-        Left = 51
+        AlignWithMargins = True
+        Left = 63
         Top = 4
         Width = 115
-        Height = 24
+        Height = 22
+        Align = alLeft
         Caption = 'fanart.tv'
         Enabled = False
         TabOrder = 0
         OnClick = fanart_Poster_BtnClick
       end
       object TheMoviedB_Poster_Btn: TButton
-        Left = 165
+        AlignWithMargins = True
+        Left = 184
         Top = 4
         Width = 115
-        Height = 24
+        Height = 22
+        Align = alLeft
         Caption = 'TheMoviedB.org'
         Enabled = False
         TabOrder = 1
@@ -1758,9 +1809,9 @@ object JRScrap_Frm: TJRScrap_Frm
       end
     end
     object Subtitle_Bar: TCyPanel
-      Left = 291
+      Left = 305
       Top = 31
-      Width = 302
+      Width = 319
       Height = 30
       TabOrder = 8
       Bevels = <
@@ -1771,36 +1822,46 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object Label46: TLabel
-        Left = 7
-        Top = 9
-        Width = 53
-        Height = 13
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
+        Width = 65
+        Height = 22
+        Align = alLeft
         AutoSize = False
         Caption = 'Subtitles :'
+        Layout = tlCenter
+        ExplicitLeft = 7
+        ExplicitTop = 9
+        ExplicitHeight = 13
       end
       object OpenSubtitle_Btn: TButton
-        Left = 67
+        AlignWithMargins = True
+        Left = 75
         Top = 4
         Width = 115
-        Height = 24
+        Height = 22
+        Align = alLeft
         Caption = 'OpenSubtitles.org'
         TabOrder = 0
         OnClick = OpenSubtitle_BtnClick
       end
       object SubDB_Btn: TButton
-        Left = 180
+        AlignWithMargins = True
+        Left = 196
         Top = 4
         Width = 115
-        Height = 24
+        Height = 22
+        Align = alLeft
         Caption = 'Thesubdb.com'
         TabOrder = 1
         OnClick = SubDB_BtnClick
       end
     end
     object Filter_Bar: TCyPanel
-      Left = 593
+      Left = 624
       Top = 31
-      Width = 370
+      Width = 373
       Height = 30
       TabOrder = 2
       OnGetSiteInfo = Filter_BarGetSiteInfo
@@ -1813,11 +1874,12 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object SpeedButton1: TSpeedButton
-        Left = 48
-        Top = 3
+        AlignWithMargins = True
+        Left = 41
+        Top = 4
         Width = 26
-        Height = 23
-        Align = alCustom
+        Height = 22
+        Align = alLeft
         AllowAllUp = True
         BiDiMode = bdRightToLeft
         GroupIndex = 10
@@ -1858,13 +1920,17 @@ object JRScrap_Frm: TJRScrap_Frm
           FFFFFFFFFFFFFFFF6275}
         ParentBiDiMode = False
         OnClick = SpeedButton1Click
+        ExplicitLeft = 48
+        ExplicitTop = 3
+        ExplicitHeight = 23
       end
       object Filter_Btn: TSpeedButton
-        Left = 344
-        Top = 3
+        AlignWithMargins = True
+        Left = 347
+        Top = 4
         Width = 20
-        Height = 21
-        Align = alCustom
+        Height = 22
+        Align = alLeft
         AllowAllUp = True
         BiDiMode = bdRightToLeft
         GroupIndex = 15
@@ -1896,20 +1962,28 @@ object JRScrap_Frm: TJRScrap_Frm
           FFFFFFFFFFFFFFB6CF01}
         ParentBiDiMode = False
         OnClick = Filter_BtnClick
+        ExplicitLeft = 344
+        ExplicitTop = 3
+        ExplicitHeight = 21
       end
       object Label27: TLabel
-        Left = 11
-        Top = 6
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
         Width = 31
-        Height = 13
+        Height = 22
+        Align = alLeft
         Caption = 'Filter :'
+        Layout = tlCenter
+        ExplicitHeight = 13
       end
       object Filter_Combo: TComboBox
-        Left = 76
-        Top = 3
+        AlignWithMargins = True
+        Left = 73
+        Top = 4
         Width = 84
         Height = 21
-        Align = alCustom
+        Align = alLeft
         Style = csDropDownList
         BiDiMode = bdLeftToRight
         Enabled = False
@@ -1918,22 +1992,24 @@ object JRScrap_Frm: TJRScrap_Frm
         OnChange = Filter_ComboChange
       end
       object Filter_Ed: TEdit
-        Left = 166
-        Top = 3
+        AlignWithMargins = True
+        Left = 163
+        Top = 4
         Width = 178
-        Height = 21
-        Align = alCustom
+        Height = 22
+        Align = alLeft
         Alignment = taRightJustify
         BiDiMode = bdRightToLeft
         Enabled = False
         ParentBiDiMode = False
         TabOrder = 1
         OnKeyPress = Filter_EdKeyPress
+        ExplicitHeight = 21
       end
     end
     object Playlist_Bar: TCyPanel
-      Left = 963
-      Top = 31
+      Left = 1
+      Top = 61
       Width = 200
       Height = 30
       TabOrder = 3
@@ -1945,18 +2021,24 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object Label31: TLabel
+        AlignWithMargins = True
         Left = 4
-        Top = 9
+        Top = 4
         Width = 40
-        Height = 13
+        Height = 22
+        Align = alLeft
         Caption = 'Playlist :'
+        Layout = tlCenter
+        ExplicitHeight = 13
       end
       object PlayList_Combo: TComboBox
-        Left = 57
+        AlignWithMargins = True
+        Left = 50
         Top = 4
         Width = 137
         Height = 21
         Hint = 'Playlist'
+        Align = alLeft
         Style = csDropDownList
         ParentShowHint = False
         ShowHint = True
@@ -1965,7 +2047,7 @@ object JRScrap_Frm: TJRScrap_Frm
       end
     end
     object Mediasubtype_Bar: TCyPanel
-      Left = 1
+      Left = 201
       Top = 61
       Width = 200
       Height = 30
@@ -1978,19 +2060,24 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object Label2: TLabel
-        Left = 5
-        Top = 9
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
         Width = 83
-        Height = 13
+        Height = 22
+        Align = alLeft
         Caption = 'Media Sub Type :'
+        Layout = tlCenter
+        ExplicitHeight = 13
       end
       object Media_Sub_Combo: TComboBox
-        Left = 94
+        AlignWithMargins = True
+        Left = 93
         Top = 4
         Width = 98
         Height = 21
         Hint = 'Media Sub Type'
-        Align = alCustom
+        Align = alLeft
         Style = csDropDownList
         BiDiMode = bdLeftToRight
         Font.Charset = DEFAULT_CHARSET
@@ -2007,7 +2094,7 @@ object JRScrap_Frm: TJRScrap_Frm
       end
     end
     object Search_Bar: TCyPanel
-      Left = 201
+      Left = 401
       Top = 61
       Width = 515
       Height = 30
@@ -2022,11 +2109,12 @@ object JRScrap_Frm: TJRScrap_Frm
       Degrade.SpeedPercent = 100
       Degrade.ToColor = clSilver
       object Automation_Search_Btn: TSpeedButton
+        AlignWithMargins = True
         Left = 490
-        Top = 6
+        Top = 4
         Width = 20
-        Height = 21
-        Align = alCustom
+        Height = 22
+        Align = alLeft
         AllowAllUp = True
         BiDiMode = bdRightToLeft
         GroupIndex = 15
@@ -2058,25 +2146,32 @@ object JRScrap_Frm: TJRScrap_Frm
           FFFFFFFFFFFFFFB6CF01}
         ParentBiDiMode = False
         OnClick = Automation_Search_BtnClick
+        ExplicitTop = 6
+        ExplicitHeight = 21
       end
       object Label3: TLabel
-        Left = 10
-        Top = 9
-        Width = 79
-        Height = 13
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
+        Width = 60
+        Height = 22
+        Align = alLeft
         AutoSize = False
         Caption = 'Search :'
+        Layout = tlCenter
       end
       object Automation_Ed: TEdit
-        Left = 73
-        Top = 5
+        AlignWithMargins = True
+        Left = 70
+        Top = 4
         Width = 414
-        Height = 21
-        Align = alCustom
+        Height = 22
+        Align = alLeft
         BiDiMode = bdRightToLeft
         ParentBiDiMode = False
         TabOrder = 0
         OnKeyPress = Automation_EdKeyPress
+        ExplicitHeight = 21
       end
     end
   end
@@ -33093,8 +33188,8 @@ object JRScrap_Frm: TJRScrap_Frm
   end
   object Update_Timer: TTimer
     OnTimer = Update_TimerTimer
-    Left = 31
-    Top = 367
+    Left = 34
+    Top = 323
   end
   object MCAutomation: TMCAutomation
     AutoConnect = True
@@ -33124,7 +33219,7 @@ object JRScrap_Frm: TJRScrap_Frm
   end
   object Flag_ImgList: TImageList
     ShareImages = True
-    Left = 326
-    Top = 401
+    Left = 112
+    Top = 323
   end
 end

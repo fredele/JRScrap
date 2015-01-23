@@ -158,8 +158,7 @@ begin
     filename;
   JRScrap_Frm.Movie_Browser.cells[10, JRScrap_Frm.Movie_Browser.row] := tvdb_id;
 
-  if JRScrap_Frm.Writepicture1.Checked = true then
-  begin
+
     s := ExtractFilePath(filename) + ExtractFileNameWithoutExt
       (filename) + '.jpg';
 
@@ -195,7 +194,7 @@ begin
         // screen.cursor := crdefault;
       end;
 
-    end;
+
 
   end;
 
