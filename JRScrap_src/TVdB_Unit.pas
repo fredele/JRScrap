@@ -17,7 +17,7 @@ uses
   Threadsearch_Unit, Types_Unit, TranslateJRStyle_Unit, mydebug,
   MSXML, String_Unit, Xml.xmldom, Xml.XMLIntf, Xml.Win.msxmldom, Xml.XMLDoc,
   Vcl.StdCtrls, Vcl.Controls, Vcl.ExtCtrls, Vcl.ComCtrls, System.Classes,
-  Generic_Search_Unit, MediaCenter_TLB,
+  Generic_Search_Unit, MediaCenter_TLB, Languagues_Unit,
   System.Variants;
 
 type
@@ -25,7 +25,6 @@ type
   TTVdB_Cl = class(TGeneric_Search)
   public
   var
-
 
     MovieThreadSearch1: TThreadsearch;
     MovieThreadSearch_Image: TThreadsearch_Image;
@@ -158,50 +157,46 @@ begin
     filename;
   JRScrap_Frm.Movie_Browser.cells[10, JRScrap_Frm.Movie_Browser.row] := tvdb_id;
 
+  s := ExtractFilePath(filename) + ExtractFileNameWithoutExt(filename) + '.jpg';
 
-    s := ExtractFilePath(filename) + ExtractFileNameWithoutExt
-      (filename) + '.jpg';
+  if JRScrap_Frm.MassScrap_Frm.Picture_Rec_Chk.Checked = true then
+  begin
 
-    if JRScrap_Frm.MassScrap_Frm.Picture_Rec_Chk.Checked = true then
-    begin
+    // Save image in directory
+    try
+      image.SaveToFile(s);
+    except
+      debug('except');
+      // screen.cursor := crdefault;
+    end;
 
-      // Save image in directory
-      try
-        image.SaveToFile(s);
-      except
-        debug('except');
-        // screen.cursor := crdefault;
-      end;
+    try
+      FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_DATABASE);
+    except
+      debug('except');
+      // screen.cursor := crdefault;
+    end;
 
-      try
-        FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_DATABASE);
-      except
-        debug('except');
-        // screen.cursor := crdefault;
-      end;
+    try
+      FCurrentMovie.SetImageFile(s, IMAGEFILE_DISPLAY);
+    except
+      debug('except');
+      // screen.cursor := crdefault;
+    end;
 
-      try
-        FCurrentMovie.SetImageFile(s, IMAGEFILE_DISPLAY);
-      except
-        debug('except');
-        // screen.cursor := crdefault;
-      end;
-
-      try
-        FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_FILE);
-      except
-        debug('except');
-        // screen.cursor := crdefault;
-      end;
-
-
+    try
+      FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_FILE);
+    except
+      debug('except');
+      // screen.cursor := crdefault;
+    end;
 
   end;
 
   if not assigned(FCurrentMovie) then
   begin
     ShowMessage(Translate_String_JRStyle('No Movie selected !',
-      JRScrap_Frm.FCurrentLang));
+      JRScrap_Frm.FCurrentLang_GUI));
     screen.cursor := crdefault;
     Exit;
   end;
@@ -423,10 +418,10 @@ var
 begin
   rq := StringReplace(title, ' ', '+', [rfReplaceAll, rfIgnoreCase]);
 
-  if FCurrentLangShort <> 'eng' then
+  if FLang <> 'en' then
   begin
-    rq := 'http://thetvdb.com/api/GetSeries.php?seriesname=' + rq + '&language='
-      + JRScrap_Frm.FCurrentLangShort;
+    rq := 'http://thetvdb.com/api/GetSeries.php?seriesname=' + rq +
+      '&language=' + FLang;
   end
   else
   begin
@@ -474,7 +469,7 @@ begin
       (JRScrap_Frm.FMassScrap = false)) then
     begin
       ShowMessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_Frm.FCurrentLang));
+        JRScrap_Frm.FCurrentLang_GUI));
       JRScrap_Frm.ShowJRiverId(JRScrap_Frm.FCurrentJRiverId);
       Exit;
     end;
@@ -550,7 +545,7 @@ begin
     if JRScrap_Frm.FMassScrap = false then
     begin
       ShowMessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_Frm.FCurrentLang));
+        JRScrap_Frm.FCurrentLang_GUI));
       JRScrap_Frm.ShowJRiverId(JRScrap_Frm.FCurrentJRiverId);
       screen.cursor := crdefault;
       Exit;
@@ -574,6 +569,7 @@ begin
       screen.cursor := crdefault;
       JRScrap_Frm.logger.error('Error: Parsing');
     end;
+
     try
       root := FXMLReader.DocumentElement;
 
@@ -638,13 +634,13 @@ begin
             begin
               if node.childNodes[j].nodeName = 'Overview' then
               begin
-                Overview := ansistring(node.childNodes[j].Text);
 
+                Overview := string(node.childNodes[j].Text);
               end;
 
               if node.childNodes[j].nodeName = 'Language' then
               begin
-              //  Country.Add(node.childNodes[j].Text);
+                // Country.Add(node.childNodes[j].Text);
               end;
 
               if node.childNodes[j].nodeName = 'IMDB_ID' then
@@ -654,7 +650,7 @@ begin
 
               if node.childNodes[j].nodeName = 'EpisodeName' then
               begin
-               self.Name := ansistring(node.childNodes[j].Text);
+                self.Name := string(node.childNodes[j].Text);
 
               end;
 
@@ -739,10 +735,10 @@ var
 begin
   try
 
-    if FCurrentLangShort <> 'eng' then
+    if FLang <> 'en' then
     begin
       rq := 'http://thetvdb.com/api/' + TVDB_API_Key + '/series/' + self.tvdb_id
-        + '/all/' + FCurrentLangShort + '.xml';
+        + '/all/' + FLang + '.xml';
     end
     else
     begin

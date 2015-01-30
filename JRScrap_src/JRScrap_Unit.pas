@@ -19,11 +19,11 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   Vcl.Graphics, Vcl.themes,
   Vcl.Forms, Vcl.Dialogs, IdBaseComponent, IdComponent,
-  IdTCPConnection, IdTCPClient, IdHTTP, IdSSLOpenSSL, mystringutil, File_Unit,
+  IdTCPConnection, IdTCPClient, IdHTTP, IdSSLOpenSSL, File_Unit,
   IOUtils, Vcl.Imaging.jpeg, Vcl.ImgList, Vcl.OleServer, MediaCenter_TLB,
   Vcl.Buttons, cyBaseFlowPanel, cyFlowPanel, cyBaseLed, cyLed, cyStatusBar,
   JvExStdCtrls, JvListBox, JvEdit, StarPanel_Unit, cyEdit, cyBasePanel, cyPanel,
-  Traileraddict_Unit,
+  Traileraddict_Unit, Languagues_Unit,
 
   Bitmap_Unit, ThreadSearch_Unit,
   cyBaseLabel, cyLabel, cyDBLabel, About_Frm, Poster_Unit,
@@ -198,7 +198,7 @@ type
     Delete1: TMenuItem;
     Info_Pop: TPopupMenu;
     Erasealltags1: TMenuItem;
-    Flag_ImgList: TImageList;
+    Flag_ImgList_Languages: TImageList;
     Bkg_img: TImage;
     Mode_Bar: TCyPanel;
     Movie_Btn: TSpeedButton;
@@ -220,6 +220,9 @@ type
     imdb_id_Ed: TcyEdit;
     Label13: TLabel;
     Tmdb_id_Ed: TcyEdit;
+    Flag_ImgList_translate: TImageList;
+    N6: TMenuItem;
+    N7: TMenuItem;
 
 
     // Form Procedures
@@ -350,6 +353,7 @@ type
   var
 
     // My Variables
+
     FLock_Clic: Boolean;
     FXSLFolder: string;
     HPos: Integer;
@@ -378,12 +382,11 @@ type
     FParseText: string;
     Fitem: TMenuItem;
     FMoviesCount: Integer;
-    Flanguages: TStringList;
     FMesgCount: Integer;
     OldCursor: TCursor;
     FCurrentMoviePath: string;
     FCurrentJRiverId: Integer;
-    FCurrentLang, FCurrentLangShort: string;
+    FCurrentLang_GUI, FCurrentLangShort: string;
     FKeywords_List: Set of byte;
     FCurrentSort, FINIPath: string;
     FParameterStr: string;
@@ -464,7 +467,7 @@ end;
 procedure TJRScrap_Frm.SetBrowser_Movie;
 begin
   self.Movie_Browser.Options := self.Movie_Browser.Options - [goRangeSelect];
-   self.TheMoviedB_Poster_Btn.Enabled := true ;
+  self.TheMoviedB_Poster_Btn.Enabled := true;
   Serie_Btn.Down := false;
   Movie_Btn.Down := true;
   self.TVdb_Btn.Enabled := false;
@@ -477,26 +480,26 @@ begin
   self.OpenSubtitle_Btn.Enabled := true;
 
   ClearAll;
-  FCurrentLang := TranslateJRStyle(FCurrentLang, false);
+  FCurrentLang_GUI := TranslateJRStyle(FCurrentLang_GUI, false);
 
   self.Movie_Browser.ColWidths[2] := 0; // Serie Name
   self.Movie_Browser.ColWidths[3] := 0; // Season
   self.Movie_Browser.ColWidths[4] := 0; // Ep
 
   self.Movie_Browser.cells[5, 0] := Translate_String_JRStyle('Name',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[2, 0] := 'Serie';
   self.Movie_Browser.cells[3, 0] := 'S';
   self.Movie_Browser.cells[4, 0] := 'E';
   self.Movie_Browser.cells[8, 0] := Translate_String_JRStyle('Lock',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[9, 0] := Translate_String_JRStyle('Date Imported',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[10, 0] := 'Imdb ID';
   self.Movie_Browser.cells[11, 0] := Translate_String_JRStyle('Overview',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[12, 0] := Translate_String_JRStyle('Filename',
-    FCurrentLang);
+    FCurrentLang_GUI);
 
   self.Season_Ed.Enabled := false;
   self.Episode_Ed.Enabled := false;
@@ -524,17 +527,17 @@ end;
 procedure TJRScrap_Frm.SetBrowser_Serie;
 begin
 
-  self.TheMoviedB_Poster_Btn.Enabled := false ;
+  self.TheMoviedB_Poster_Btn.Enabled := false;
   Serie_Btn.Down := true;
   Movie_Btn.Down := false;
   self.TVdb_Btn.Enabled := true;
   self.TVdb_Btn.Down := true;
   self.TheMoviedB_Btn.Down := false;
 
-  self.Traileraddict_Search_Btn.AllowAllUp := true ;
+  self.Traileraddict_Search_Btn.AllowAllUp := true;
   self.Traileraddict_Search_Btn.Enabled := false;
   self.Traileraddict_Search_Btn.Down := false;
-  self.Freebase_Btn.AllowAllUp := true ;
+  self.Freebase_Btn.AllowAllUp := true;
   self.Freebase_Btn.Enabled := false;
   self.TheMoviedB_Btn.Enabled := true; //
   self.Freebase_Btn.Down := false;
@@ -557,20 +560,20 @@ begin
   self.Movie_Browser.ColWidths[4] := 20; // Ep
 
   self.Movie_Browser.cells[5, 0] := Translate_String_JRStyle('Name',
-    FCurrentLang);
+    FCurrentLang_GUI);
 
   self.Movie_Browser.cells[2, 0] := 'Serie';
   self.Movie_Browser.cells[3, 0] := 'S';
   self.Movie_Browser.cells[4, 0] := 'E';
   self.Movie_Browser.cells[8, 0] := Translate_String_JRStyle('Lock',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[9, 0] := Translate_String_JRStyle('Date Imported',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[10, 0] := 'Tvdb ID';
   self.Movie_Browser.cells[11, 0] := Translate_String_JRStyle('Overview',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[12, 0] := Translate_String_JRStyle('Filename',
-    FCurrentLang);
+    FCurrentLang_GUI);
 
   self.Season_Ed.Enabled := true;
   self.Episode_Ed.Enabled := true;
@@ -587,7 +590,7 @@ begin
   end;
 
   ClearAll;
-  FCurrentLang := TranslateJRStyle(FCurrentLang, false);
+  FCurrentLang_GUI := TranslateJRStyle(FCurrentLang_GUI, false);
   Media_Sub_ComboChange(self);
 end;
 
@@ -708,7 +711,7 @@ begin
           FMoviesList.GetFile(strtoint(self.Movie_Browser.cells[0, i]))
           .Get('IMDb ID', true);
       except
-        debug('error Update IMDb ID');
+        // debug('error Update IMDb ID');
       end;
     end;
   end;
@@ -751,7 +754,7 @@ begin
 
   if FMoviesCount = 0 then
   begin
-    ShowMessage(Translate_String_JRStyle('No Media Found !', FCurrentLang));
+    ShowMessage(Translate_String_JRStyle('No Media Found !', FCurrentLang_GUI));
     // halt; // Terminates the program !!
     Exit;
   end;
@@ -762,7 +765,7 @@ begin
     try
       application.ProcessMessages;
       s := FMoviesList.GetFile(i).name;
-      //debug(inttostr(i) + ':' + s);
+      // debug(inttostr(i) + ':' + s);
       self.Movie_Browser.cells[0, i + 1] := inttostr(i);
       self.Movie_Browser.cells[5, i + 1] := FMoviesList.GetFile(i).name;
       self.Movie_Browser.cells[2, i + 1] := FMoviesList.GetFile(i)
@@ -844,7 +847,7 @@ var
   CountItem, i, j, k, ThePosition: Integer;
   MyList: TStringList;
   MyString, TempString, currentid: string;
-  s1, s2,s: string;
+  s1, s2, s: string;
   d: Integer;
 begin
   currentid := GenStrGrid.cells[0, GenStrGrid.row];
@@ -857,12 +860,13 @@ begin
   try
     begin
       for i := 1 to (CountItem - 1) do
-      begin                                  // Add Season/Serie
-         s := GenStrGrid.cells[ThatCol,i] +  GenStrGrid.cells[3,i] +  GenStrGrid.cells[4,i] + TheSeparator + GenStrGrid.Rows[i].Text ;
-       if s<> emptystr then
-         begin
-        MyList.Add(s);
-         end;
+      begin // Add Season/Serie
+        s := GenStrGrid.cells[ThatCol, i] + GenStrGrid.cells[3, i] +
+          GenStrGrid.cells[4, i] + TheSeparator + GenStrGrid.Rows[i].Text;
+        if s <> emptystr then
+        begin
+          MyList.Add(s);
+        end;
       end;
       // Sort the List
       if FMovieColumnsSortOrder[ThatCol] = true then
@@ -936,19 +940,19 @@ begin
   self.Movie_Browser.ColWidths[4] := 0; // Ep
 
   self.Movie_Browser.cells[5, 0] := Translate_String_JRStyle('Name',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[2, 0] := 'Serie';
   self.Movie_Browser.cells[3, 0] := 'S';
   self.Movie_Browser.cells[4, 0] := 'E';
   self.Movie_Browser.cells[8, 0] := Translate_String_JRStyle('Lock',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[9, 0] := Translate_String_JRStyle('Date Imported',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[10, 0] := 'Imdb ID';
   self.Movie_Browser.cells[11, 0] := Translate_String_JRStyle('Overview',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[12, 0] := Translate_String_JRStyle('Filename',
-    FCurrentLang);
+    FCurrentLang_GUI);
 
   RegNGFS := TRegistry.Create;
   RegNGFS.RootKey := HKEY_CURRENT_USER;
@@ -1069,17 +1073,17 @@ begin
   s := FCurrentMovie.GetImageFile(IMAGEFILE_DISPLAY);
   FCurrentMoviePicture := '';
 
-
-  if ((Fileexists(s)) and (FileSize(s) <> 0) and (ExtractFileName(s) <> 'Logo.png')) then
+  if ((Fileexists(s)) and (FileSize(s) <> 0) and
+    (ExtractFileName(s) <> 'Logo.png')) then
   begin
     try
-          self.Picture_Img.Picture.LoadFromFile(s);
-          self.Bkg_img.Picture.LoadFromFile(s);
-          SetImageAlpha(self.Bkg_img, 30);
-          self.Movie_Pnl.Repaint;
-          self.Serie_Pnl.Repaint;
-          self.ScrollBox1.Repaint;
-          FCurrentMoviePicture := s;
+      self.Picture_Img.Picture.LoadFromFile(s);
+      self.Bkg_img.Picture.LoadFromFile(s);
+      SetImageAlpha(self.Bkg_img, 30);
+      self.Movie_Pnl.Repaint;
+      self.Serie_Pnl.Repaint;
+      self.ScrollBox1.Repaint;
+      FCurrentMoviePicture := s;
 
     except
       screen.Cursor := crdefault;
@@ -1088,10 +1092,10 @@ begin
   end
   else
   begin
-   self.Bkg_img.Picture := nil;
-   self.Picture_Img.Picture := nil;
-  self.Movie_Pnl.Repaint ;
-  self.Serie_Pnl.Repaint;
+    self.Bkg_img.Picture := nil;
+    self.Picture_Img.Picture := nil;
+    self.Movie_Pnl.Repaint;
+    self.Serie_Pnl.Repaint;
   end;
 
   try
@@ -1108,7 +1112,9 @@ begin
     self.Season_Ed.Text := FCurrentMovie.Get('Season', true);
     self.Episode_Ed.Text := FCurrentMovie.Get('Episode', true);
     self.MemoOverview.Text := FCurrentMovie.Get('Description', true);
-    self.Release_date_Ed.Text := FCurrentMovie.Get('Date', true);
+    s := FCurrentMovie.Get('Date', true);
+    self.Release_date_Ed.Text := s;
+
     self.Trailer_Ed.Text := FCurrentMovie.Get('Trailer', true);
 
     self.Allocine_Ed.Text := FCurrentMovie.Get('Url Allocine', true);
@@ -1123,8 +1129,11 @@ begin
       SplitStr(FCurrentMovie.Get('Keywords', true), ';');
     self.Production_Company_ListBox.Items :=
       SplitStr(FCurrentMovie.Get('Production Company', true), ';');
-    self.Country_Listbox.Items :=
-      SplitStr(FCurrentMovie.Get('Country', true), ';');
+    s := '';
+    s := FCurrentMovie.Get('Country', true);
+    s := replaceStr(s, ' ', '');
+    self.Country_Listbox.Items := SplitStr(s, ';');
+    s := '';
     self.Genre_ListBox.Items := SplitStr(FCurrentMovie.Get('Genre', true), ';');
 
     self.Casting_ListBox.Items :=
@@ -1149,7 +1158,7 @@ begin
     if (self.Tmdb_id_Ed.Text <> emptystr) then
     begin
       url_tmdb := 'https://www.themoviedb.org/movie/' + self.Tmdb_id_Ed.Text +
-        '?language=' + self.FCurrentLangShort;
+        '?language=' + Internaltotmdb(self.FCurrentLangShort);
     end;
 
     if (self.tvdb_id_Ed.Text <> emptystr) then
@@ -1262,7 +1271,8 @@ begin
 
   if not assigned(FCurrentMovie) then
   begin
-    ShowMessage(Translate_String_JRStyle('No Movie selected !', FCurrentLang));
+    ShowMessage(Translate_String_JRStyle('No Movie selected !',
+      FCurrentLang_GUI));
     screen.Cursor := crdefault;
     Exit;
   end;
@@ -1272,7 +1282,7 @@ begin
     screen.Cursor := crdefault;
     if self.FMassScrap = false then
     begin
-      ShowMessage(Translate_String_JRStyle('File locked !', FCurrentLang));
+      ShowMessage(Translate_String_JRStyle('File locked !', FCurrentLang_GUI));
 
       Exit;
     end;
@@ -1309,10 +1319,8 @@ begin
   end;
 
   Select_MovieBrowserRow_by_JRiver_ID(FCurrentJRiverId);
-  self.Movie_Browser.cells[3, self.Movie_Browser.row] :=
-    self.Season_Ed.Text;
-  self.Movie_Browser.cells[4, self.Movie_Browser.row] :=
-    self.Episode_Ed.Text;
+  self.Movie_Browser.cells[3, self.Movie_Browser.row] := self.Season_Ed.Text;
+  self.Movie_Browser.cells[4, self.Movie_Browser.row] := self.Episode_Ed.Text;
   self.Movie_Browser.cells[2, self.Movie_Browser.row] := self.Name_Ed.Text;
   self.Movie_Browser.cells[9, self.Movie_Browser.row] :=
     FMoviesList.GetFile(FCurrentJRiverId).Get('Date Imported', true);
@@ -1456,6 +1464,7 @@ begin
   s := emptystr;
 
   s := serialize(self.Country_Listbox.Items);
+  s := replaceStr(s, ' ', '');
   FCurrentMovie.Set_('Country', s);
   FJRiverXml.SetField('Country', s);
   s := emptystr;
@@ -1672,7 +1681,7 @@ begin
     if self.FMassScrap = false then
     begin
       ShowMessage(Translate_String_JRStyle('Enter a Movie Name !',
-        FCurrentLang));
+        FCurrentLang_GUI));
       ShowJRiverId(FCurrentJRiverId);
       screen.Cursor := crdefault;
       Exit;
@@ -1793,6 +1802,7 @@ begin
 
 end;
 
+// Creates new fields if they 're not existing
 procedure TJRScrap_Frm.Createthenewfields1Click(Sender: TObject);
 const
   tags: array [0 .. 15] of string = ('TMDB id', 'Production Company', 'Casting',
@@ -1917,15 +1927,15 @@ begin
   if FServices_Count = 0 then
   begin
     ShowMessage(Translate_String_JRStyle('Select a Service first !',
-      JRScrap_Frm.FCurrentLang));
+      JRScrap_Frm.FCurrentLang_GUI));
     Exit;
   end;
 
   if self.Serie_Btn.Down = true then
   begin
-  self.TheMoviedB_Btn.AllowAllUp := true ;
-  self.TheMoviedB_Btn.Down := false ;
-  self.TVdb_Btn.Down := true ;
+    self.TheMoviedB_Btn.AllowAllUp := true;
+    self.TheMoviedB_Btn.Down := false;
+    self.TVdb_Btn.Down := true;
   end;
 
   MassScrap_Frm := TMassScrap_frm.Create(nil);
@@ -2032,22 +2042,23 @@ procedure TJRScrap_Frm.FormCreate(Sender: TObject);
 var
   RegNGFS: TRegistry;
   i: Integer;
-  lang, querylang: string;
+  lang: string;
   s: string;
   filelangname: string;
   languageitem: TMenuItem;
   FileinParamFound: Boolean;
-  firstrun: Boolean;
+
   sub_type_stringlist: TStringList;
   bmp: TBitmap;
   png: TPNGImage;
   img_inx: Integer;
 begin
+
+  GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, formatSettings);
   FXSLFolder := GetFolderPath(CSIDL_COMMON_APPDATA) + '\JRScrap\';
   // Remove old .log files
   RemoveAllFilesFromFolder(FXSLFolder, '*.log');
 
-  self.Hide;
   try
     MCAutomation := TMCAutomation.Create(self);
   except
@@ -2061,20 +2072,17 @@ begin
   self.Movie_Pnl.Visible := true;
 
   Fsearching := false;
-
   JRVersion := self.MCAutomation.GetVersion;
-  debug('JRiver Version :');
-  debug(JRVersion.Major);
   FJRVersionMajor := JRVersion.Major;
 
   sub_type_stringlist := TStringList.Create;
 
   logger := TLogger.getInstance;
   logger.setLevel(TLevelUnit.info);
+  // Get 'Program Data' Folder
   FlogFolder := GetFolderPath(CSIDL_COMMON_APPDATA) + '\JRScrap\Log\';
-
-  FlogFilename := FlogFolder + FormatDateTime('dd_mm_yy__hh_mm_ss', Now) +
-    '.log'; // Program Data
+  FlogFilename := FlogFolder + FormatDateTime('dd_mm_yy__hh_mm_ss',
+    Now) + '.log';
   logger.addAppender(TFileAppender.Create(FlogFilename));
   logger.info('Log File from JRScrap');
   logger.info('Date Generated :' + DateToStr(date) + ' at ' + TimeToStr(time));
@@ -2088,6 +2096,7 @@ begin
     lock_img := TPNGImage.Create;
   lock_img.LoadFromFile(GetParentDirectory(FAppPath) + '\images\lock.png');
 
+  FillLanguages;
   try
     idHTTP1 := TIdHTTP.Create(self);
   except
@@ -2095,12 +2104,11 @@ begin
     logger.error('Error : Could not create idHTTP');
   end;
 
-  firstrun := true;
-
+  // Set the drop/down feature of the image
   idd := TImageDropDown<TJPEGImage>.Create(self.Picture_Img,
     self.Picture_Panel);
-
   idd.OnAfterLoadImg := AfterDropDownLoading;
+
   FMesgCount := 0;
 
   for i := 1 to ParamCount do
@@ -2108,13 +2116,13 @@ begin
   FParameterStr := trim(FParameterStr);
 
   try
-
+    // Intialize some values
     RegNGFS := TRegistry.Create;
     try
       RegNGFS.RootKey := HKEY_CURRENT_USER;
       if RegNGFS.OpenKey('SOFTWARE\JRScrap', false) then
       begin
-        firstrun := RegNGFS.Readbool('Firstrun');
+
         self.TheMoviedB_Btn.Down := RegNGFS.Readbool('TheMoviedB');
         self.TVdb_Btn.Down := RegNGFS.Readbool('TheTVdB');
         self.Freebase_Btn.Down := RegNGFS.Readbool('Freebase');
@@ -2145,50 +2153,12 @@ begin
       end;
 
     except
-      firstrun := true;
-    end;
-
-    if firstrun = true then
-    begin
-
-      try
-        RegNGFS := TRegistry.Create;
-        RegNGFS.RootKey := HKEY_CURRENT_USER;
-        if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
-        begin
-
-          RegNGFS.Writebool('Firstrun', false);
-          RegNGFS.Writestring('QueryLanguages', 'eng,fr,it,de,es,pt,nl,no,ru');
-
-          if not RegNGFS.ValueExists('Language') then
-          begin
-            RegNGFS.Writestring('Language', 'English');
-          end;
-
-          if not RegNGFS.ValueExists('QueryLanguage') then
-          begin
-            RegNGFS.Writestring('QueryLanguage', 'eng');
-          end;
-
-          RegNGFS.Writebool('WritePicture', true);
-          RegNGFS.Writebool('WriteSideCar', true);
-          RegNGFS.WriteInteger('top', 100);
-          RegNGFS.WriteInteger('left', 100);
-          RegNGFS.WriteInteger('width', 1200);
-          RegNGFS.WriteInteger('height', 850);
-          WriteXMLsideCar1.Checked := true;
-          RegNGFS.Free;
-        end;
-
-      except
-        screen.Cursor := crdefault;
-        logger.error('Error: Could not write Keys in Register !');
-      end;
-
-      self.Createthenewfields1Click(Sender);
 
     end;
+    // Creates new fields if they 're not existing
+    self.Createthenewfields1Click(Sender);
 
+    // insert English in the GUI-Language  menu
     Fitem := TMenuItem.Create(self);
     Fitem.name := 'English';
     Fitem.Caption := 'English';
@@ -2197,10 +2167,32 @@ begin
     Fitem.GroupIndex := 1;
     Fitem.OnClick := LanguageClick;
     self.Selectlanguage1.Add(Fitem);
+    s := GetParentDirectory(FAppPath) + '\images\flags\flag_' +
+      nametoInternal('English') + '.png';
+    if Fileexists(s) = true then
+    begin
+
+      png := TPNGImage.Create;
+      png.LoadFromFile(s);
+
+      bmp := TBitmap.Create;
+      bmp.assign(png);
+      self.Flag_ImgList_translate.Add(bmp, nil);
+
+      bmp.Free;
+      png.Free;
+      Inc(img_inx);
+      Fitem.ImageIndex := 0;
+
+    end;
 
     try
+      img_inx := 0;
+
+      // insert all Languages translations for the GUI-Language  menu
       for filelangname in TDirectory.GetFiles(FAppPath + '\..\languages\') do
       begin
+
         if ExtractFileExt(filelangname) = '.txt' then
         begin
           lang := ExtractFileNameWithoutExt(filelangname);
@@ -2210,6 +2202,30 @@ begin
           Fitem.RadioItem := true;
           Fitem.Checked := false;
           Fitem.GroupIndex := 1;
+
+          try
+            s := GetParentDirectory(FAppPath) + '\images\flags\flag_' +
+              nametoInternal(lang) + '.png';
+            if Fileexists(s) = true then
+            begin
+
+              png := TPNGImage.Create;
+              png.LoadFromFile(s);
+
+              bmp := TBitmap.Create;
+              bmp.assign(png);
+              self.Flag_ImgList_translate.Add(bmp, nil);
+
+              bmp.Free;
+              png.Free;
+              Inc(img_inx);
+              Fitem.ImageIndex := img_inx;
+
+            end;
+          except
+            debug('error flag');
+          end;
+
           Fitem.OnClick := LanguageClick;
           self.Selectlanguage1.Add(Fitem);
         end;
@@ -2219,61 +2235,39 @@ begin
       logger.error('Error : Could not get language .txt files properly');
     end;
 
-    Flanguages := TStringList.Create;
-    try
+    img_inx := -1;
 
-      RegNGFS := TRegistry.Create;
+    // Create all Query Languages Menu items
+    for i := 0 to length(Languages) - 1 do
+    begin
+      s := emptystr;
+      languageitem := TMenuItem.Create(self);
+      s := Languages[i].internal;
+      languageitem.name := s;
+      languageitem.Caption := InternalToName(s);
+      languageitem.Checked := false;
+      s := emptystr;
       try
-        RegNGFS.RootKey := HKEY_CURRENT_USER;
-        if RegNGFS.OpenKey('SOFTWARE\JRScrap', false) then
+        s := GetParentDirectory(FAppPath) + '\images\flags\flag_' + Languages[i]
+          .internal + '.png';
+        if Fileexists(s) = true then
         begin
-          Flanguages.CommaText := RegNGFS.Readstring('QueryLanguages');
-          self.FCurrentLangShort := RegNGFS.Readstring('QueryLanguage');
 
-        end;
-      finally
-        RegNGFS.Free;
-      end;
+          png := TPNGImage.Create;
+          png.LoadFromFile(s);
 
-      i := 0;
-    except
-      screen.Cursor := crdefault;
-      logger.error('Error: Could not read querylanguage');
-    end;
-    try
-      img_inx := -1;
-      for i := 0 to Flanguages.Count - 1 do
-      begin
+          bmp := TBitmap.Create;
+          bmp.assign(png);
+          self.Flag_ImgList_Languages.Add(bmp, nil);
 
-        languageitem := TMenuItem.Create(self);
-        languageitem.name := Flanguages[i];
-        languageitem.Caption := Flanguages[i];
-        languageitem.Checked := false;
-
-        try
-          s := GetParentDirectory(FAppPath) + '\images\flags\flag_' +
-            Flanguages[i] + '.png';
-          if Fileexists(s) = true then
-          begin
-
-            png := TPNGImage.Create;
-            png.LoadFromFile(s);
-
-            bmp := TBitmap.Create;
-            bmp.assign(png);
-            self.Flag_ImgList.Add(bmp, nil);
-
-            bmp.Free;
-            png.Free;
-            Inc(img_inx);
-            languageitem.ImageIndex := img_inx;
-
-          end;
-        except
-          debug('error flag');
+          bmp.Free;
+          png.Free;
+          Inc(img_inx);
+          languageitem.ImageIndex := img_inx;
         end;
 
-        if languageitem.Caption = self.FCurrentLangShort then
+        if nametoInternal(languageitem.Caption) = self.FCurrentLangShort then
+        // contains the caption
         begin
           languageitem.Checked := true;
         end
@@ -2285,24 +2279,17 @@ begin
         languageitem.GroupIndex := 1;
         languageitem.OnClick := LanguageQueryClick;
         self.SelectQuerylanguage.Add(languageitem);
-      end;
-      i := 0;
-    except
-      screen.Cursor := crdefault;
-      logger.error('Error: Could not create languageitem');
-    end;
 
+      except
+        screen.Cursor := crdefault;
+        logger.error('Error: Could not create languageitem');
+      end;
+
+    end;
     try
 
-      if Fileexists(GetParentDirectory(FAppPath) + '\images\staron.png') = true
-      then
-        FStaron_Path := GetParentDirectory(FAppPath) + '\images\staron.png';
-      if Fileexists(GetParentDirectory(FAppPath) + '\images\staroff.png') = true
-      then
-        FStaroff_Path := GetParentDirectory(FAppPath) + '\images\staroff.png';
-
       try
-
+        // Get the Language of the GUI
         RegNGFS := TRegistry.Create;
         try
           RegNGFS.RootKey := HKEY_CURRENT_USER;
@@ -2315,7 +2302,7 @@ begin
           RegNGFS.Free;
         end;
 
-        FCurrentLang := lang;
+        FCurrentLang_GUI := lang;
       except
         screen.Cursor := crdefault;
         logger.error('Error: Could not read English');
@@ -2335,29 +2322,23 @@ begin
           logger.error('Error: Could not find English item');
         end;
       end;
-      if Fileexists(ExtractFileDir(application.ExeName) + '\..\languages\' +
-        lang + '.lng') then
 
-        if FCurrentMovie <> nil then
-        begin
-          self.Name_Ed.Text := FCurrentMovie.name;
-        end;
-
+      // Get the Query Language
       RegNGFS := TRegistry.Create;
       try
         RegNGFS.RootKey := HKEY_CURRENT_USER;
         if RegNGFS.OpenKey('SOFTWARE\JRScrap', false) then
         begin
-          querylang := RegNGFS.Readstring('QueryLanguage');
 
+          self.FCurrentLangShort := RegNGFS.Readstring('QueryLanguage');
         end;
       finally
         RegNGFS.Free;
       end;
 
-      if FindComponent(querylang) <> nil then
+      if FindComponent(self.FCurrentLangShort) <> nil then
       begin
-        TMenuItem(FindComponent(querylang)).Checked := true
+        TMenuItem(FindComponent(self.FCurrentLangShort)).Checked := true
 
       end
       else
@@ -2369,9 +2350,6 @@ begin
           logger.error('Error: Could not find eng item');
         end;
       end;
-
-      RegNGFS := TRegistry.Create;
-      RegNGFS.RootKey := HKEY_CURRENT_USER;
 
       for i := sub_type_stringlist.Count - 1 downto 0 do
         if sub_type_stringlist[i] = '' then
@@ -2397,12 +2375,16 @@ begin
       self.Media_Sub_Combo.Items := sub_type_stringlist;
       self.Media_Sub_Combo.ItemIndex := 0;
 
+      // Gte all Playlists
       FPlaylist := MCAutomation.GetPlaylists;
       for i := 0 to FPlaylist.GetNumberPlaylists do
       begin
         self.PlayList_Combo.Items.Add(FPlaylist.GetPlaylist(i).name);
       end;
 
+      // Fill in the Tool palette the Last values
+      RegNGFS := TRegistry.Create;
+      RegNGFS.RootKey := HKEY_CURRENT_USER;
       if RegNGFS.OpenKey('SOFTWARE\JRScrap', false) then
       begin
         try
@@ -2443,7 +2425,7 @@ begin
       RegNGFS.Free;
 
       fillbrowser;
-
+      // Initialize the Browser
       self.Cast_Grid.ColWidths[0] := 225;
       self.Cast_Grid.ColWidths[1] := 225;
       self.Cast_Grid.ColWidths[2] := 0;
@@ -2468,7 +2450,7 @@ begin
       self.Filter_Combo.ItemIndex := 0;
 
       self.Star_Panel.Reset;
-      //ShowJRiverId(FCurrentJRiverId);
+      // ShowJRiverId(FCurrentJRiverId);
 
       self.Filter_Combo.Items.Add('Filename');
       self.Filter_Combo.Items.Add('Name');
@@ -2522,15 +2504,15 @@ begin
 
   debug('formshow');
   self.Movie_Browser.cells[5, 0] := Translate_String_JRStyle('Name',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[8, 0] := Translate_String_JRStyle('Lock',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[9, 0] := Translate_String_JRStyle('Date Imported',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[11, 0] := Translate_String_JRStyle('Overview',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[12, 0] := Translate_String_JRStyle('Filename',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[10, 0] := 'IMDb ID';
   self.Movie_Browser.cells[2, 0] := 'Series';
   self.Movie_Browser.cells[3, 0] := 'S';
@@ -2549,10 +2531,11 @@ begin
   except
     RegNGFS.Free;
   end;
-  TranslateJRStyle(FCurrentLang, false); // translate to NextLang
+  TranslateJRStyle(FCurrentLang_GUI, false); // translate to NextLang
 
   self.Button2.SetFocus;
-  self.ScrollBox1.VertScrollBar.Position := 0 ;
+  self.ScrollBox1.VertScrollBar.Position := 0;
+  self.Update_Timer.Enabled := true;
 end;
 
 procedure TJRScrap_Frm.Freebase_BtnClick(Sender: TObject);
@@ -2565,19 +2548,19 @@ begin
   self.Movie_Browser.ColWidths[4] := 0; // Ep
 
   self.Movie_Browser.cells[5, 0] := Translate_String_JRStyle('Name',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[2, 0] := 'Serie';
   self.Movie_Browser.cells[3, 0] := 'S';
   self.Movie_Browser.cells[4, 0] := 'E';
   self.Movie_Browser.cells[8, 0] := Translate_String_JRStyle('Lock',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[9, 0] := Translate_String_JRStyle('Date Imported',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[10, 0] := 'Imdb ID';
   self.Movie_Browser.cells[11, 0] := Translate_String_JRStyle('Overview',
-    FCurrentLang);
+    FCurrentLang_GUI);
   self.Movie_Browser.cells[12, 0] := Translate_String_JRStyle('Filename',
-    FCurrentLang);
+    FCurrentLang_GUI);
 
   RegNGFS := TRegistry.Create;
   RegNGFS.RootKey := HKEY_CURRENT_USER;
@@ -2651,7 +2634,7 @@ begin
   RegNGFS.RootKey := HKEY_CURRENT_USER;
 
   if self.Movie_Btn.Down = true then
-  self.Freebase_Btn.Enabled := true;
+    self.Freebase_Btn.Enabled := true;
 
   self.TVdb_Btn.AllowAllUp := true;
   self.TVdb_Btn.Down := false;
@@ -2692,7 +2675,7 @@ var
 begin
 
   name := (Sender as TButton).name;
-  name := replacestr(name, '_Btn', '_Ed');
+  name := replaceStr(name, '_Btn', '_Ed');
   MyLink := (FindComponent(name) as TJvEdit).Text;
   ShellExecute(application.Handle, PChar('open'), PChar(MyLink), nil,
     nil, SW_SHOW);
@@ -2764,10 +2747,11 @@ var
 begin
   (Sender as TMenuItem).Checked := true;
   try
-    self.FCurrentLangShort := trim((Sender as TMenuItem).Caption);
+    self.FCurrentLangShort :=
+      nametoInternal(trim((Sender as TMenuItem).Caption));
   except
     screen.Cursor := crdefault;
-    logger.error('Error: Could not set FCurrentLangShort ');
+    logger.error('Error: Could not set FCurrentLangWeb ');
   end;
   self.FCurrentLangShort := StringReplace(self.FCurrentLangShort, '&', '',
     [rfReplaceAll, rfIgnoreCase]);
@@ -2812,15 +2796,15 @@ var
 begin
   (Sender as TMenuItem).Checked := true;
   NextLang := (Sender as TMenuItem).name;
-  if NextLang = FCurrentLang then
+  if NextLang = FCurrentLang_GUI then
     Exit; // Exit if same ...
 
-  if ((FCurrentLang = 'English') and (NextLang <> 'English')) then
+  if ((FCurrentLang_GUI = 'English') and (NextLang <> 'English')) then
   begin
     FLangINV := false;
-    FCurrentLang := TranslateJRStyle(NextLang, false);
+    FCurrentLang_GUI := TranslateJRStyle(NextLang, false);
     // translate to NextLang
-    FCurrentLang := NextLang;
+    FCurrentLang_GUI := NextLang;
     try
 
       RegNGFS := TRegistry.Create;
@@ -2837,12 +2821,13 @@ begin
     end;
   end;
 
-  if ((FCurrentLang <> 'English') and (NextLang <> 'English')) then
+  if ((FCurrentLang_GUI <> 'English') and (NextLang <> 'English')) then
   begin
     try
-      TranslateJRStyle(FCurrentLang, true); // Untranslate current to english
+      TranslateJRStyle(FCurrentLang_GUI, true);
+      // Untranslate current to english
       TranslateJRStyle(NextLang, false); // translate to NextLang
-      FCurrentLang := NextLang;
+      FCurrentLang_GUI := NextLang;
       FLangINV := false;
       RegNGFS := TRegistry.Create;
       RegNGFS.RootKey := HKEY_CURRENT_USER;
@@ -2858,11 +2843,12 @@ begin
     end;
   end;
 
-  if ((FCurrentLang <> 'English') and (NextLang = 'English')) then
+  if ((FCurrentLang_GUI <> 'English') and (NextLang = 'English')) then
   begin
     try
 
-      TranslateJRStyle(FCurrentLang, true); // Untranslate current to english
+      TranslateJRStyle(FCurrentLang_GUI, true);
+      // Untranslate current to english
 
       JRScrap_Frm.Movie_Browser.cells[1, 0] := 'Name';
       JRScrap_Frm.Movie_Browser.cells[8, 0] := 'Lock';
@@ -2870,7 +2856,7 @@ begin
       JRScrap_Frm.Movie_Browser.cells[11, 0] := 'Overview';
       JRScrap_Frm.Movie_Browser.cells[12, 0] := 'Filename';
 
-      FCurrentLang := 'English';
+      FCurrentLang_GUI := 'English';
       FLangINV := true;
       RegNGFS := TRegistry.Create;
       RegNGFS.RootKey := HKEY_CURRENT_USER;
@@ -2936,13 +2922,12 @@ var
   not_clear: Boolean;
 begin
 
-
   CountServices;
 
   if FServices_Count = 0 then
   begin
     ShowMessage(Translate_String_JRStyle('Select a Service first !',
-      JRScrap_Frm.FCurrentLang));
+      JRScrap_Frm.FCurrentLang_GUI));
     Exit;
   end;
 
@@ -2959,7 +2944,7 @@ begin
     screen.Cursor := crdefault;
     if self.FMassScrap = false then
     begin
-      ShowMessage(Translate_String_JRStyle('File locked !', FCurrentLang));
+      ShowMessage(Translate_String_JRStyle('File locked !', FCurrentLang_GUI));
 
       Exit;
     end
@@ -2978,7 +2963,7 @@ begin
     if self.Freebase_Btn.Down = true then
     begin
 
-    if assigned(TFreebase_Ins) then
+      if assigned(TFreebase_Ins) then
         TFreebase_Ins.Free;
       TFreebase_Ins := TFreebase_Cl.Create;
       TFreebase_Ins.Freebase_getID();
@@ -2989,7 +2974,7 @@ begin
 
     if self.Traileraddict_Search_Btn.Down = true then
     begin
-       if assigned(TTrailerAddict_Ins) then
+      if assigned(TTrailerAddict_Ins) then
         TTrailerAddict_Ins.Free;
       TTrailerAddict_Ins := TTrailerAddict_Cl.Create;
       TTrailerAddict_Ins.Search_Name;
@@ -3007,15 +2992,14 @@ begin
   begin
 
     if assigned(TheMoviedB_Ins) then
-        TheMoviedB_Ins.Free;
-
+      TheMoviedB_Ins.Free;
 
     // Movie search
     if self.Movie_Btn.Down = true then
     begin
 
-     TheMoviedB_Ins := TTheMoviedB_Cl.Create(FCurrentJRiverId,
-        FCurrentLangShort);
+      TheMoviedB_Ins := TTheMoviedB_Cl.Create(FCurrentJRiverId,
+        Internaltotmdb(FCurrentLangShort));
 
       // 0 0 0
       if ((self.Tmdb_id_Ed.Text = emptystr) and
@@ -3025,7 +3009,7 @@ begin
         begin
           ShowMessage(Translate_String_JRStyle
             ('Nothing to search ! Enter a Name, a IMDB or TMDB',
-            JRScrap_Frm.FCurrentLang));
+            JRScrap_Frm.FCurrentLang_GUI));
           screen.Cursor := crdefault;
           Exit;
         end;
@@ -3097,18 +3081,20 @@ begin
     if self.Serie_Btn.Down = true then
     begin
 
-     TheMoviedB_Ins := TTheMoviedB_Cl.Create(FCurrentJRiverId, strtoint(self.Season_Ed.text) , strtoint(self.Episode_Ed.text) ,
-        FCurrentLangShort);
+      TheMoviedB_Ins := TTheMoviedB_Cl.Create(FCurrentJRiverId,
+        strtoint(self.Season_Ed.Text), strtoint(self.Episode_Ed.Text),
+        Internaltotmdb(FCurrentLangShort));
 
-    // 0 0 0
+      // 0 0 0
       if ((self.Tmdb_id_Ed.Text = emptystr) and
-        (self.tvdb_id_Ed.Text = emptystr) and (Serie_Name_Ed.Text = emptystr)) then
+        (self.tvdb_id_Ed.Text = emptystr) and (Serie_Name_Ed.Text = emptystr))
+      then
       begin
         if self.FMassScrap = false then
         begin
           ShowMessage(Translate_String_JRStyle
             ('Nothing to search ! Enter a Name, a TheTVDB Series ID or TMDB',
-            JRScrap_Frm.FCurrentLang));
+            JRScrap_Frm.FCurrentLang_GUI));
           screen.Cursor := crdefault;
           Exit;
         end;
@@ -3117,7 +3103,8 @@ begin
 
       // 1 0 0
       if ((self.Tmdb_id_Ed.Text <> emptystr) and
-        (self.tvdb_id_Ed.Text = emptystr) and (Serie_Name_Ed.Text = emptystr)) then
+        (self.tvdb_id_Ed.Text = emptystr) and (Serie_Name_Ed.Text = emptystr))
+      then
       begin
         TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
         TheMoviedB_Ins.TheMoviedB_Serie_Se_Ep_ID_Search_Proc;
@@ -3125,7 +3112,8 @@ begin
 
       // 0 1 0
       if ((self.Tmdb_id_Ed.Text = emptystr) and
-        (self.tvdb_id_Ed.Text <> emptystr) and (Serie_Name_Ed.Text = emptystr)) then
+        (self.tvdb_id_Ed.Text <> emptystr) and (Serie_Name_Ed.Text = emptystr))
+      then
       begin
         TheMoviedB_Ins.tvdb_id := self.tvdb_id_Ed.Text;
         TheMoviedB_Ins.TheMoviedB_TVDB_Search_Proc;
@@ -3133,7 +3121,8 @@ begin
 
       // 1 1 0
       if ((self.Tmdb_id_Ed.Text <> emptystr) and
-        (self.tvdb_id_Ed.Text <> emptystr) and (Serie_Name_Ed.Text = emptystr)) then
+        (self.tvdb_id_Ed.Text <> emptystr) and (Serie_Name_Ed.Text = emptystr))
+      then
       begin
         TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
         TheMoviedB_Ins.TheMoviedB_Serie_Se_Ep_ID_Search_Proc;
@@ -3141,7 +3130,8 @@ begin
 
       // 0 1 1
       if ((self.Tmdb_id_Ed.Text = emptystr) and
-        (self.tvdb_id_Ed.Text <> emptystr) and (Serie_Name_Ed.Text <> emptystr)) then
+        (self.tvdb_id_Ed.Text <> emptystr) and (Serie_Name_Ed.Text <> emptystr))
+      then
       begin
         TheMoviedB_Ins.tvdb_id := self.tvdb_id_Ed.Text;
         TheMoviedB_Ins.TheMoviedB_TVDB_Search_Proc;
@@ -3149,7 +3139,8 @@ begin
 
       // 1 0 1
       if ((self.Tmdb_id_Ed.Text <> emptystr) and
-        (self.tvdb_id_Ed.Text = emptystr) and (Serie_Name_Ed.Text <> emptystr)) then
+        (self.tvdb_id_Ed.Text = emptystr) and (Serie_Name_Ed.Text <> emptystr))
+      then
       begin
         TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
         TheMoviedB_Ins.TheMoviedB_Serie_Se_Ep_ID_Search_Proc;
@@ -3157,7 +3148,8 @@ begin
 
       // 1 1 1
       if ((self.Tmdb_id_Ed.Text <> emptystr) and
-        (self.tvdb_id_Ed.Text <> emptystr) and (Serie_Name_Ed.Text <> emptystr)) then
+        (self.tvdb_id_Ed.Text <> emptystr) and (Serie_Name_Ed.Text <> emptystr))
+      then
       begin
         TheMoviedB_Ins.tmdb_id := self.Tmdb_id_Ed.Text;
         TheMoviedB_Ins.TheMoviedB_Serie_Se_Ep_ID_Search_Proc;
@@ -3165,7 +3157,8 @@ begin
 
       // 0 0 1
       if ((self.Tmdb_id_Ed.Text = emptystr) and
-        (self.tvdb_id_Ed.Text = emptystr) and (Serie_Name_Ed.Text <> emptystr)) then
+        (self.tvdb_id_Ed.Text = emptystr) and (Serie_Name_Ed.Text <> emptystr))
+      then
       begin
         Search_Frm := TSearch_frm.Create(nil, TheMoviedB_Ins);
         Search_Frm.Left := self.Left + 250;
@@ -3174,10 +3167,7 @@ begin
         Search_Frm.ShowModal;
       end;
 
-
-
     end;
-
 
   end;
 
@@ -3189,11 +3179,11 @@ begin
     if self.Serie_Btn.Down = true then
     begin
 
-      if ((self.Season_Ed.Text = emptystr) or
-        (self.Episode_Ed.Text = emptystr)) then
+      if ((self.Season_Ed.Text = emptystr) or (self.Episode_Ed.Text = emptystr))
+      then
       begin
         ShowMessage(Translate_String_JRStyle('No Serie / Episode to search !',
-          JRScrap_Frm.FCurrentLang));
+          InternalToTVDB(JRScrap_Frm.FCurrentLang_GUI)));
         screen.Cursor := crdefault;
         Exit;
       end;
@@ -3201,8 +3191,8 @@ begin
       if assigned(TTVdB_Ins) then
         TTVdB_Ins.Free;
 
-      TTVdB_Ins := TTVdB_Cl.Create(FCurrentJRiverId, FCurrentLangShort,
-        strtoint(self.Episode_Ed.Text),
+      TTVdB_Ins := TTVdB_Cl.Create(FCurrentJRiverId,
+        InternalToTVDB(FCurrentLangShort), strtoint(self.Episode_Ed.Text),
         strtoint(self.Season_Ed.Text));
 
       if ((tvdb_id_Ed.Text = emptystr) and (self.Serie_Name_Ed.Text = emptystr))
@@ -3211,7 +3201,7 @@ begin
         if self.FMassScrap = false then
         begin
           ShowMessage(Translate_String_JRStyle('Nothing to search !',
-            JRScrap_Frm.FCurrentLang));
+            JRScrap_Frm.FCurrentLang_GUI));
           screen.Cursor := crdefault;
           Exit;
         end;
@@ -3224,8 +3214,8 @@ begin
         TTVdB_Ins.TheTVDB_ID_Search_Proc;
       end;
 
-      if ((tvdb_id_Ed.Text = emptystr) and
-        (self.Serie_Name_Ed.Text <> emptystr)) then
+      if ((tvdb_id_Ed.Text = emptystr) and (self.Serie_Name_Ed.Text <> emptystr))
+      then
       begin
         Search_Frm := TSearch_frm.Create(nil, TTVdB_Ins);
         Search_Frm.Left := self.Left + 250;
@@ -3238,7 +3228,7 @@ begin
 
   end;
 
- // Clearall ;
+  // Clearall ;
 end;
 
 procedure TJRScrap_Frm.Allocine_BtnClick(Sender: TObject);
@@ -3263,7 +3253,7 @@ begin
     Exit;
 
   btn_name := (Sender as TJvEdit).name;
-  btn_name := replacestr(btn_name, '_Ed', '_Btn');
+  btn_name := replaceStr(btn_name, '_Ed', '_Btn');
   try
     if (Sender as TJvEdit).Text <> emptystr then
       (FindComponent(btn_name) as TButton).Enabled := true
@@ -3354,7 +3344,7 @@ begin
     RegNGFS.RootKey := HKEY_CURRENT_USER;
     if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
     begin
-      RegNGFS.Writebool('WritePicture', WritePicture1.Checked);
+      RegNGFS.Writebool('WritePicture', Writepicture1.Checked);
       RegNGFS.Free;
     end;
   end
@@ -3364,7 +3354,7 @@ begin
     RegNGFS.RootKey := HKEY_CURRENT_USER;
     if RegNGFS.OpenKey('SOFTWARE\JRScrap', true) then
     begin
-      RegNGFS.Writebool('WritePicture', WritePicture1.Checked);
+      RegNGFS.Writebool('WritePicture', Writepicture1.Checked);
       RegNGFS.Free;
     end;
   end;
@@ -3441,7 +3431,7 @@ begin
 
   if self.Movie_Browser.cells[7, self.Movie_Browser.row] = 'YES' then
   begin
-    ShowMessage(Translate_String_JRStyle('File locked !', FCurrentLang));
+    ShowMessage(Translate_String_JRStyle('File locked !', FCurrentLang_GUI));
 
     Exit;
   end;
@@ -3677,12 +3667,12 @@ begin
       self.Movie_Browser.cells[ACol, 0] := '˄ ' +
         self.Movie_Browser.cells[ACol, 0]
     else
-      self.Movie_Browser.cells[ACol, 0] := '˅ ' + self.Movie_Browser.cells
-        [ACol, 0];
+      self.Movie_Browser.cells[ACol, 0] := '˅ ' +
+        self.Movie_Browser.cells[ACol, 0];
 
     FMovieColumnsSortOrder[ACol] := not FMovieColumnsSortOrder[ACol];
 
-    if ACol = 9 then    // Date imported
+    if ACol = 9 then // Date imported
     begin
       ACol := 6;
       FMovieColumnsSortOrder[6] := not FMovieColumnsSortOrder[6];
@@ -3746,7 +3736,6 @@ end;
 procedure TJRScrap_Frm.Movie_BrowserMouseEnter(Sender: TObject);
 begin
   // self.Movie_Browser.SetFocus;
-
 end;
 
 procedure TJRScrap_Frm.Movie_BrowserMouseLeave(Sender: TObject);
@@ -3865,7 +3854,7 @@ procedure TJRScrap_Frm.Serie_BtnClick(Sender: TObject);
 var
   RegNGFS: TRegistry;
 begin
-
+  self.TheMoviedB_Btn.Down := false ;
   self.Bkg_img.Picture := nil;
   self.Serie_Pnl.Repaint;
   self.Movie_Pnl.Repaint;

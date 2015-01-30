@@ -1,5 +1,6 @@
 // This file is part of the JRScrap project.
 
+
 // Licence : GPL v 3
 
 // Website : https://github.com/fredele/JRScrap/
@@ -101,14 +102,15 @@ begin
   self.Label_Version.Caption := 'Version : ' + GetFileVersion(ParamStr(0));
   JRiverVersion.Caption := 'JRiver Version :' + JRVersion.Version;
 
-  self.Caption := Translate_String_JRStyle('About', JRScrap_frm.FCurrentLang);
+  self.Caption := Translate_String_JRStyle('About',
+    JRScrap_frm.FCurrentLang_GUI);
   self.Label1.Caption := Translate_String_JRStyle('This app. is powered by :',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Label2.Caption := Translate_String_JRStyle
     ('Please, consider helping them by providing your data',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Label4.Caption := Translate_String_JRStyle
-    ('Click me to see my page on Github !!', JRScrap_frm.FCurrentLang);
+    ('Click me to see my page on Github !!', JRScrap_frm.FCurrentLang_GUI);
 
 end;
 

@@ -50,7 +50,7 @@ var
 constructor TTrailerAddict_Cl.Create;
 begin
 
-  link := emptystr ;
+  link := emptystr;
   FMovie := FCurrentMovie;
 
   if FMovie.Get('Lock External Tag Editor', true) = 'YES' then
@@ -114,7 +114,7 @@ begin
     try
       if inttostr(strtoint(TrailerNode.Find('imdb').Text)) = imdb then
       begin
-        link := emptystr ;
+        link := emptystr;
         link := TrailerNode.Find('link').Text;
       end;
     except
@@ -153,7 +153,7 @@ begin
     if JRScrap_Frm.FMassScrap = false then
     begin
       ShowMessage('Traileraddict : ' + Translate_String_JRStyle
-        ('No results for this search !', JRScrap_Frm.FCurrentLang));
+        ('No results for this search !', JRScrap_Frm.FCurrentLang_GUI));
       screen.Cursor := crdefault;
       exit;
     end;

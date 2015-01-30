@@ -1384,11 +1384,11 @@ object Form2: TForm2
     OnMouseLeave = Image1MouseLeave
   end
   object Label5: TLabel
-    Left = 445
+    Left = 412
     Top = 359
-    Width = 24
+    Width = 52
     Height = 13
-    Caption = '2014'
+    Caption = '2014-2015'
   end
   object Image4: TImage
     Left = 178

@@ -213,7 +213,7 @@ begin
   if stylesheet_name = emptystr then
   begin
     Showmessage(Translate_String_JRStyle('No XSL selected !',
-      JRScrap_frm.FCurrentLang));
+      JRScrap_frm.FCurrentLang_GUI));
     result := false;
     exit;
   end;
@@ -308,7 +308,7 @@ begin
 
   // WBPrintPreview(self.cyWebBrowser1) ;
   self.Progress_Lbl.Caption := Translate_String_JRStyle('OK',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
 
 end;
 
@@ -320,19 +320,19 @@ begin
   self.Left := JRScrap_frm.Left + round((JRScrap_frm.Width - self.Width) / 2);
 
   self.XSLSelect_Lbl.Caption := Translate_String_JRStyle
-    ('Select XSL rendering file :', JRScrap_frm.FCurrentLang);
+    ('Select XSL rendering file :', JRScrap_frm.FCurrentLang_GUI);
   self.Proc_Lbl.Caption := Translate_String_JRStyle('Processing :',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Save_XML_Btn.Caption := Translate_String_JRStyle('Save XML/XSL',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Save_HTML.Caption := Translate_String_JRStyle('Save HTML',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Print_Btn.Caption := Translate_String_JRStyle('Print',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Overview_Lbl.Caption := Translate_String_JRStyle('Overview',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Generate_Btn.Caption := Translate_String_JRStyle('Generate',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   try
     if FindFirst(JRScrap_frm.FXSLFolder + '*.xsl', faArchive, SR) = 0 then
     begin
@@ -353,7 +353,8 @@ end;
 
 procedure TXML_Export_Frm.FormShow(Sender: TObject);
 begin
-  self.Caption := Translate_String_JRStyle('Export', JRScrap_frm.FCurrentLang);
+  self.Caption := Translate_String_JRStyle('Export',
+    JRScrap_frm.FCurrentLang_GUI);
 end;
 
 end.

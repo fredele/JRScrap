@@ -38,7 +38,8 @@ uses
   Poster_Unit in 'Poster_Unit.pas' {Poster_Frm} ,
   Bitmap_Unit in 'Bitmap_Unit.pas',
   Math_Unit in 'Math_Unit.pas',
-  SubDB_Unit in 'SubDB_Unit.pas' {SubDB_Frm};
+  SubDB_Unit in 'SubDB_Unit.pas' {SubDB_Frm} ,
+  Languagues_Unit in 'Languagues_Unit.pas';
 
 {$R *.res}
 

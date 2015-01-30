@@ -1,5 +1,6 @@
 // This file is part of the JRScrap project.
 
+
 // Licence : GPL v 3
 
 // Website : https://github.com/fredele/JRScrap/
@@ -19,13 +20,13 @@ uses
 
 function ExtractFileNameWithoutExt(const FileName: string): string;
 function MinuteToHourMinute(minute: integer): string;
-function formatdateEngToFrench(date: string): string;
+function formatdateToCurrentRegion(date: string): string;
 procedure RemoveDuplicates(const stringList: TStringList);
 function GetParentDirectory(path: string): string;
 function HourToSec(hour: string): integer;
 function IsNumeric(str: string): boolean;
 function CleanFileName(const InputString: string): string;
-function MemoryStreamToString1(M: TMemoryStream): AnsiString;
+function MemoryStreamToString1(M: TMemoryStream): String;
 function MemoryStreamToString2(M: TMemoryStream): AnsiString;
 
 implementation
@@ -53,15 +54,17 @@ begin
 
 end;
 
-function formatdateEngToFrench(date: string): string;
+function formatdateToCurrentRegion(date: string): string;
 var
   y, M, d: string;
+  formatSettings: TFormatSettings;
 begin
-  // xxxx/xx/xx
+  GetLocaleFormatSettings(LOCALE_SYSTEM_DEFAULT, formatSettings);
   y := Copy(date, 0, 4);
   M := Copy(date, 6, 2);
   d := Copy(date, 9, 2);
-  Result := d + '/' + M + '/' + y;
+  Result := d + formatSettings.DateSeparator + M +
+    formatSettings.DateSeparator + y;
 end;
 
 function HourToSec(hour: string): integer;
@@ -170,10 +173,12 @@ begin
   end;
 end;
 
-function MemoryStreamToString1(M: TMemoryStream): AnsiString;
+function MemoryStreamToString1(M: TMemoryStream): String;
 var
   SS: TStringStream;
 begin
+  Result := '';
+
   if M <> nil then
   begin
     SS := TStringStream.Create('', CP_UTF8);
@@ -184,11 +189,8 @@ begin
     finally
       SS.Free;
     end;
-  end
-  else
-  begin
-    Result := '';
   end;
+
 end;
 
 function MemoryStreamToString2(M: TMemoryStream): AnsiString;

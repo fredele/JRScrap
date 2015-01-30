@@ -16,7 +16,7 @@ uses
   Types_Unit, TranslateJRStyle_Unit, jpeg, Vcl.StdCtrls, debug_Unit,
   Vcl.Grids, mnEdit, Vcl.Controls, Vcl.ExtCtrls, Vcl.ComCtrls, System.Classes,
   Winapi.Windows, Winapi.Messages, System.Variants, String_Unit,
-  ThreadManager_Unit, Generic_Search_Unit, MediaCenter_TLB,
+  ThreadManager_Unit, Generic_Search_Unit, MediaCenter_TLB, Languagues_Unit,
   Vcl.Graphics, Vcl.themes;
 
 type
@@ -27,13 +27,14 @@ type
 
   public
 
-    Thrd_Search, Thrd_IMDB_ID, Thrd_Basic_Se_Ep_Info,Thrd_ext_IDs, Thrd_Basic_Info, Thrd_Credits,
-      Thrd_Keywords: TThreadsearch;
+    Thrd_Search, Thrd_IMDB_ID, Thrd_Basic_Se_Ep_Info, Thrd_ext_IDs,
+      Thrd_Basic_Info, Thrd_Credits, Thrd_Keywords: TThreadsearch;
     Thrd_Image: TThreadsearch_Image;
     FManager: TThreadManager;
     FMovie: IMJFileAutomation;
-    constructor Create(id: integer; CurrentLangShort: string);  overload ;
-    constructor Create(id: integer;se : integer ; ep : integer ; CurrentLangShort: string);  overload ;
+    constructor Create(id: integer; CurrentLangShort: string); overload;
+    constructor Create(id: integer; se: integer; ep: integer;
+      CurrentLangShort: string); overload;
     procedure TheMoviedB_IMDB_Search_Proc;
     procedure TheMoviedB_TVDB_Search_Proc;
 
@@ -52,7 +53,6 @@ type
     procedure After_Thread_Search_Movie_Basic_Info(str: string);
     procedure After_Thread_Search_Serie_Se_Ep_Basic_Info(str: string);
     procedure After_Thread_Search_Serie_Basic_Info(str: string);
-
 
     procedure After_Thread_Search_Movie_Credits(str: string);
     procedure After_Thread_Search_Serie_Se_Ep_Credits(str: string);
@@ -112,43 +112,40 @@ begin
     filename;
   JRScrap_Frm.Movie_Browser.cells[10, JRScrap_Frm.Movie_Browser.row] := imdb_id;
 
-
-
-    s := ExtractFilePath(filename) + ExtractFileNameWithoutExt
-      (filename) + '.jpg';
-    if JRScrap_Frm.MassScrap_Frm.Picture_Rec_Chk.Checked = true then
-    begin
-      // Save image in directory
-      try
-        image.SaveToFile(s);
-      except
-        screen.cursor := crdefault;
-      end;
-
-      try
-        FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_DATABASE);
-      except
-        screen.cursor := crdefault;
-      end;
-
-      try
-        FCurrentMovie.SetImageFile(s, IMAGEFILE_DISPLAY);
-      except
-        screen.cursor := crdefault;
-      end;
-
-      try
-        FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_FILE);
-      except
-        screen.cursor := crdefault;
-      end;
-
+  s := ExtractFilePath(filename) + ExtractFileNameWithoutExt(filename) + '.jpg';
+  if JRScrap_Frm.MassScrap_Frm.Picture_Rec_Chk.Checked = true then
+  begin
+    // Save image in directory
+    try
+      image.SaveToFile(s);
+    except
+      screen.cursor := crdefault;
     end;
+
+    try
+      FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_DATABASE);
+    except
+      screen.cursor := crdefault;
+    end;
+
+    try
+      FCurrentMovie.SetImageFile(s, IMAGEFILE_DISPLAY);
+    except
+      screen.cursor := crdefault;
+    end;
+
+    try
+      FCurrentMovie.SetImageFile(s, IMAGEFILE_IN_FILE);
+    except
+      screen.cursor := crdefault;
+    end;
+
+  end;
 
   if not assigned(FCurrentMovie) then
   begin
     ShowMessage(Translate_String_JRStyle('No Movie selected !',
-      JRScrap_Frm.FCurrentLang));
+      JRScrap_Frm.FCurrentLang_GUI));
     screen.cursor := crdefault;
     Exit;
   end;
@@ -234,6 +231,7 @@ begin
   s := emptystr;
 
   s := serialize(Country);
+  s := replaceStr(s, ' ', '');
   FMovie.Set_('Country', s);
   FJRiverXml.SetField('Country', s);
   s := emptystr;
@@ -311,7 +309,7 @@ begin
       if JRScrap_Frm.FMassScrap = false then
       begin
         ShowMessage(Translate_String_JRStyle('Nothing to search !',
-          JRScrap_Frm.FCurrentLang));
+          JRScrap_Frm.FCurrentLang_GUI));
         screen.cursor := crdefault;
         Exit;
 
@@ -397,7 +395,6 @@ begin
   JRScrap_Frm.Write_Btn.Enabled := true;
 end;
 
-
 Procedure TTheMoviedB_Cl.After_Serie_Se_Ep_Manager;
 begin
   self.Display_Search;
@@ -405,7 +402,6 @@ begin
   screen.cursor := crdefault;
   JRScrap_Frm.FSearching := false;
   application.processmessages;
-
 
   if JRScrap_Frm.FMassScrap = true then
   begin
@@ -453,12 +449,12 @@ begin
 
 end;
 
-
-constructor TTheMoviedB_Cl.Create(id: integer;se : integer ; ep : integer ; CurrentLangShort: string);
+constructor TTheMoviedB_Cl.Create(id: integer; se: integer; ep: integer;
+  CurrentLangShort: string);
 begin
   inherited Create(id, CurrentLangShort);
-   episode := ep ;
-   season := se ;
+  episode := ep;
+  season := se;
 
   FMovie := FCurrentMovie;
 
@@ -508,18 +504,14 @@ begin
   end;
 end;
 
-
 procedure TTheMoviedB_Cl.TheMoviedB_TVDB_Search_Proc;
 var
   rq: string;
 
 begin
 
-
-
-  rq := 'http://api.themoviedb.org/3/find/' + tvdb_id + '?api_key=' +
-    TheMoviedB_APIkey + '&external_source=tvdb_id' + '&language=' +
-    FCurrentLangShort;
+  rq := 'http://api.themoviedb.org/3/find/' + Tvdb_id + '?api_key=' +
+    TheMoviedB_APIkey + '&external_source=tvdb_id' + '&language=' + FLang;
 
   try
 
@@ -534,7 +526,6 @@ begin
 
 end;
 
-
 procedure TTheMoviedB_Cl.TheMoviedB_IMDB_Search_Proc;
 var
   rq: string;
@@ -544,8 +535,7 @@ begin
   imdb_id := StringReplace(imdb_id, 'TT', 'tt', [rfReplaceAll, rfIgnoreCase]);
 
   rq := 'http://api.themoviedb.org/3/find/' + imdb_id + '?api_key=' +
-    TheMoviedB_APIkey + '&external_source=imdb_id' + '&language=' +
-    FCurrentLangShort;
+    TheMoviedB_APIkey + '&external_source=imdb_id' + '&language=' + FLang;
 
   try
 
@@ -563,48 +553,48 @@ procedure TTheMoviedB_Cl.TheMoviedB_Serie_Se_Ep_ID_Search_Proc;
 var
   rq: string;
 begin
-   if ((self.Season <> -1) and( self.Episode<>-1 )) then
-   begin
-
-  if FCurrentLangShort <> 'eng' then
+  if ((self.season <> -1) and (self.episode <> -1)) then
   begin
-   rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id  + '/season/' + inttostr(season) + '/episode/' + inttostr(episode) + '?api_key=' +
-      TheMoviedB_APIkey + '&language=' + FCurrentLangShort;
+
+    if FLang <> 'en' then
+    begin
+      rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id + '/season/' +
+        inttostr(season) + '/episode/' + inttostr(episode) + '?api_key=' +
+        TheMoviedB_APIkey + '&language=' + FLang;
+    end
+    else
+    begin
+      rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id + '/season/' +
+        inttostr(season) + '/episode/' + inttostr(episode) + '?api_key=' +
+        TheMoviedB_APIkey + '&language=';
+    end;
+
+    self.Thrd_Basic_Info := TThreadsearch.Create(nil, Tcod.ansi, rq,
+      After_Thread_Search_Serie_Se_Ep_Basic_Info);
+
+    rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id +
+      '/external_ids??api_key=' + TheMoviedB_APIkey + '&language=' + FLang;
+    // self.Thrd_ext_IDs := TThreadsearch.Create(nil, Tcod.ansi, rq,   After_Thread_Search_Serie_Se_Ep_ext_IDs);
+    // https://api.themoviedb.org/3/tv/873/season/1/episode/3/external_ids?api_key=3b608fc11821e92cd2459320206a9d9b
   end
   else
   begin
-    rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id  + '/season/' + inttostr(season) + '/episode/' + inttostr(episode) + '?api_key=' +
-      TheMoviedB_APIkey + '&language=' ;
-  end;
-
-  self.Thrd_Basic_Info := TThreadsearch.Create(nil, Tcod.ansi, rq,   After_Thread_Search_Serie_Se_Ep_Basic_Info);
-
-  rq  := 'https://api.themoviedb.org/3/tv/' + Tmdb_id  +  '/external_ids??api_key=' +
-      TheMoviedB_APIkey + '&language=' + FCurrentLangShort;
-  //self.Thrd_ext_IDs := TThreadsearch.Create(nil, Tcod.ansi, rq,   After_Thread_Search_Serie_Se_Ep_ext_IDs);
-  //https://api.themoviedb.org/3/tv/873/season/1/episode/3/external_ids?api_key=3b608fc11821e92cd2459320206a9d9b
-   end
-   else
-   begin
     if JRScrap_Frm.FMassScrap = false then
 
-   ShowMessage(Translate_String_JRStyle('Set episode and season number !',
-        JRScrap_Frm.FCurrentLang));
-   end;
+      ShowMessage(Translate_String_JRStyle('Set episode and season number !',
+        JRScrap_Frm.FCurrentLang_GUI));
+  end;
 end;
-
-
-
 
 procedure TTheMoviedB_Cl.TheMoviedB_Movie_ID_Search_Proc;
 var
   rq: string;
 begin
 
-  if FCurrentLangShort <> 'eng' then
+  if FLang <> 'en' then
   begin
     rq := 'https://api.themoviedb.org/3/movie/' + self.Tmdb_id + '?api_key=' +
-      TheMoviedB_APIkey + '&language=' + FCurrentLangShort;
+      TheMoviedB_APIkey + '&language=' + FLang;
   end
   else
   begin
@@ -622,60 +612,60 @@ var
   s: string;
   i: integer;
 begin
- debug(str);
-   if str<> '' then
+  debug(str);
+  if str <> '' then
   begin
-  try
-    FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
-  except
-    screen.cursor := crdefault;
-    JRScrap_Frm.logger.error('Error: Parsing');
-  end;
+    try
+      FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
+    except
+      screen.cursor := crdefault;
+      JRScrap_Frm.logger.error('Error: Parsing');
+    end;
 
-  try
-    self.serie_name := FJSonReader.getString('name');
-  except
-  end;
+    try
+      self.serie_name := FJSonReader.getString('name');
+    except
+    end;
 
-   if (FJSonReader.Field['origin_country'] as TlkJSONList).Count <> 0 then
-  begin
-
-    for i := 0 to  (FJSonReader.Field['origin_country'] as TlkJSONList).Count - 1 do
+    if (FJSonReader.Field['origin_country'] as TlkJSONList).Count <> 0 then
     begin
-      try
-        Country.Add(
-         trim((FJSonReader.Field['origin_country'] as TlkJSONList).child[i].value )
-        );
-      except
+
+      for i := 0 to (FJSonReader.Field['origin_country'] as TlkJSONList)
+        .Count - 1 do
+      begin
+        try
+          Country.Add(trim((FJSonReader.Field['origin_country'] as TlkJSONList)
+            .child[i].value));
+        except
+        end;
       end;
     end;
-  end;
-
 
   end;
 end;
 
-procedure TTheMoviedB_Cl.After_Thread_Search_Serie_Se_Ep_Basic_Info(str: string);
+procedure TTheMoviedB_Cl.After_Thread_Search_Serie_Se_Ep_Basic_Info
+  (str: string);
 var
   FJSonReader: TlkJSONobject;
   rq, posterpath, s: string;
-   job, db: string;
+  job, db: string;
   i: integer;
 begin
 
   screen.cursor := crhourglass;
 
-  if str<> '' then
+  if str <> '' then
   begin
-  try
-    FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
-  except
-    screen.cursor := crdefault;
-    JRScrap_Frm.logger.error('Error: Parsing');
-  end;
+    try
+      FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
+    except
+      screen.cursor := crdefault;
+      JRScrap_Frm.logger.error('Error: Parsing');
+    end;
 
-  posterpath := emptystr;
-  if FJSonReader.getString('still_path') <> '' then
+    posterpath := emptystr;
+    if FJSonReader.getString('still_path') <> '' then
     begin
 
       if FJSonReader.getString('still_path') <> emptystr then
@@ -684,120 +674,120 @@ begin
 
     end;
 
-  try
-    self.name := FJSonReader.getString('name');
-  except
-  end;
+    try
+      self.name := FJSonReader.getString('name');
+    except
+    end;
 
-  try
-    self.Overview := FJSonReader.getString('overview');
-  except
-  end;
+    try
+      self.Overview := FJSonReader.getString('overview');
+    except
+    end;
 
-   try
-    self.episode := FJSonReader.getint('episode_number');
-  except
-  end;
+    try
+      self.episode := FJSonReader.getint('episode_number');
+    except
+    end;
 
-   try
-    self.season := FJSonReader.getint('season_number');
-  except
-  end;
+    try
+      self.season := FJSonReader.getint('season_number');
+    except
+    end;
 
+    try
+      release_date := formatdateToCurrentRegion
+        (FJSonReader.getString(('air_date')));
+    except
+    end;
 
-  try
-    release_date := formatdateEngToFrench
-      (FJSonReader.getString(('air_date')));
-  except
-  end;
-
- {
-  try
-    if (FJSonReader.Field['crew'] as TlkJSONList).Count <> 0 then
-    begin
+    {
+      try
+      if (FJSonReader.Field['crew'] as TlkJSONList).Count <> 0 then
+      begin
 
       for i := 0 to (FJSonReader.Field['crew'] as TlkJSONList).Count - 1 do
       begin
-        job := ((FJSonReader.Field['crew'] as TlkJSONList)
-          .child[i] as TlkJSONobject).Field['job'].value;
-        if job = 'Executive Producer' then
-          Executive_Producer.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value))
-        else if job = 'Casting' then
-          Casting.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value))
-        else if job = 'Novel' then
-          Novel.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value))
-        else if job = 'Production Design' then
-          Production_Design.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value))
-        else if job = 'Original Music Composer' then
-          Music_by.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value))
-        else if job = 'Director of Photography' then
-          Cinematographer.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value))
-        else if job = 'Screenplay' then
-          Screenwriter.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value))
-        else if job = 'Director' then
-          Director.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value))
-        else
-        begin
-          db := ((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['job'].value;
-          debug(db);
-        end;
+      job := ((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['job'].value;
+      if job = 'Executive Producer' then
+      Executive_Producer.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['name'].value))
+      else if job = 'Casting' then
+      Casting.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['name'].value))
+      else if job = 'Novel' then
+      Novel.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['name'].value))
+      else if job = 'Production Design' then
+      Production_Design.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['name'].value))
+      else if job = 'Original Music Composer' then
+      Music_by.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['name'].value))
+      else if job = 'Director of Photography' then
+      Cinematographer.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['name'].value))
+      else if job = 'Screenplay' then
+      Screenwriter.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['name'].value))
+      else if job = 'Director' then
+      Director.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['name'].value))
+      else
+      begin
+      db := ((FJSonReader.Field['crew'] as TlkJSONList)
+      .child[i] as TlkJSONobject).Field['job'].value;
+      debug(db);
+      end;
 
       end;
+      end;
+      except
+      screen.cursor := crdefault;
+      end; }
+
+    FManager := TThreadManager.Create(self, After_Serie_Se_Ep_Manager);
+
+    if posterpath <> emptystr then
+    begin
+      if assigned(image) then
+        FreeAndNil(image);
+      image := TJPEGImage.Create;
+
+      rq := posterpath;
+      FManager.Addthread(rq, self.After_Thread_Serie_Se_Ep_Image);
     end;
-  except
-    screen.cursor := crdefault;
-  end;}
 
-  FManager := TThreadManager.Create(self, After_Serie_Se_Ep_Manager);
+    rq := 'https://api.themoviedb.org/3/tv/' + self.Tmdb_id + '?api_key=' +
+      TheMoviedB_APIkey + '&language=' + FLang;
+    FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Serie_Basic_Info);
 
-  if posterpath <> emptystr then
-  begin
-    if assigned(image) then
-      FreeAndNil(image);
-    image := TJPEGImage.Create;
+    rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id + '/season/' +
+      inttostr(season) + '/episode/' + inttostr(episode) + '/credits?api_key=' +
+      TheMoviedB_APIkey + '&language=' + FLang;
 
-    rq := posterpath;
-    FManager.Addthread(rq, self.After_Thread_Serie_Se_Ep_Image);
-  end;
+    FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Serie_Se_Ep_Credits);
 
-   rq := 'https://api.themoviedb.org/3/tv/'+self.Tmdb_id+'?api_key='+TheMoviedB_APIkey+ '&language=' + FCurrentLangShort;
-   FManager.Addthread(Tcod.ansi,rq, After_Thread_Search_Serie_Basic_Info);
+    rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id +
+      '/external_ids?api_key=' + TheMoviedB_APIkey + '&language=' + FLang;
 
-   rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id  + '/season/' + inttostr(season) + '/episode/' + inttostr(episode) + '/credits?api_key=' +
-      TheMoviedB_APIkey + '&language='   + FCurrentLangShort;
+    FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Serie_Se_Ep_ext_IDs);
 
-   FManager.Addthread(Tcod.ansi,rq, After_Thread_Search_Serie_Se_Ep_Credits);
-
-    rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id  + '/external_ids?api_key=' +
-      TheMoviedB_APIkey + '&language='   + FCurrentLangShort;
-
-   FManager.Addthread(Tcod.ansi,rq, After_Thread_Search_Serie_Se_Ep_ext_IDs);
-
-   FManager.Resume;
+    FManager.Resume;
 
   end
   else
   begin
-     if JRScrap_Frm.FMassScrap = false then
+    if JRScrap_Frm.FMassScrap = false then
     begin
       ShowMessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_Frm.FCurrentLang));
+        JRScrap_Frm.FCurrentLang_GUI));
       JRScrap_Frm.ShowJRiverId(JRScrap_Frm.FCurrentJRiverId);
     end
   end;
 
-  screen.Cursor := crdefault ;
+  screen.cursor := crdefault;
 end;
-
 
 procedure TTheMoviedB_Cl.After_Thread_Search_Movie_Basic_Info(str: string);
 var
@@ -808,7 +798,6 @@ var
 begin
 
   posterpath := emptystr;
-
 
   screen.cursor := crhourglass;
   try
@@ -835,10 +824,10 @@ begin
 
   try
     if FJSonReader.getint('budget') <> 0 then
-      self.budget := IntToStr((FJSonReader.getint('budget')));
+      self.budget := inttostr((FJSonReader.getint('budget')));
 
     if FJSonReader.getint('revenue') <> 0 then
-      self.revenue := IntToStr((FJSonReader.getint('revenue')));
+      self.revenue := inttostr((FJSonReader.getint('revenue')));
   except
   end;
 
@@ -848,7 +837,7 @@ begin
   end;
 
   try
-    self.Tmdb_id := IntToStr((FJSonReader.getint('id')));
+    self.Tmdb_id := inttostr((FJSonReader.getint('id')));
   except
   end;
 
@@ -868,7 +857,7 @@ begin
   end;
 
   try
-    self.release_date := formatdateEngToFrench
+    self.release_date := formatdateToCurrentRegion
       (FJSonReader.getString(('release_date')));
   except
   end;
@@ -899,7 +888,8 @@ begin
     for i := 0 to (FJSonReader.Field['genres'] as TlkJSONList).Count - 1 do
     begin
       try
-        self.Genre.Add(trim((((FJSonReader.Field['genres'] as TlkJSONList)
+        self.Genre.Add
+          (trim((((FJSonReader.Field['genres'] as TlkJSONList)
           .child[i] as TlkJSONobject).Field['name'].value)));
       except
       end;
@@ -922,18 +912,18 @@ begin
 
   FManager := TThreadManager.Create(self, After_Movie_Manager);
 
-  rq := ('https://api.themoviedb.org/3/movie/' + Tmdb_id + '/credits?api_key=' +
-    TheMoviedB_APIkey + '&language=' + FCurrentLangShort);
+  rq := 'https://api.themoviedb.org/3/movie/' + Tmdb_id + '/credits?api_key=' +
+    TheMoviedB_APIkey + '&language=' + FLang;
 
   FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Movie_Credits);
 
-  rq := ('https://api.themoviedb.org/3/movie/' + Tmdb_id + '/keywords?api_key='
-    + TheMoviedB_APIkey + '&language=' + FCurrentLangShort);
+  rq := 'https://api.themoviedb.org/3/movie/' + Tmdb_id + '/keywords?api_key=' +
+    TheMoviedB_APIkey + '&language=' + FLang;
 
   FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Movie_Keywords);
 
-  rq := ('https://api.themoviedb.org/3/movie/' + Tmdb_id + '/videos?api_key=' +
-    TheMoviedB_APIkey);
+  rq := 'https://api.themoviedb.org/3/movie/' + Tmdb_id + '/videos?api_key=' +
+    TheMoviedB_APIkey;
 
   FManager.Addthread(Tcod.ansi, rq, After_Thread_Search_Movie_Videos);
 
@@ -953,13 +943,11 @@ begin
   screen.cursor := crdefault;
 end;
 
-
-
 procedure TTheMoviedB_Cl.After_Thread_Search_TVDB_ID(str: string);
 var
   rq, id: string;
   FJSonReader: TlkJSONobject;
-  i :integer ;
+  i: integer;
 begin
 
   try
@@ -973,40 +961,46 @@ begin
   if (FJSonReader.Field['tv_results'] as TlkJSONList).Count = 1 then
   begin
 
-  try
+    try
 
-  if (((FJSonReader.Field['tv_results'] as TlkJSONList).child[0] as TlkJSONobject).Field['origin_country'] as TlkJSONList).Count <> 0 then
-  begin
+      if (((FJSonReader.Field['tv_results'] as TlkJSONList)
+        .child[0] as TlkJSONobject).Field['origin_country'] as TlkJSONList)
+        .Count <> 0 then
+      begin
 
-    for i := 0 to  (((FJSonReader.Field['tv_results'] as TlkJSONList).child[0] as TlkJSONobject).Field['origin_country'] as TlkJSONList).Count - 1 do
-    begin
-      try
-      //  Country.Add(
-      //   (((FJSonReader.Field['tv_results'] as TlkJSONList).child[0] as TlkJSONobject).Field['origin_country'] as TlkJSONList).child[i].value
-     //   );
-      except
+        for i := 0 to (((FJSonReader.Field['tv_results'] as TlkJSONList)
+          .child[0] as TlkJSONobject).Field['origin_country'] as TlkJSONList)
+          .Count - 1 do
+        begin
+          try
+            // Country.Add(
+            // (((FJSonReader.Field['tv_results'] as TlkJSONList).child[0] as TlkJSONobject).Field['origin_country'] as TlkJSONList).child[i].value
+            // );
+          except
+          end;
+        end;
       end;
-    end;
-  end;
 
-  except
-    screen.cursor := crdefault;
-    JRScrap_Frm.logger.error('Error: Parsing');
-  end;
+    except
+      screen.cursor := crdefault;
+      JRScrap_Frm.logger.error('Error: Parsing');
+    end;
 
     Tmdb_id := (((FJSonReader.Field['tv_results'] as TlkJSONList)
       .child[0] as TlkJSONobject).Field['id'].value);
 
-    if FCurrentLangShort <> 'eng' then
-  begin
-   rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id  + '/season/' + inttostr(season) + '/episode/' + inttostr(episode) + '?api_key=' +
-      TheMoviedB_APIkey + '&language=' + FCurrentLangShort;
-  end
-  else
-  begin
-    rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id  + '/season/' + inttostr(season) + '/episode/' + inttostr(episode) + '?api_key=' +
-      TheMoviedB_APIkey + '&language=' ;
-  end;
+    if FLang <> 'eng' then
+    begin
+      rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id + '/season/' +
+        inttostr(season) + '/episode/' + inttostr(episode) + '?api_key=' +
+        TheMoviedB_APIkey + '&language=' + FLang;
+    end
+    else
+    begin
+      rq := 'https://api.themoviedb.org/3/tv/' + Tmdb_id + '/season/' +
+        inttostr(season) + '/episode/' + inttostr(episode) + '?api_key=' +
+        TheMoviedB_APIkey + '&language=';
+    end;
 
     Thrd_Basic_Se_Ep_Info := TThreadsearch.Create(nil, Tcod.ansi, rq,
       After_Thread_Search_Serie_Se_Ep_Basic_Info);
@@ -1015,7 +1009,6 @@ begin
 
 end;
 
-
 procedure TTheMoviedB_Cl.After_Thread_Search_Serie_Se_Ep_ext_IDs(str: string);
 var
   rq, id: string;
@@ -1023,7 +1016,8 @@ var
 begin
 
   try
-    if str ='' then    exit ;
+    if str = '' then
+      Exit;
 
     FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
   except
@@ -1031,19 +1025,19 @@ begin
     JRScrap_Frm.logger.error('Error: Parsing');
   end;
 
-    try
+  try
 
-      self.tvdb_id := inttostr(FJSonReader.getint('tvdb_id')) ;
-    except
-    end;
+    self.Tvdb_id := inttostr(FJSonReader.getint('tvdb_id'));
+  except
+  end;
 
-    try
+  try
     if FJSonReader.getString('imdb_id') <> '' then
     begin
-      self.imdb_id := FJSonReader.getString('imdb_id') ;
+      self.imdb_id := FJSonReader.getString('imdb_id');
     end;
-    except
-    end;
+  except
+  end;
 
 end;
 
@@ -1068,7 +1062,7 @@ begin
       .child[0] as TlkJSONobject).Field['id'].value);
 
     rq := 'https://api.themoviedb.org/3/movie/' + Tmdb_id + '?api_key=' +
-      TheMoviedB_APIkey + '&language=' + FCurrentLangShort;
+      TheMoviedB_APIkey + '&language=' + FLang;
 
     Thrd_Basic_Info := TThreadsearch.Create(nil, Tcod.ansi, rq,
       After_Thread_Search_Movie_Basic_Info);
@@ -1076,7 +1070,6 @@ begin
   end;
 
 end;
-
 
 procedure TTheMoviedB_Cl.After_Thread_Search_Serie_Se_Ep_Credits(str: string);
 var
@@ -1125,7 +1118,8 @@ begin
         job := ((FJSonReader.Field['crew'] as TlkJSONList)
           .child[i] as TlkJSONobject).Field['job'].value;
         if job = 'Executive Producer' then
-          Executive_Producer.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+          Executive_Producer.Add
+            (trim(((FJSonReader.Field['crew'] as TlkJSONList)
             .child[i] as TlkJSONobject).Field['name'].value))
         else if job = 'Casting' then
           Casting.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
@@ -1134,20 +1128,22 @@ begin
           Novel.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
             .child[i] as TlkJSONobject).Field['name'].value))
         else if job = 'Production Design' then
-          Production_Design.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+          Production_Design.Add
+            (trim(((FJSonReader.Field['crew'] as TlkJSONList)
             .child[i] as TlkJSONobject).Field['name'].value))
         else if job = 'Original Music Composer' then
           Music_by.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
             .child[i] as TlkJSONobject).Field['name'].value))
         else if job = 'Director of Photography' then
-          Cinematographer.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
+          Cinematographer.Add
+            (trim(((FJSonReader.Field['crew'] as TlkJSONList)
             .child[i] as TlkJSONobject).Field['name'].value))
         else if job = 'Screenplay' then
           Screenwriter.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
             .child[i] as TlkJSONobject).Field['name'].value))
         else if job = 'Director' then
           Director.Add(trim(((FJSonReader.Field['crew'] as TlkJSONList)
-            .child[i] as TlkJSONobject).Field['name'].value) )
+            .child[i] as TlkJSONobject).Field['name'].value))
         else
         begin
           db := ((FJSonReader.Field['crew'] as TlkJSONList)
@@ -1315,10 +1311,9 @@ begin
 
 end;
 
-
 procedure TTheMoviedB_Cl.After_Thread_Serie_Se_Ep_Image(img: TJPEGImage);
 begin
- try
+  try
     image.Assign(img);
   except
   end;
@@ -1339,51 +1334,48 @@ var
 
 begin
 
-  if JRScrap_frm.Movie_Btn.Down = true then
+  if JRScrap_Frm.Movie_Btn.down = true then
   begin
-  rq := DeleteAccents(title);
-  rq := StringReplace(rq, ' ', '+', [rfReplaceAll, rfIgnoreCase]);
-  rq := 'http://api.themoviedb.org/3/search/movie?api_key=' + TheMoviedB_APIkey
-    + '&query=' + rq + '&language=' + FCurrentLangShort;
+    rq := DeleteAccents(title);
+    rq := StringReplace(rq, ' ', '+', [rfReplaceAll, rfIgnoreCase]);
+    rq := 'http://api.themoviedb.org/3/search/movie?api_key=' +
+      TheMoviedB_APIkey + '&query=' + rq + '&language=' + FLang;
 
-     try
-    Thrd_Search := TThreadsearch.Create(nil, Tcod.ansi, rq,
-      After_Thread_Search_Movie_Search);
-    // Le thread est désormais créé, et actif.
+    try
 
-  except
-    screen.cursor := crdefault;
-    JRScrap_Frm.logger.error('Error: Error for this request');
+      Thrd_Search := TThreadsearch.Create(nil, Tcod.ansi, rq,
+        After_Thread_Search_Movie_Search);
+      // Le thread est désormais créé, et actif.
+
+    except
+      screen.cursor := crdefault;
+      JRScrap_Frm.logger.error('Error: Error for this request');
+    end;
+
   end;
 
-  end;
-
-  if JRScrap_frm.Serie_Btn.Down = true then
+  if JRScrap_Frm.Serie_Btn.down = true then
   begin
-  rq := DeleteAccents(title);
-  rq := StringReplace(rq, ' ', '+', [rfReplaceAll, rfIgnoreCase]);
-  rq := 'http://api.themoviedb.org/3/search/tv?api_key=' + TheMoviedB_APIkey
-    + '&query=' + rq + '&language=' + FCurrentLangShort;
+    rq := DeleteAccents(title);
+    rq := StringReplace(rq, ' ', '+', [rfReplaceAll, rfIgnoreCase]);
+    rq := 'http://api.themoviedb.org/3/search/tv?api_key=' + TheMoviedB_APIkey +
+      '&query=' + rq + '&language=' + FLang;
 
-     try
-    Thrd_Search := TThreadsearch.Create(nil, Tcod.ansi, rq,
-      After_Thread_Search_Serie_Search);
-    // Le thread est désormais créé, et actif.
+    try
+      Thrd_Search := TThreadsearch.Create(nil, Tcod.ansi, rq,
+        After_Thread_Search_Serie_Search);
+      // Le thread est désormais créé, et actif.
 
-  except
-    screen.cursor := crdefault;
-    JRScrap_Frm.logger.error('Error: Error for this request');
+    except
+      screen.cursor := crdefault;
+      JRScrap_Frm.logger.error('Error: Error for this request');
+    end;
+
   end;
-
-  end;
-
-
-
 
   screen.cursor := crdefault;
   application.processmessages;
 end;
-
 
 procedure TTheMoviedB_Cl.After_Thread_Search_Serie_Search(str: string);
 var
@@ -1406,16 +1398,16 @@ begin
     if JRScrap_Frm.FMassScrap = false then
     begin
       ShowMessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_Frm.FCurrentLang));
+        JRScrap_Frm.FCurrentLang_GUI));
       JRScrap_Frm.ShowJRiverId(JRScrap_Frm.FCurrentJRiverId);
     end
     else
     begin
 
-    if JRScrap_Frm.FMassScrap = true then
-    begin
+      if JRScrap_Frm.FMassScrap = true then
+      begin
         JRScrap_Frm.WaitAllServices;
-    end;
+      end;
 
     end
   end
@@ -1456,7 +1448,7 @@ begin
         if JRScrap_Frm.MassScrap_Frm.CheckBox1.Checked = true then
         begin
 
-          Tmdb_id := IntToStr(Medias[0].API_Id); // Frantic 10675
+          Tmdb_id := inttostr(Medias[0].API_Id); // Frantic 10675
           TheMoviedB_Serie_Se_Ep_ID_Search_Proc;
 
         end
@@ -1489,7 +1481,6 @@ begin
 
 end;
 
-
 procedure TTheMoviedB_Cl.After_Thread_Search_Movie_Search(str: string);
 var
   i: integer;
@@ -1512,7 +1503,7 @@ begin
     if JRScrap_Frm.FMassScrap = false then
     begin
       ShowMessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_Frm.FCurrentLang));
+        JRScrap_Frm.FCurrentLang_GUI));
       JRScrap_Frm.ShowJRiverId(JRScrap_Frm.FCurrentJRiverId);
     end
     else
@@ -1574,7 +1565,7 @@ begin
         if JRScrap_Frm.MassScrap_Frm.CheckBox1.Checked = true then
         begin
 
-          Tmdb_id := IntToStr(Medias[0].API_Id); // Frantic 10675
+          Tmdb_id := inttostr(Medias[0].API_Id); // Frantic 10675
           TheMoviedB_Movie_ID_Search_Proc;
 
         end

@@ -18,7 +18,7 @@ uses
   vcl.Grids, mnEdit, vcl.Controls, vcl.ExtCtrls, vcl.ComCtrls,
   Winapi.Windows, Winapi.Messages, System.Variants,
   ThreadManager_Unit, Generic_Search_Unit, MediaCenter_TLB,
-  vcl.Graphics, vcl.themes;
+  vcl.Graphics, vcl.themes, UURIEncode, Languagues_Unit;
 
 type
 
@@ -101,7 +101,7 @@ begin
     FMovie.Set_('Url metacritic', self.url_metacritic);
     JRScrap_frm.FJRiverXml.SetField('Url metacritic', self.url_metacritic);
   end;
-
+  screen.cursor := crdefault;
 end;
 
 procedure TFreebase_Cl.Display;
@@ -114,7 +114,12 @@ begin
   if self.url_Wikipedia_eng <> emptystr then
     JRScrap_frm.Wikipediaeng_ed.text := self.url_Wikipedia_eng;
   if self.url_Wikipedia_CurrentLang <> emptystr then
-    JRScrap_frm.Wikipedia_ed.text := self.url_Wikipedia_CurrentLang;
+    try
+      JRScrap_frm.Wikipedia_ed.text :=
+        URIDecode(self.url_Wikipedia_CurrentLang);
+    except
+      screen.cursor := crdefault;
+    end;
   if self.url_traileraddict <> emptystr then
     JRScrap_frm.traileraddict_Ed.text := self.url_traileraddict;
   if self.url_metacritic <> emptystr then
@@ -175,7 +180,7 @@ begin
   begin
     rq := 'https://www.googleapis.com/freebase/v1/rdf' + id;
 
-    Thrd_Get_ID := TThreadsearch.Create(nil, Tcod.ansi, rq,
+    Thrd_Get_ID := TThreadsearch.Create(nil, Tcod.utf8, rq,
       self.After_Thrd_Get_RDF);
   end
   else
@@ -187,7 +192,7 @@ begin
     else
     begin
       ShowMessage('Freebase : ' + Translate_String_JRStyle
-        ('No results for this search !', JRScrap_frm.FCurrentLang));
+        ('No results for this search !', JRScrap_frm.FCurrentLang_GUI));
       screen.cursor := crdefault;
       exit;
     end;
@@ -202,7 +207,7 @@ var
   i: integer;
   httpList: TstringList;
 begin
-  debug(str);
+
   httpList := TstringList.Create;
   httpList := ExtractText(str, '<http://', '>');
 
@@ -213,52 +218,77 @@ begin
 
   for i := 0 to httpList.count - 1 do
   begin
-
     debug(httpList[i]);
+    try
+      debug(httpList[i]);
 
-    if AnsiContainsStr(httpList[i], 'allocine.fr') then
-    begin
-      url_Allocine := httpList[i];
+      if AnsiContainsStr(httpList[i], 'allocine.fr') then
+      begin
+        url_Allocine := httpList[i];
+      end;
+
+      if AnsiContainsStr(httpList[i], JRScrap_frm.FCurrentLangShort +
+        '.wikipedia.org') then
+      begin
+        urls_Wikipedia_CurrentLang.add(httpList[i]);
+      end;
+
+      if AnsiContainsStr(httpList[i],
+        InternalToISO(JRScrap_frm.FCurrentLangShort) + '.wikipedia.org') then
+      begin
+        urls_Wikipedia_CurrentLang.add(httpList[i]);
+      end;
+
+      if AnsiContainsStr(httpList[i], 'en.wikipedia.org') then
+      begin
+        urls_Wikipedia_eng.add(httpList[i]);
+      end;
+
+      if AnsiContainsStr(httpList[i], 'http://www.rottentomatoes.com/') then
+      begin
+        url_rottentomatoes := httpList[i];
+      end;
+
+      if AnsiContainsStr(httpList[i], 'www.traileraddict.com/') then
+      begin
+        url_traileraddict := httpList[i];
+      end;
+
+      if AnsiContainsStr(httpList[i], 'www.metacritic.com') then
+      begin
+        url_metacritic := httpList[i];
+      end;
+    except
+      JRScrap_frm.logger.error('Error:  httpList');
     end;
-
-    if AnsiContainsStr(httpList[i], JRScrap_frm.FCurrentLangshort +
-      '.wikipedia.org') then
-    begin
-      urls_Wikipedia_CurrentLang.add(httpList[i]);
-    end;
-
-    if AnsiContainsStr(httpList[i], 'en.wikipedia.org') then
-    begin
-      urls_Wikipedia_eng.add(httpList[i]);
-    end;
-
-    if AnsiContainsStr(httpList[i], 'http://www.rottentomatoes.com/') then
-    begin
-      url_rottentomatoes := httpList[i];
-    end;
-
-    if AnsiContainsStr(httpList[i], 'www.traileraddict.com/') then
-    begin
-      url_traileraddict := httpList[i];
-    end;
-
-    if AnsiContainsStr(httpList[i], 'www.metacritic.com') then
-    begin
-      url_metacritic := httpList[i];
-    end;
-
   end;
 
   if urls_Wikipedia_CurrentLang.count >= 1 then
-    url_Wikipedia_CurrentLang := urls_Wikipedia_CurrentLang[0];
+    try
+      url_Wikipedia_CurrentLang := UnescapeAndNormalize
+        (urls_Wikipedia_CurrentLang[0]);
+    except
+      JRScrap_frm.logger.error('Error: UnescapeAndNormalize');
+      screen.cursor := crdefault;
+    end;
 
   if urls_Wikipedia_eng.count >= 1 then
     url_Wikipedia_eng := urls_Wikipedia_eng[0];
 
   for i := 0 to urls_Wikipedia_CurrentLang.count - 1 do
   begin
-    if AnsiContainsStr(urls_Wikipedia_CurrentLang[i], 'film') then
-      url_Wikipedia_CurrentLang := urls_Wikipedia_CurrentLang[i];
+    try
+      if AnsiContainsStr(urls_Wikipedia_CurrentLang[i], 'film') then
+        try
+          url_Wikipedia_CurrentLang :=
+            UnescapeAndNormalize(urls_Wikipedia_CurrentLang[i]);
+        except
+          JRScrap_frm.logger.error('Error:  httpList 2');
+          screen.cursor := crdefault;
+        end;
+    except
+      JRScrap_frm.logger.error('Error:  url_Wikipedia_CurrentLang');
+    end;
   end;
 
   for i := 0 to urls_Wikipedia_eng.count - 1 do
@@ -266,7 +296,7 @@ begin
     if AnsiContainsStr(urls_Wikipedia_eng[i], 'film') then
       url_Wikipedia_eng := urls_Wikipedia_eng[i];
   end;
-
+  screen.cursor := crdefault;
   Display;
 end;
 
@@ -287,8 +317,9 @@ begin
   else
     name := replacestr(JRScrap_frm.name_Ed.text, ' ', '%20');
 
-  rq := 'https://www.googleapis.com/freebase/v1/mqlread?query=[{%22id%22:%20null,%22name%22:%20%22'
-    + name + '%22,%22type%22:%20%22/film/film%22,%22/common/topic/topic_equivalent_webpage%22:%20[]}]';
+  rq := 'https://www.googleapis.com/freebase/v1/mqlread?query=[{"id": null,"name": "'
+    + name + '","type": "/film/film","/common/topic/topic_equivalent_webpage": []}]';
+
   try
     Thrd_Get_ID := TThreadsearch.Create(nil, Tcod.ansi, rq,
       self.After_Thrd_Get_ID);

@@ -73,7 +73,7 @@ object JRScrap_Frm: TJRScrap_Frm
       Width = 723
       Height = 768
       VertScrollBar.ButtonSize = 2
-      VertScrollBar.Position = 619
+      VertScrollBar.Position = 4
       VertScrollBar.Smooth = True
       VertScrollBar.Style = ssFlat
       VertScrollBar.Tracking = True
@@ -84,7 +84,7 @@ object JRScrap_Frm: TJRScrap_Frm
       TabOrder = 0
       object Info_Panel: TCyPanel
         Left = 0
-        Top = -619
+        Top = -4
         Width = 702
         Height = 1500
         Align = alTop
@@ -116,7 +116,6 @@ object JRScrap_Frm: TJRScrap_Frm
           ParentCustomHint = False
           Align = alCustom
           ParentShowHint = False
-          PopupMenu = Image_Pop
           Proportional = True
           ShowHint = True
           Stretch = True
@@ -351,7 +350,7 @@ object JRScrap_Frm: TJRScrap_Frm
           Width = 167
           Height = 19
           AutoSize = False
-          Caption = 'County :'
+          Caption = 'Country :'
         end
         object Label12: TLabel
           Left = 229
@@ -431,10 +430,14 @@ object JRScrap_Frm: TJRScrap_Frm
               ToPosition = 2
             end
             item
-              AllowedChars = '/'
-              AutoInsertChars = '/'
+              AllowedChars = '/.-'
               FromPosition = 3
               ToPosition = 3
+            end
+            item
+              AllowedChars = '/.-'
+              FromPosition = 6
+              ToPosition = 6
             end
             item
               AllowedChars = '01'
@@ -445,12 +448,6 @@ object JRScrap_Frm: TJRScrap_Frm
               AllowedChars = '0123456789'
               FromPosition = 5
               ToPosition = 5
-            end
-            item
-              AllowedChars = '/'
-              AutoInsertChars = '/'
-              FromPosition = 6
-              ToPosition = 6
             end
             item
               AllowedChars = '12'
@@ -1351,7 +1348,7 @@ object JRScrap_Frm: TJRScrap_Frm
           Font.Height = -16
           Font.Name = 'Calibri'
           Font.Style = []
-          MaxLength = 5
+          MaxLength = 9
           ParentFont = False
           TabOrder = 37
           OnKeyPress = EdKeyPress
@@ -1375,7 +1372,7 @@ object JRScrap_Frm: TJRScrap_Frm
           Font.Height = -16
           Font.Name = 'Calibri'
           Font.Style = []
-          MaxLength = 5
+          MaxLength = 6
           ParentFont = False
           TabOrder = 38
           OnEnter = Tmdb_id_EdEnter
@@ -2254,9 +2251,18 @@ object JRScrap_Frm: TJRScrap_Frm
         GroupIndex = 1
         object SelectQuerylanguage: TMenuItem
           Caption = 'Select Query language'
-          SubMenuImages = Flag_ImgList
+          SubMenuImages = Flag_ImgList_Languages
           GroupIndex = 1
           ImageIndex = 0
+        end
+        object Selectlanguage1: TMenuItem
+          Caption = 'Select language'
+          SubMenuImages = Flag_ImgList_translate
+          GroupIndex = 1
+        end
+        object N7: TMenuItem
+          Caption = '-'
+          GroupIndex = 1
         end
         object Writepicture1: TMenuItem
           Caption = 'Write picture'
@@ -2268,8 +2274,8 @@ object JRScrap_Frm: TJRScrap_Frm
           GroupIndex = 1
           OnClick = WriteXMLsideCar1Click
         end
-        object Selectlanguage1: TMenuItem
-          Caption = 'Select language'
+        object N6: TMenuItem
+          Caption = '-'
           GroupIndex = 1
         end
         object SeeLogFile1: TMenuItem
@@ -33187,9 +33193,10 @@ object JRScrap_Frm: TJRScrap_Frm
     end
   end
   object Update_Timer: TTimer
+    Enabled = False
     OnTimer = Update_TimerTimer
-    Left = 34
-    Top = 323
+    Left = 36
+    Top = 321
   end
   object MCAutomation: TMCAutomation
     AutoConnect = True
@@ -33217,9 +33224,14 @@ object JRScrap_Frm: TJRScrap_Frm
       OnClick = Erasealltags1Click
     end
   end
-  object Flag_ImgList: TImageList
+  object Flag_ImgList_Languages: TImageList
     ShareImages = True
     Left = 112
+    Top = 322
+  end
+  object Flag_ImgList_translate: TImageList
+    ShareImages = True
+    Left = 209
     Top = 323
   end
 end

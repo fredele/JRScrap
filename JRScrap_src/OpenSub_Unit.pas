@@ -19,7 +19,7 @@ uses
   ShellAPI, String_Unit, Math_Unit, PngImage,
   MediaCenter_TLB, Vcl.Menus, TranslateJRStyle_Unit, debug_unit, Vcl.ExtCtrls,
   File_Unit,
-  cyBasePanel, cyPanel, Utils_Unit;
+  cyBasePanel, cyPanel, Utils_Unit, Languagues_Unit;
 
 type
   TOpenSub_Form = class(TForm)
@@ -304,8 +304,8 @@ begin
     s := FCurrentMovie.get('Filename', true);
     filesize := Get_FileSize(s);
     hash_nbr := CalcGabestHash(s);
-    Hash := IntToHex(hash_nbr, 16) ;
-     //Hash := Int64ToHex(hash_nbr); // Inutile, puisque ca existe ...
+    Hash := IntToHex(hash_nbr, 16);
+    // Hash := Int64ToHex(hash_nbr); // Inutile, puisque ca existe ...
     s := SearchSubtitles(Token, 'all', Hash, filesize);
     Parse_Proc(s);
   except
@@ -412,8 +412,8 @@ begin
 
                           if currentmoviefield = 'ISO639' then
                             self.StringGrid1.Cells[0, i + 1] :=
-                              movienode.childNodes[k].childNodes[1]
-                              .childNodes[0].Text;
+                              IsoToInternal(movienode.childNodes[k].childNodes
+                              [1].childNodes[0].Text);
                         end;
 
                       end;
@@ -437,13 +437,13 @@ begin
       self.StringGrid1.RowCount := 1;
     end;
     self.Status_Lbl2.Caption := Translate_String_JRStyle('OK',
-      JRScrap_frm.FCurrentLang);
+      JRScrap_frm.FCurrentLang_GUI);
   except
 
     showmessage(Translate_String_JRStyle('No results for this search !',
-      JRScrap_frm.FCurrentLang));
-      self.Status_Lbl2.Caption :='';
-    //PostMessage(self.Handle, wm_close, 0, 0);
+      JRScrap_frm.FCurrentLang_GUI));
+    self.Status_Lbl2.Caption := '';
+    // PostMessage(self.Handle, wm_close, 0, 0);
 
   end;
 end;
@@ -451,14 +451,14 @@ end;
 procedure TOpenSub_Form.Hash_SearchClick(Sender: TObject);
 begin
   self.Status_Lbl2.Caption := Translate_String_JRStyle('Searching ...',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   Search_Hash_Proc;
 end;
 
 procedure TOpenSub_Form.Imdb_SearchClick(Sender: TObject);
 begin
   self.Status_Lbl2.Caption := Translate_String_JRStyle('Searching ...',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   Search_imdbID_Proc;
 end;
 
@@ -467,32 +467,32 @@ var
   AbUnZipper1: TAbUnZipper;
   zipfile: string;
 
-  name : string ;
+  name: string;
 begin
   if self.StringGrid1.RowCount <> 1 then
   begin
 
-    name := self.StringGrid1.Cells[1, self.StringGrid1.Row] ;
+    name := self.StringGrid1.Cells[1, self.StringGrid1.Row];
     debug(name);
     zipfile := ExtractFilePath(FCurrentMovie.filename) + 'file.zip';
     DownloadFile(self.StringGrid1.Cells[6, self.StringGrid1.Row], zipfile);
     AbUnZipper1 := TAbUnZipper.Create(nil);
     AbUnZipper1.filename := zipfile;
     AbUnZipper1.BaseDirectory := ExtractFilePath(AbUnZipper1.filename);
-    AbUnZipper1.Count ;
+    AbUnZipper1.Count;
     AbUnZipper1.ExtractFiles(name);
     AbUnZipper1.Free;
     deletefile(zipfile);
-    name := ExtractFilePath(FCurrentMovie.filename) + name ;
+    name := ExtractFilePath(FCurrentMovie.filename) + name;
     if Fileexists(name) then
     begin
-    showmessage(Translate_String_JRStyle('File Downloaded !',
-      JRScrap_frm.FCurrentLang));
+      showmessage(Translate_String_JRStyle('File Downloaded !',
+        JRScrap_frm.FCurrentLang_GUI));
     end
     else
     begin
-     showmessage(Translate_String_JRStyle('Not Downloaded !',
-      JRScrap_frm.FCurrentLang));
+      showmessage(Translate_String_JRStyle('Not Downloaded !',
+        JRScrap_frm.FCurrentLang_GUI));
     end;
   end;
 end;
@@ -503,6 +503,7 @@ var
   str, currentmoviedata, currentmoviefield: string;
 
 begin
+
   self.Top := JRScrap_frm.Top + round((JRScrap_frm.Height - self.Height) / 2);
   self.Left := JRScrap_frm.Left + round((JRScrap_frm.Width - self.Width) / 2);
 
@@ -512,38 +513,30 @@ begin
   if imdb <> 0 then
     self.Imdb_Search.Enabled := true;
 
-  Flangshort := JRScrap_frm.FCurrentLangShort;
-
-  if Flangshort = 'fr' then
-    Flangshort := 'fre';
-  if Flangshort = 'de' then
-    Flangshort := 'ger';
-  if Flangshort = 'it' then
-    Flangshort := 'ita';
-  if Flangshort = 'eng' then
-    Flangshort := 'eng';
+  Flangshort := InternalToOpensub(JRScrap_frm.FCurrentLangShort);
+  debug('OpenSubtitle language : ' + Flangshort);
 
   self.StringGrid1.Cells[1, 0] := Translate_String_JRStyle('FileName',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.StringGrid1.Cells[2, 0] := Translate_String_JRStyle('CD',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.StringGrid1.Cells[3, 0] := Translate_String_JRStyle('Add Date',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.StringGrid1.Cells[4, 0] := Translate_String_JRStyle('Downld. Count',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.StringGrid1.Cells[5, 0] := Translate_String_JRStyle('UserNickName',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.StringGrid1.Cells[6, 0] := Translate_String_JRStyle('ZipDownloadLink',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.StringGrid1.Cells[7, 0] := Translate_String_JRStyle('SubFormat',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Download.Caption := Translate_String_JRStyle('Download',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
 
   self.Hash_Search.Caption := Translate_String_JRStyle('Hash Search',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Imdb_Search.Caption := Translate_String_JRStyle('Imdb Search',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.StringGrid1.ColWidths[0] := 30;
   self.StringGrid1.ColWidths[1] := 420;
   self.StringGrid1.ColWidths[2] := 70;

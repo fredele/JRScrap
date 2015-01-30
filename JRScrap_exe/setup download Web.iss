@@ -15,12 +15,13 @@ Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
 OutputDir={#SourcePath}
+ShowUndisplayableLanguages=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "german"; MessagesFile: "compiler:Languages\German.isl"
-
+Name: "Russian"; MessagesFile: "compiler:Languages\Russian.isl"
 
 
 [Files]
@@ -37,19 +38,27 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\bin\{#MyAppExeName}"; Tas
 
 [Registry]                                                                                 
 Root: HKCU; Subkey: "Software\JRScrap"; Flags: uninsdeletekey
-Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Firstrun"; ValueData: 1
+
+; Delete old keys no more necessary
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: none; ValueName: "Firstrun"; ValueData: 1  ; Flags: deletekey
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: none; ValueName: "MassScrapWimdbID"; ValueData: 1  ; Flags: deletekey
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: none; ValueName: "MassScrapPicture"; ValueData: 1 ; Flags: deletekey
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguages" ; Flags: uninsdeletekey
+
+
+; Add this keys 
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Writepicture"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "WriteSideCar"; ValueData: 1
-Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapWimdbID"; ValueData: 1 
-Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "MassScrapPicture"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Movie"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Serie"; ValueData: 0
 
-Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Freebase"; ValueData: 1     
-Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Traileraddict"; ValueData: 1     
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Freebase"; ValueData: 0     
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "Traileraddict"; ValueData: 0     
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "TheMoviedB"; ValueData: 1
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "TheTVdB"; ValueData: 0
 
+
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguages"; ValueData: "en,fr,de,it,ru,dk,tr,es,pt,nl,no,jp"
 
 ;Toolbar Visible booleans :
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Filter"; ValueData: 1
@@ -62,6 +71,7 @@ Root: HKCU; Subkey: "Software\JRScrap"; ValueType: dword; ValueName: "ToolBar_Po
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "english" ; Languages: english
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "french" ; Languages: french
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "german" ; Languages: german
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "Language"; ValueData: "russian" ; Languages: russian
 
 ;Last values
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "LastMediaSubType"; ValueData: "" ;
@@ -73,7 +83,7 @@ Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "LastAutom
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguage"; ValueData: "eng"; Languages: english
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguage"; ValueData: "fr" ; Languages: french
 Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguage"; ValueData: "de" ; Languages: german
-
+Root: HKCU; Subkey: "Software\JRScrap"; ValueType: string; ValueName: "QueryLanguage"; ValueData: "ru" ; Languages: russian
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "ImportantTask1"; Description: "Download and install vscredit_x86 by Microsoft"; GroupDescription: "Downloads";

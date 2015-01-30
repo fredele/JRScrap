@@ -1,5 +1,6 @@
 // This file is part of the JRScrap project.
 
+
 // Licence : GPL v 3
 
 // Website : https://github.com/fredele/JRScrap/
@@ -14,9 +15,9 @@ interface
 
 uses
   Winapi.Windows, System.Classes, dialogs, IdBaseComponent, IdComponent,
-  Utils_Unit,
+  Utils_Unit, strutils, String_Unit, SysUtils,
   IdTCPConnection, IdTCPClient, IdHTTP, IdSSLOpenSSL, Types_Unit, jpeg,
-  debug_Unit;
+  debug_Unit, IdURI;
 
 type
 
@@ -24,7 +25,8 @@ type
   private
     FProcedureStr: TProcedureStr;
     FProcedureStrobj: TProcedureStrobj;
-    Fquery, FParseText: string;
+    Fquery: unicodestring;
+    FParseText: string;
     Fs: TMemoryStream;
     LHandler: TIdSSLIOHandlerSocketOpenSSL;
     IdHTTP1: TidHTTP;
@@ -179,11 +181,22 @@ begin
   try
 
     if FUserAgent <> '' then
+    begin
       IdHTTP1.Request.Useragent := FUserAgent;
-
+    end;
+    debug('query is :' + Fquery);
+    Fquery := TIdURI.URLEncode(Fquery);
+    Fquery := replaceStr(Fquery, '%2520', '%20'); // ????
     IdHTTP1.get(Fquery, Fs);
+
   except
-    debug('Error : IdHTTP get');
+    if JRScrap_frm.FMassScrap = True then
+    begin
+      showmessage('Request Response error :' + IdHTTP1.ResponseText);
+      debug('Error : IdHTTP get' + IdHTTP1.ResponseText);
+      JRScrap_frm.logger.error('Error : IdHTTP get' + IdHTTP1.ResponseText);
+    end;
+
     FTerminated := True;
     Fs.Free;
     Terminate;

@@ -13,7 +13,7 @@ interface
 
 uses
   Classes, Types_Unit, system.Sysutils, debug_Unit, jpeg, Dialogs,
-  TranslateJRStyle_Unit, vcl.Forms, string_Unit ,JvListBox;
+  TranslateJRStyle_Unit, vcl.Forms, string_Unit, JvListBox;
 
 type
 
@@ -23,8 +23,8 @@ type
   var
     lock: boolean;
     FMediaList_Id: integer;
-    FileName, Name, Original_Name, Overview, FCurrentLangShort, Vote_Average,
-      release_date: string;
+    FileName, Name, Original_Name, Overview, Vote_Average, release_date,
+      FLang: string;
     Medias: array of TMedia;
     Persons: array of TPerson;
     Country, Genre, production_companies, Keywords, Casting, Executive_Producer,
@@ -32,7 +32,7 @@ type
       director: TStringList;
     image: TJPEGImage;
     trailer, budget, revenue: string;
-    imdb_id, tmdb_id ,tvdb_id: string;
+    imdb_id, tmdb_id, tvdb_id: string;
     Episode, Season: integer;
     Serie_Name: string;
 
@@ -51,14 +51,14 @@ type
 
   end;
 
-function ItemExists(ListBox: TJvListBox; const Item: string): Boolean;
+function ItemExists(ListBox: TJvListBox; const Item: string): boolean;
 
 implementation
 
 uses
   JRScrap_Unit, Search_Unit;
 
-function ItemExists(ListBox: TJvListBox; const Item: string): Boolean;
+function ItemExists(ListBox: TJvListBox; const Item: string): boolean;
 begin
   Result := ListBox.Items.IndexOf(Item) >= 0;
 end;
@@ -81,7 +81,7 @@ end;
 constructor TGeneric_Search.Create(id: integer; CurrentLangShort: string);
 begin
 
-  FCurrentLangShort := CurrentLangShort;
+  FLang := CurrentLangShort;
   FMediaList_Id := id;
   Genre := TStringList.Create;
   Genre.Duplicates := dupIgnore;
@@ -108,8 +108,8 @@ begin
   director := TStringList.Create;
   director.Duplicates := dupIgnore;
 
-  season := -1 ;
-  episode := - 1;
+  Season := -1;
+  Episode := -1;
 
 end;
 
@@ -199,16 +199,21 @@ begin
     end;
   end;
 
-  if self.tmdb_id <> emptystr then  JRScrap_Frm.Tmdb_id_Ed.Text :=  self.tmdb_id  ;
-  if self.imdb_id <> emptystr then  JRScrap_Frm.imdb_id_Ed.Text :=  self.imdb_id  ;
-  if self.tvdb_id <> emptystr then  JRScrap_Frm.Tvdb_id_Ed.Text :=  self.tvdb_id  ;
+  if self.tmdb_id <> EmptyStr then
+    JRScrap_Frm.Tmdb_id_Ed.Text := self.tmdb_id;
+  if self.imdb_id <> EmptyStr then
+    JRScrap_Frm.imdb_id_Ed.Text := self.imdb_id;
+  if self.tvdb_id <> EmptyStr then
+    JRScrap_Frm.Tvdb_id_Ed.Text := self.tvdb_id;
   try
-  if self.Episode <> 0  then  JRScrap_Frm.Episode_Ed.Text := inttostr(self.Episode) ;
+    if self.Episode <> 0 then
+      JRScrap_Frm.Episode_Ed.Text := IntToStr(self.Episode);
   except
   end;
 
   try
-  if self.season <> 0  then  JRScrap_Frm.season_Ed.Text := inttostr(self.season) ;
+    if self.Season <> 0 then
+      JRScrap_Frm.season_Ed.Text := IntToStr(self.Season);
   except
   end;
 
@@ -330,7 +335,7 @@ begin
     Search_Frm.Movie_Search_Grid.RowCount :=
       Search_Frm.Movie_Search_Grid.RowCount - 1;
     Search_Frm.Status_Lbl.Caption := Translate_String_JRStyle('OK',
-      JRScrap_Frm.FCurrentLang);
+      JRScrap_Frm.FCurrentLang_GUI);
   except
     //
   end;

@@ -29,10 +29,11 @@ type
     procedure Movie_Search_GridClick(Sender: TObject);
     constructor Create(AOwner: TComponent; search: TGeneric_Search);
 
-    constructor Create_Param (AOwner: TComponent; param : string ; search: TGeneric_Search);
+    constructor Create_Param(AOwner: TComponent; param: string;
+      search: TGeneric_Search);
     procedure CloseClick(Sender: TObject);
   private
-    FService : string ;
+    FService: string;
   public
     { Public declarations }
   end;
@@ -52,11 +53,12 @@ begin
   modalresult := mrOK;
 end;
 
-constructor TSearch_Frm.Create_Param (AOwner: TComponent; param : string ; search: TGeneric_Search);
+constructor TSearch_Frm.Create_Param(AOwner: TComponent; param: string;
+  search: TGeneric_Search);
 begin
-   inherited Create(AOwner);
-   Fsearch := search;
-   FService := param ;
+  inherited Create(AOwner);
+  Fsearch := search;
+  FService := param;
 end;
 
 constructor TSearch_Frm.Create(AOwner: TComponent; search: TGeneric_Search);
@@ -72,24 +74,28 @@ begin
   self.Left := JRScrap_frm.Left + round((JRScrap_frm.Width - self.Width) / 2);
 
   self.Close.Caption := Translate_String_JRStyle('Close',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Status_Lbl.Caption := Translate_String_JRStyle('Searching ...',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Label1.Caption := Translate_String_JRStyle
     ('Select here the row  of the Movie to get tags from',
-    JRScrap_frm.FCurrentLang);
-  self.Caption := Translate_String_JRStyle('Search', JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
+  self.Caption := Translate_String_JRStyle('Search',
+    JRScrap_frm.FCurrentLang_GUI);
   self.Movie_Search_Grid.ColWidths[0] := 515;
   self.Movie_Search_Grid.ColWidths[1] := 165;
   self.Movie_Search_Grid.ColWidths[2] := 0;
 
-  if ((JRScrap_frm.TheMoviedB_Btn.down = true)and (JRScrap_frm.Movie_Btn.down = true)) then
+  if ((JRScrap_frm.TheMoviedB_Btn.down = true) and
+    (JRScrap_frm.Movie_Btn.down = true)) then
     Fsearch.SearchFiles(JRScrap_frm.Name_Ed.Text);
 
-  if ((JRScrap_frm.TheMoviedB_Btn.down = true)and (JRScrap_frm.Serie_Btn.down = true)) then
+  if ((JRScrap_frm.TheMoviedB_Btn.down = true) and
+    (JRScrap_frm.Serie_Btn.down = true)) then
     Fsearch.SearchFiles(JRScrap_frm.Serie_Name_ed.Text);
 
-  if ((JRScrap_frm.tvdb_Btn.down = true) and (JRScrap_frm.Serie_Btn.down = true )) then
+  if ((JRScrap_frm.tvdb_Btn.down = true) and (JRScrap_frm.Serie_Btn.down = true))
+  then
     Fsearch.SearchFiles(JRScrap_frm.Serie_Name_ed.Text);
 
 end;
@@ -97,34 +103,32 @@ end;
 procedure TSearch_Frm.Movie_Search_GridClick(Sender: TObject);
 begin
 
-
-
   if JRScrap_frm.Movie_Btn.down = true then
   begin
-  if JRScrap_frm.TheMoviedB_Btn.down = true then
-  begin
-    TheMoviedB_Ins.tmdb_id := self.Movie_Search_Grid.Cells
-      [2, self.Movie_Search_Grid.row];
-    TheMoviedB_Ins.TheMoviedB_Movie_ID_Search_Proc;
-  end;
+    if JRScrap_frm.TheMoviedB_Btn.down = true then
+    begin
+      TheMoviedB_Ins.tmdb_id := self.Movie_Search_Grid.Cells
+        [2, self.Movie_Search_Grid.row];
+      TheMoviedB_Ins.TheMoviedB_Movie_ID_Search_Proc;
+    end;
   end;
 
   if JRScrap_frm.Serie_Btn.down = true then
   begin
 
-      if JRScrap_frm.tvdb_Btn.down = true then
-       begin
-        TtvdB_Ins.tvdb_id := self.Movie_Search_Grid.Cells
-          [2, self.Movie_Search_Grid.row];
-        TtvdB_Ins.TheTVDB_ID_Search_Proc;
-      end;
+    if JRScrap_frm.tvdb_Btn.down = true then
+    begin
+      TtvdB_Ins.tvdb_id := self.Movie_Search_Grid.Cells
+        [2, self.Movie_Search_Grid.row];
+      TtvdB_Ins.TheTVDB_ID_Search_Proc;
+    end;
 
-     if JRScrap_frm.TheMoviedB_Btn.down = true then
-     begin
-        TheMoviedB_Ins.tmdb_id := self.Movie_Search_Grid.Cells
-         [2, self.Movie_Search_Grid.row];
-        TheMoviedB_Ins.TheMoviedB_Serie_Se_Ep_ID_Search_Proc;
-     end;
+    if JRScrap_frm.TheMoviedB_Btn.down = true then
+    begin
+      TheMoviedB_Ins.tmdb_id := self.Movie_Search_Grid.Cells
+        [2, self.Movie_Search_Grid.row];
+      TheMoviedB_Ins.TheMoviedB_Serie_Se_Ep_ID_Search_Proc;
+    end;
 
   end;
 

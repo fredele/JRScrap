@@ -93,7 +93,7 @@ Thanks :
 -------------
 Thanks to the people who participated (beta-tester, translations, ..) :
 
-bytestar,oenomath,pseudoz,rlebrette,xtrax,D-Kalck and all others  !!!
+bytestar,oenomath,pseudoz,rlebrette,xtrax,D-Kalck,morrison and all others  !!!
 
 Licence 
 -------------

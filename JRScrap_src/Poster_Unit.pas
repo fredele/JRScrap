@@ -7,7 +7,7 @@ uses
   System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.extctrls, Threadsearch_Unit,
   String_Unit, Types_unit, TranslateJRStyle_Unit, debug_Unit, uLkJSON,
-  ThreadManager_Unit, jpeg,
+  ThreadManager_Unit, jpeg, Languagues_Unit,
   Vcl.StdCtrls, cyBasePanel, cyPanel;
 
 type
@@ -70,7 +70,7 @@ uses
 constructor TPoster_Frm.create_Param(AOwner: TComponent; param: string);
 begin
   inherited Create(AOwner);
-  FService := param ;
+  FService := param;
 end;
 
 procedure TPoster_Frm.FormActivate(Sender: TObject);
@@ -82,9 +82,9 @@ begin
   self.Left := JRScrap_frm.Left + round((JRScrap_frm.Width - self.Width) / 2);
 
   self.Status_Lbl.Caption := Translate_String_JRStyle('Searching ...',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Close.Caption := Translate_String_JRStyle('Close',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
 
   moviebanner := Tstringlist.Create;
   movieposter := Tstringlist.Create;
@@ -127,8 +127,9 @@ begin
   begin
     rq := 'https://api.themoviedb.org/3/movie/' + FCurrentMovie.Get('TMDB ID',
       true) + '/images?api_key=' + TheMoviedB_APIkey + '&language=' +
-      JRScrap_frm.FCurrentLangShort + '&include_image_language=en,' +
-      JRScrap_frm.FCurrentLangShort;
+      Internaltotmdb(JRScrap_frm.FCurrentLangShort) +
+      '&include_image_language=en,' + Internaltotmdb
+      (JRScrap_frm.FCurrentLangShort);
 
     try
       Thrd_Search := TThreadsearch.Create(nil, Tcod.ansi, rq,
@@ -239,7 +240,7 @@ procedure TPoster_Frm.After_thread_Manager_movieposter;
 begin
   screen.cursor := crdefault;
   self.Status_Lbl.Caption := Translate_String_JRStyle('OK',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
 end;
 
 procedure TPoster_Frm.After_thread_Manager_moviebanner;
@@ -254,14 +255,14 @@ var
 begin
   debug(str);
 
-   if str = emptystr then
-    begin
-      showmessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_frm.FCurrentLang));
-      screen.cursor := crdefault;
-     modalresult := mrok;
-       exit ;
-    end;
+  if str = emptystr then
+  begin
+    showmessage(Translate_String_JRStyle('No results for this search !',
+      JRScrap_frm.FCurrentLang_GUI));
+    screen.cursor := crdefault;
+    modalresult := mrok;
+    exit;
+  end;
 
   try
     FJSonReader := TlkJSON.ParseText(str) as TlkJSONobject;
@@ -285,7 +286,7 @@ begin
     if movieposter.Count = 0 then
     begin
       showmessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_frm.FCurrentLang));
+        JRScrap_frm.FCurrentLang_GUI));
       screen.cursor := crdefault;
       modalresult := mrok;
     end;
@@ -317,13 +318,13 @@ begin
   debug(str);
 
   if str = emptystr then
-    begin
-      showmessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_frm.FCurrentLang));
-      screen.cursor := crdefault;
-      modalresult := mrok;
-      exit ;
-    end;
+  begin
+    showmessage(Translate_String_JRStyle('No results for this search !',
+      JRScrap_frm.FCurrentLang_GUI));
+    screen.cursor := crdefault;
+    modalresult := mrok;
+    exit;
+  end;
 
   if FService = 'FanArt' then
   begin
@@ -384,7 +385,7 @@ begin
     if movieposter_tot_count = 0 then
     begin
       showmessage(Translate_String_JRStyle('No results for this search !',
-        JRScrap_frm.FCurrentLang));
+        JRScrap_frm.FCurrentLang_GUI));
       screen.cursor := crdefault;
       modalresult := mrok;
     end;

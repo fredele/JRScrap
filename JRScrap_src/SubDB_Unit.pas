@@ -93,21 +93,21 @@ begin
     FileName := JRScrap_frm.FCurrentMoviePath +
       CalcSubDBHash(FCurrentMovie.FileName) + '.srt';
     StringToFile(FileName, str);
-    if Fileexists(FileName ) then
+    if Fileexists(FileName) then
     begin
-    showmessage(Translate_String_JRStyle('File Downloaded !',
-      JRScrap_frm.FCurrentLang));
+      showmessage(Translate_String_JRStyle('File Downloaded !',
+        JRScrap_frm.FCurrentLang_GUI));
     end
     else
     begin
       showmessage(Translate_String_JRStyle('Not Downloaded !',
-      JRScrap_frm.FCurrentLang));
+        JRScrap_frm.FCurrentLang_GUI));
     end;
   end
   else
   begin
-     showmessage(Translate_String_JRStyle('Not Downloaded !',
-     JRScrap_frm.FCurrentLang));
+    showmessage(Translate_String_JRStyle('Not Downloaded !',
+      JRScrap_frm.FCurrentLang_GUI));
   end;
   screen.Cursor := crdefault;
 end;
@@ -157,9 +157,9 @@ begin
   application.ProcessMessages;
 
   self.Download_Btn.Caption := Translate_String_JRStyle('Download',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.Status_Lbl.Caption := Translate_String_JRStyle('Searching ...',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
 
 end;
 
@@ -205,7 +205,7 @@ begin
   if str = emptystr then
   begin
     showmessage(Translate_String_JRStyle('No results for this search !',
-      JRScrap_frm.FCurrentLang));
+      JRScrap_frm.FCurrentLang_GUI));
     PostMessage(self.Handle, wm_close, 0, 0);
   end;
 
@@ -213,7 +213,7 @@ begin
   self.Download_Btn.Enabled := true;
   screen.Cursor := crdefault;
   self.Status_Lbl.Caption := Translate_String_JRStyle('OK',
-    JRScrap_frm.FCurrentLang);
+    JRScrap_frm.FCurrentLang_GUI);
   self.ListBox1.itemindex := 0;
 end;
 

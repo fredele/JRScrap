@@ -38,28 +38,20 @@ The info already written in JRiver's database do appear.
 
 To search this Media :
 
-Select 'by Title' (if not empty !),correct the Media name and 
-hit 'search this Media'.The list fills with possible Media found.Select one and hit 'retrieve the Media'
 
-or 
+Hit 'search' !
+If there's a TMDB or IMDB Id alreadyset, the infos are downloaded and they shw up.
+If not, a new window appears, where youcan choose a movie matching the 'Name' field.The list fills with possible Media found.Select one and wait the infos to appear in the Main Window, then close it.
 
-Select 'Imdb ID', correct the number who shows up if necessary and hit 'retrieve the Media'
-
-
-
-Check the boxes from the fiels you want to be saved.
-
-**Hit Write** on the bottom of the Window, now you're viewing again the content of the updated JRiver's fields.
+Hit 'Save' to save, now you're viewing again the content of the updated JRiver's fields.
 
 There's a feature to automate the process.
 Go to the Menu, select 'Scrap Medias from this line'
 
-A window appears, click on the button with the 3 dots to select the fields to be imported
-
 Hit 'Go!'
 
 **Be carefull** and do no scrap 100's of Media at a time.
-So , hit stop, control thngs, and so on ...
+So , hit stop, control things, and so on ...
 
 
 Option and optionnal Mode :
