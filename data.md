@@ -51,5 +51,4 @@ The new fields created are :
 * Url Wikipedia
 * Url traileraddict
 * Url metacritic     
-       
 * Lock External Tag Editor : Holds a string used as a boolean (YES or NO) for the lock functionnality
