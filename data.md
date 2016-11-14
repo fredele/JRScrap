@@ -26,9 +26,8 @@ Default Fields
 * Gross Revenue
 * Country
 
-Here is an example :
 
-![Default Fields](https://github.com/fredele/JRMoviedB/blob/master/Screenshots/Shot_3.JPG?raw=true)
+
 
 Additionnal Fields
 -------------
@@ -54,7 +53,3 @@ The new fields created are :
 * Url metacritic     
        
 * Lock External Tag Editor : Holds a string used as a boolean (YES or NO) for the lock functionnality
-
-Here is an example :
-
-![Additionnal Fields](https://github.com/fredele/JRMoviedB/blob/master/Screenshots/Shot_4.JPG?raw=true)
