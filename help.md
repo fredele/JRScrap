@@ -13,7 +13,7 @@ the setup will download automatically 2 librairies :
 http://www.microsoft.com/downloads/details.aspx?familyid=9B2DA534-3E03-4391-8A4D-074B9F2BC1BF
 
 * OpenSSL :
-http://slproweb.com/download/Win32OpenSSL_Light-1_0_1j.exe
+http://slproweb.com/download/Win32OpenSSL_Light-1_1_0c.exe
 
 **This librairies MUST be installed !**
 
