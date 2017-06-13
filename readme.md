@@ -1,5 +1,13 @@
 # JRScrap
 
+-------------
+WARNING 
+
+** This app. is no longer maintained. Delphi is a great tool, but it seems not so heavely used by people outside the pro. area. 
+See my newer repo. JRScrap2 for a Python\Kivy rewrite of this project
+**
+-------------
+
 What ?
 -------------
 
@@ -65,7 +73,7 @@ The app. does not function on your system ?
 - Is your machine runnig JRiver as Client ? My app. does only run for local files ...
 - No COM connection with JRiver ? Re-install JRiver as Admin user under Windows. 
 
-Now you can write me, in English or French (J' écris en anglais-européen car c 'est un soft qui fonctionne pour pleins de langues ...) if you have suggestions, bugs, strange behaviour ... I garantee nothing but will try to help in any case  .
+Now you can write me, in English or French (J' Ã©cris en anglais-europÃ©en car c 'est un soft qui fonctionne pour pleins de langues ...) if you have suggestions, bugs, strange behaviour ... I garantee nothing but will try to help in any case  .
 
 Help :
 ------------- 
